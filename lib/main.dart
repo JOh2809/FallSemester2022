@@ -34,6 +34,17 @@ class MyApp extends StatelessWidget {
                       return SplashScreen();
                     }));
                   },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Sleep Log'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return SplashScreen();
+                    }));
+                  },
                 )
               ],
             )
