@@ -240,6 +240,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           ],
         )
     );
+
   }
 
   ElevatedButton calculateButton() {
@@ -366,4 +367,24 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   }
 
 
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Log'),),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back!')
+          )
+      ),
+    );
+  }
 }
