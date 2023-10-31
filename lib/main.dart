@@ -26,13 +26,31 @@ class MyApp extends StatelessWidget {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      backgroundColor: Colors.blueAccent
                   ),
-                  child: Text('Begin'),
+                  child: Text('Sleep Calculator'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                       return SplashScreen();
                     }));
+                  },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                  ),
+                  child: Text('Sleep log'),
+                  onPressed: () {
+
+                  },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent
+                  ),
+                  child: Text('Time Clock'),
+                  onPressed: () {
+
                   },
                 )
               ],

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
@@ -269,6 +268,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 59)) {
           return ('Minute between 0 - 59');
         }
+        return null;
       },
       onSaved: (value) {
         _sleepMinute = value!;
@@ -295,6 +295,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 12)) {
           return ('Hour between 1 - 12');
         }
+        return null;
       },
       onSaved: (value) {
         _sleepHour = value!;
@@ -321,6 +322,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 12)) {
           return ('Hour between 1 - 12');
         }
+        return null;
       },
       onSaved: (value) {
         _hour = value!;
@@ -347,6 +349,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 59)) {
           return ('Minute between 0 - 59');
         }
+        return null;
       },
       onSaved: (value) {
         _minute = value!;
