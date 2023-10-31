@@ -21,11 +21,11 @@ class UNITSPresenter {
   void onSleepMinuteSubmitted(String sleepMinute){}
 }
 
-class BasicPresenter implements UNITSPresenter{
+class SleepCalculatorPresenter implements UNITSPresenter{
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
-  BasicPresenter() {
+  SleepCalculatorPresenter() {
     this._viewModel = _viewModel;
     _loadUnit();
   }
