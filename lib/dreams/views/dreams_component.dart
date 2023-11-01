@@ -396,3 +396,31 @@ class _SleepLogPageState extends State<SleepLogPage> {
     );
   }
 }
+
+class TimeClockPage extends StatefulWidget {
+  final TimeClockPresenter presenter;
+
+  TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _TimeClockPageState createState() => _TimeClockPageState();
+}
+
+class _TimeClockPageState extends State<TimeClockPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Time Clock'),),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back!')
+          )
+      ),
+    );
+  }
+}

@@ -45,6 +45,17 @@ class MyApp extends StatelessWidget {
                       return SleepLogScreen();
                     }));
                   },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Time Clock'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return TimeClockScreen();
+                    }));
+                  },
                 )
               ],
             )
@@ -78,6 +89,19 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
     Widget build(BuildContext context) {
     return new SleepLogPage(
       new SleepLogPresenter(), title: 'Sleep Log', key: Key("LOGS"),);
+  }
+}
+
+class TimeClockScreen extends StatefulWidget {
+  @override
+  _TimeClockScreen createState() => _TimeClockScreen();
+}
+
+class _TimeClockScreen extends State<TimeClockScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new TimeClockPage(
+    new TimeClockPresenter(), title: 'Time Clock', key: Key("LOGS"),);
   }
 }
 
