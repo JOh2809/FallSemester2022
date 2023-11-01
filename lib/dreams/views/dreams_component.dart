@@ -381,14 +381,14 @@ class SleepLogPage extends StatefulWidget {
 class _SleepLogPageState extends State<SleepLogPage> {
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { //SLeep Calculator page
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar( //app bar titled Sleep Calculator
         title: Text('Sleep Log'),),
-      body: Center(
+      body: Center( //Puts a back button in the center of the screen
           child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context); //when pressed, button brings user back to home screen
               },
               child: const Text('Go back!')
           )
@@ -414,11 +414,16 @@ class _TimeClockPageState extends State<TimeClockPage> {
       appBar: AppBar(
         title: Text('Time Clock'),),
       body: Center(
-          child: ElevatedButton(
+          child: Column(
+            children: <Widget>[
+              Text("Awake for:",style: const TextStyle(fontWeight: FontWeight.bold),textScaleFactor: 2, ),
+              ElevatedButton( //adds an eleveted button that sends user back to the main page when pressed
               onPressed: () {
                 Navigator.pop(context);
               },
               child: const Text('Go back')
+          ),
+            ]
           )
       ),
     );
