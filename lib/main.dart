@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      backgroundColor: Colors.blueAccent
                   ),
                   child: Text('Sleep Calculator'),
                   onPressed: () {
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      backgroundColor: Colors.blueAccent
                   ),
                   child: Text('Sleep Log'),
                   onPressed: () {

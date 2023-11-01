@@ -386,13 +386,31 @@ class _SleepLogPageState extends State<SleepLogPage> {
       appBar: AppBar(
         title: Text('Sleep Log'),),
       body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go back!')
-          )
-      ),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+              ,),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Return to home screen')
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent
+                ),
+                child: Text('Record Sleep Data'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+
+              )
+            ]
+          ),
+      )
     );
   }
 }
