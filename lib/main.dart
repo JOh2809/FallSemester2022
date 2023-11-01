@@ -76,8 +76,8 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
   class _SleepLogScreen extends State<SleepLogScreen> {
   @override
     Widget build(BuildContext context) {
-    return new HomePage(
-      new BasicPresenter(), title: 'Sleep Log', key: Key("UNITS"),);
+    return new SleepLogPage(
+      new SleepLogPresenter(), title: 'Sleep Log', key: Key("LOGS"),);
   }
 }
 

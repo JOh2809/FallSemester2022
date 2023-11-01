@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../views/dreams_view.dart';
 import '../viewmodel/dreams_viewmodel.dart';
 import '../utils/dreams_constant.dart';
@@ -173,4 +175,8 @@ class SleepCalculatorPresenter implements UNITSPresenter{
 
     }
   }
+}
+
+class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
+
 }

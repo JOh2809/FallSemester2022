@@ -1,5 +1,9 @@
 import '../utils/dreams_constant.dart';
 
+/*
+Initializes UNITS used in SleepCalculator, uses setters and getters to
+set these UNIT variables and return them as initialized values.
+ */
 class UNITSViewModel {
   double _units = 0.0;
   UnitType _unitType = UnitType.WAKE;

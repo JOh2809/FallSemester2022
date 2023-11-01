@@ -369,8 +369,16 @@ class _HomePageState extends State<HomePage> implements UNITSView {
 
 }
 
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({super.key});
+class SleepLogPage extends StatefulWidget {
+  final SleepLogPresenter presenter;
+
+  SleepLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepLogPageState createState() => _SleepLogPageState();
+}
+
+class _SleepLogPageState extends State<SleepLogPage> {
 
   @override
   Widget build(BuildContext context) {
