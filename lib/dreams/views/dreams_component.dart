@@ -434,7 +434,7 @@ class SettingPage extends StatefulWidget {
   _SettingPageState createState() => _SettingPageState();
 }
 
-class _SettingPageState extends State<TimeClockPage> {
+class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {

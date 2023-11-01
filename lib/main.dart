@@ -124,7 +124,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreen extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
-    return new SettingScreen(
+    return new SettingPage(
       new SettingPresenter(), title: 'Settings', key: Key("LOGS"),);
   }
 }
