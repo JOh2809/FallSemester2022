@@ -379,19 +379,63 @@ class SleepLogPage extends StatefulWidget {
 }
 
 class _SleepLogPageState extends State<SleepLogPage> {
+  var _formKey = GlobalKey<FormState>();
+
+  void updateQualityRating({required String qualityRating}) {
+    setState(() {
+      _qualityRatingController.text = qualityRating != null ? qualityRating : '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    TextFormField qualityRatingField(BuildContext context) {
+      return TextFormField(
+        controller: _qualityRatingController,
+        keyboardType: TextInputType.number,
+
+      );
+    }
+
+    var _sleepQualityView = Container(
+      color: Colors.blueGrey.shade300,
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget> [
+            qualityRatingField(context),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Log'),),
-      body: Center(
+      body: ListView(
+        children: <Widget> [
+          Padding(padding: EdgeInsets.all(130.0)),
+          _sleepQualityView,
+        ],
+          /*
           child: ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Go back!')
+              child: const Text(
+                'Quality of Sleep',
+                 style: TextStyle(fontSize: 40),
+              ),
           )
+          */
       ),
     );
   }
