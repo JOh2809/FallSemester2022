@@ -424,3 +424,31 @@ class _TimeClockPageState extends State<TimeClockPage> {
     );
   }
 }
+
+class SettingPage extends StatefulWidget {
+  final SettingPresenter presenter;
+
+  SettingPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<TimeClockPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back')
+          )
+      ),
+    );
+  }
+}

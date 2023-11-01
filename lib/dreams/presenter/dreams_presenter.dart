@@ -184,3 +184,7 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
 class TimeClockPresenter {
 
 }
+
+class SettingPresenter {
+
+}

@@ -56,6 +56,17 @@ class MyApp extends StatelessWidget {
                       return TimeClockScreen();
                     }));
                   },
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blueAccent
+                  ),
+                  child: Text('Settings'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return SettingScreen();
+                    }));
+                  },
                 )
               ],
             )
@@ -105,4 +116,15 @@ class _TimeClockScreen extends State<TimeClockScreen> {
   }
 }
 
+class SettingScreen extends StatefulWidget {
+  @override
+  _SettingScreen createState() => _SettingScreen();
+}
 
+class _SettingScreen extends State<SettingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SettingScreen(
+      new SettingPresenter(), title: 'Settings', key: Key("LOGS"),);
+  }
+}
