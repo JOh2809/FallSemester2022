@@ -240,6 +240,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           ],
         )
     );
+
   }
 
   ElevatedButton calculateButton() {
@@ -366,4 +367,60 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   }
 
 
+}
+
+class SleepLogPage extends StatefulWidget {
+  final SleepLogPresenter presenter;
+
+  SleepLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepLogPageState createState() => _SleepLogPageState();
+}
+
+class _SleepLogPageState extends State<SleepLogPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Log'),),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back!')
+          )
+      ),
+    );
+  }
+}
+
+class TimeClockPage extends StatefulWidget {
+  final TimeClockPresenter presenter;
+
+  TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _TimeClockPageState createState() => _TimeClockPageState();
+}
+
+class _TimeClockPageState extends State<TimeClockPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Time Clock'),),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back')
+          )
+      ),
+    );
+  }
 }
