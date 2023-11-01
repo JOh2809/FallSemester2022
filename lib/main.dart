@@ -52,7 +52,16 @@ class MyApp extends StatelessWidget {
                   onPressed: () {
 
                   },
-                )
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blueAccent
+                  ),
+                  child: Text('Settings'),
+                  onPressed: () {
+
+                  },
+                ),
               ],
             )
           ),
