@@ -418,7 +418,7 @@ class _TimeClockPageState extends State<TimeClockPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Go back!')
+              child: const Text('Go back')
           )
       ),
     );
