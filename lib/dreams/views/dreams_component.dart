@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
@@ -270,6 +269,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 59)) {
           return ('Minute between 0 - 59');
         }
+        return null;
       },
       onSaved: (value) {
         _sleepMinute = value!;
@@ -296,6 +296,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 12)) {
           return ('Hour between 1 - 12');
         }
+        return null;
       },
       onSaved: (value) {
         _sleepHour = value!;
@@ -322,6 +323,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 12)) {
           return ('Hour between 1 - 12');
         }
+        return null;
       },
       onSaved: (value) {
         _hour = value!;
@@ -348,6 +350,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 59)) {
           return ('Minute between 0 - 59');
         }
+        return null;
       },
       onSaved: (value) {
         _minute = value!;
@@ -412,6 +415,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
           if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 10)) {
             return ('Rate the quality of your sleep between 1 - 10');
           }
+          return null;
         },
         onSaved: (value) {
           _qualityRating = value!;
@@ -452,7 +456,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
           children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+                child: Text("",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
               ,),
               _sleepQualityView,
               ElevatedButton(
@@ -541,7 +545,7 @@ class _SettingPageState extends State<SettingPage> {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      backgroundColor: Colors.blueAccent
                   ),
                   child: Text('Notification Settings'),
                   onPressed: () {

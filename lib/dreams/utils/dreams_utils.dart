@@ -2,9 +2,7 @@
 File Name: dreams_utils.dart
  */
 
-import 'package:flutter/material.dart';
 import 'package:units/dreams/utils/dreams_constant.dart';
-import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -57,7 +55,7 @@ List<dynamic> calculator(double hour, double minute, double sleepHour, double sl
 }
 
 bool isEmptyString(String string){
-  return string == null || string.length == 0;
+  return string.length == 0;
 }
 
 Future<int> loadValue() async{
