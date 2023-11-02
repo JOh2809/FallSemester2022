@@ -449,49 +449,129 @@ class _SleepLogPageState extends State<SleepLogPage> {
       appBar: AppBar(
         title: Text('Sleep Log'),),
       body: ListView(
-        children: <Widget>[
-          Padding(padding: EdgeInsets.all(130.0)),
-          _sleepQualityView,
-        ],
-        /*
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Quality of Sleep',
-                 style: TextStyle(fontSize: 40),
+          children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+              ,),
+              _sleepQualityView,
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Return to home screen')
               ),
-          )
-          */
-      ),
-    );
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent
+                ),
+                child: Text('Record Sleep Data'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+      );
   }
 }
 
-/*
 class TimeClockPage extends StatefulWidget {
   final TimeClockPresenter presenter;
 
   TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
-
   @override
   _TimeClockPageState createState() => _TimeClockPageState();
 }
 
-class _TimeClockPageState extends State<TimeClockPage> {}
+class _TimeClockPageState extends State<TimeClockPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Time Clock'),),
+      body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go back')
+          )
+      ),
+    );
+  }
+}
 
 class SettingPage extends StatefulWidget {
   final SettingPresenter presenter;
 
   SettingPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class NotificationSettingPage extends StatefulWidget {
+  final NotificationSettingPresenter presenter;
+
+  NotificationSettingPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
 
   @override
-  _SettingState createState() => _SettingState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Settings'),
+        ),
+        body: Center(
+          child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text("Notification Settings!", style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                    textScaleFactor: 3,)
+                  ,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Notification Settings'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return NotificationSettingScreen();
+                        }));
+                  },
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Go back')
+                )
+              ]),
+        )
+    );
+  }
 }
 
-class _SettingState extends State<SettingPage> {
+class NotificationSettingScreen extends StatefulWidget {
+  @override
+  _NotificationSettingScreen createState() => _NotificationSettingScreen();
 }
- */
+
+class _NotificationSettingScreen extends State<NotificationSettingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new NotificationSettingPage(
+      new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
+  }
+}
