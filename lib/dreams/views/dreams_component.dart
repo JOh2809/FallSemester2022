@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
     );
 
     var _mainPartView = Container(
-      color: Colors.grey.shade300,
+      color: Colors.blue.shade200,
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -379,19 +379,82 @@ class SleepLogPage extends StatefulWidget {
 }
 
 class _SleepLogPageState extends State<SleepLogPage> {
+  var _qualityRatingController = TextEditingController();
+  String _qualityRating = "0.0";
+  final FocusNode _qualityRatingFocus = FocusNode();
+  var _formKey = GlobalKey<FormState>();
+
+  @override
+  void updateQualityRating({required String qualityRating}) {
+    setState(() {
+      _qualityRatingController.text = qualityRating != null ? qualityRating : '';
+    });
+  }
+
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
+    currentFocus.unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    TextFormField qualityRatingField(BuildContext context) {
+      return TextFormField(
+        controller: _qualityRatingController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.done,
+        focusNode: _qualityRatingFocus,
+        onFieldSubmitted: (value){
+          _qualityRatingFocus.unfocus();
+          //add to database method here.
+        },
+        validator: (value) {
+          if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 10)) {
+            return ('Rate the quality of your sleep between 1 - 10');
+          }
+        },
+        onSaved: (value) {
+          _qualityRating = value!;
+        },
+        decoration: InputDecoration (
+          hintText: 'e.g.) 9',
+          labelText: 'Quality of sleep on a scale of 1-10',
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold ),
+            icon: Icon(Icons.bed),
+          fillColor: Colors.blueAccent
+        ),
+      );
+    }
+
+    var _sleepQualityView = Container(
+      color: Colors.blue.shade200,
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              qualityRatingField(context),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Log'),),
-      body: Center(
-          child: Column(
-            children: <Widget>[
+      body: ListView(
+          children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
               ,),
+              _sleepQualityView,
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -406,11 +469,9 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-
               )
-            ]
+            ],
           ),
-      )
-    );
+      );
   }
 }
