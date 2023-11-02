@@ -188,3 +188,7 @@ class TimeClockPresenter {
 class SettingPresenter {
 
 }
+
+class NotificationSettingPresenter {
+
+}
