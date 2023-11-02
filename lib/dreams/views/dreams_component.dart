@@ -456,7 +456,7 @@ class _SettingPageState extends State<SettingPage> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  child: Text("Sweet Dreams!", style: const TextStyle(
+                  child: Text("Notification Settings!", style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.blueAccent),
                     textScaleFactor: 3,)
                   ,),
