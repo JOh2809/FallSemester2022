@@ -398,6 +398,20 @@ class _SleepLogPageState extends State<SleepLogPage> {
   @override
   Widget build(BuildContext context) {
 
+    ElevatedButton recordButton() {
+      return ElevatedButton(
+        onPressed: null,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueAccent.shade700,
+            textStyle: TextStyle(color: Colors.white70)
+        ),
+        child: Text(
+          'Record',
+          style: TextStyle(fontSize: 16.9),
+        ),
+      );
+    }
+
     TextFormField qualityRatingField(BuildContext context) {
       return TextFormField(
         controller: _qualityRatingController,
@@ -419,7 +433,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
           labelText: 'Quality of sleep on a scale of 1-10',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold ),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.7)),
             icon: Icon(Icons.bed),
           fillColor: Colors.blueAccent
         ),
@@ -438,6 +452,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               qualityRatingField(context),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
+                child: recordButton()
               ),
             ],
           ),
@@ -452,18 +467,8 @@ class _SleepLogPageState extends State<SleepLogPage> {
         children: <Widget>[
           Padding(padding: EdgeInsets.all(130.0)),
           _sleepQualityView,
+          recordButton(),
         ],
-        /*
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Quality of Sleep',
-                 style: TextStyle(fontSize: 40),
-              ),
-          )
-          */
       ),
     );
   }
