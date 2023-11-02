@@ -103,11 +103,7 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
   }
 }
 
-class TimeClockScreen extends StatefulWidget {
-  @override
-  _TimeClockScreen createState() => _TimeClockScreen();
-}
-
+/*
 class _TimeClockScreen extends State<TimeClockScreen> {
   @override
   Widget build(BuildContext context) {

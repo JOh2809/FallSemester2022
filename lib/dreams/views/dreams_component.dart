@@ -468,3 +468,30 @@ class _SleepLogPageState extends State<SleepLogPage> {
     );
   }
 }
+
+/*
+class TimeClockPage extends StatefulWidget {
+  final TimeClockPresenter presenter;
+
+  TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _TimeClockPageState createState() => _TimeClockPageState();
+}
+
+class _TimeClockPageState extends State<TimeClockPage> {}
+
+class SettingPage extends StatefulWidget {
+  final SettingPresenter presenter;
+
+  SettingPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _SettingState createState() => _SettingState();
+}
+
+class _SettingState extends State<SettingPage> {
+}
+ */
