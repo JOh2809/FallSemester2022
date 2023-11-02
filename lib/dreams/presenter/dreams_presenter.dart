@@ -180,3 +180,15 @@ class SleepCalculatorPresenter implements UNITSPresenter{
 class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
 
 }
+
+class TimeClockPresenter {
+
+}
+
+class SettingPresenter {
+
+}
+
+class NotificationSettingPresenter {
+
+}
