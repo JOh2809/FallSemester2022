@@ -11,11 +11,16 @@ class UNITSViewModel {
 
   String _timeType = "";
   String _message = "";
+  String _messageTwo = "";
 
   double hour = 0.0;
   double minute = 0.0;
   double sleepHour = 0.0;
   double sleepMinute = 0.0;
+  double qualityRating = 0.0; //May have to manipulate with getter and setter.
+
+
+
 
   double get units => _units;
   set units(double outResult){
@@ -30,6 +35,11 @@ class UNITSViewModel {
   String get message => _message;
   set message(String outResult){
     _message = outResult;
+  }
+
+  String get messageTwo => _messageTwo;
+  set messageTwo(String outResult){
+    _messageTwo = outResult;
   }
 
   UnitType get unitTypeTime => _unitTypeTime;

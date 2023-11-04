@@ -2,6 +2,7 @@ class UNITSView {
   void updateResultValue(String resultValue){}
   void updateTimeString(String timeString){}
   void updateMessage(String message){}
+  void updateMessageTwo(String message){}
   void updateHour({required String hour}){}
   void updateSleepMinute({required String sleepMinute}){}
   void updateSleepHour({required String sleepHour}){}

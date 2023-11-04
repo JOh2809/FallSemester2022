@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   var _resultString = '';
   var _timeString = '';
   var _message = '';
+  var _messageTwo = '';
   var _value = 0;
   var _valueTime = 0;
   final FocusNode _hourFocus = FocusNode();
@@ -71,6 +72,12 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   void updateMessage(String message){
     setState(() {
       _message = message;
+    });
+  }
+  @override
+  void updateMessageTwo(String messageTwo) {
+    setState(() {
+      _messageTwo = messageTwo;
     });
   }
   @override
@@ -378,16 +385,55 @@ class SleepLogPage extends StatefulWidget {
   _SleepLogPageState createState() => _SleepLogPageState();
 }
 
-class _SleepLogPageState extends State<SleepLogPage> {
+class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   var _qualityRatingController = TextEditingController();
   String _qualityRating = "0.0";
+  var _resultString = '';
+  var _message = '';
+  var _messageTwo = '';
   final FocusNode _qualityRatingFocus = FocusNode();
+
   var _formKey = GlobalKey<FormState>();
 
+  @override
+  void initState() {
+    super.initState();
+    this.widget.presenter.unitsView = this;
+  }
+
+  /*
   @override
   void updateQualityRating({required String qualityRating}) {
     setState(() {
       _qualityRatingController.text = qualityRating != null ? qualityRating : '';
+    });
+  }
+*/
+  void _recorder() {
+    if(_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      this.widget.presenter.onRecordClicked(_qualityRating);
+    }
+  }
+
+  @override
+  void updateResultValue(String resultValue){
+    setState(() {
+      _resultString = resultValue;
+    });
+  }
+
+  @override
+  void updateMessage(String message){
+    setState(() {
+      _message = message;
+    });
+  }
+
+  @override
+  void updateMessageTwo(String messageTwo) {
+    setState(() {
+      _messageTwo = messageTwo;
     });
   }
 
@@ -419,15 +465,15 @@ class _SleepLogPageState extends State<SleepLogPage> {
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
           labelText: 'Quality of sleep on a scale of 1-10',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold ),
-            icon: Icon(Icons.bed),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.7)),
+            icon: Icon(Icons.scale),
           fillColor: Colors.blueAccent
         ),
       );
     }
 
     var _sleepQualityView = Container(
-      color: Colors.blue.shade200,
+      color: Colors.blue.shade300,
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -438,6 +484,7 @@ class _SleepLogPageState extends State<SleepLogPage> {
               qualityRatingField(context),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
+                child: recordButton(),
               ),
             ],
           ),
@@ -445,9 +492,27 @@ class _SleepLogPageState extends State<SleepLogPage> {
       ),
     );
 
+    var _qualityResultView = Column(
+      children: <Widget>[
+        Center(
+          child: Text(
+            'Result: $_resultString',
+            style: TextStyle(
+                color: Colors.blueAccent.shade700,
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic
+            ),
+          ),
+        ),
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Log'),),
+        title: Text('Sleep Log'),
+
+      ),
       body: ListView(
           children: <Widget>[
               Padding(
@@ -455,24 +520,70 @@ class _SleepLogPageState extends State<SleepLogPage> {
                 child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
               ,),
               _sleepQualityView,
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Return to home screen')
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent
+              Padding(
+                padding: EdgeInsets.only(top: 170.0, bottom: 20.0),
+                child: ElevatedButton.icon(
+                        onPressed: () {},
+                  icon: Icon( // <-- Icon
+                    Icons.bar_chart_sharp,
+                    size: 27.0,
+                  ),
+                  label: Text('Historical Sleep Data'),
                 ),
-                child: Text('Record Sleep Data'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
+              ),
+            _qualityResultView,
             ],
           ),
       );
+  }
+
+  ElevatedButton recordButton() {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent.shade400
+      ),
+      onPressed: _recorder,
+      icon: Icon( // <-- Icon
+        Icons.cloud,
+        size: 27.0,
+      ),
+      label: Text('Record Sleep Data'),
+    );
+  }
+
+  @override
+  void updateHour({required String hour}) {
+    // TODO: implement updateHour
+  }
+
+  @override
+  void updateMinute({required String minute}) {
+    // TODO: implement updateMinute
+  }
+
+  @override
+  void updateSleepHour({required String sleepHour}) {
+    // TODO: implement updateSleepHour
+  }
+
+  @override
+  void updateSleepMinute({required String sleepMinute}) {
+    // TODO: implement updateSleepMinute
+  }
+
+  @override
+  void updateTimeString(String timeString) {
+    // TODO: implement updateTimeString
+  }
+
+  @override
+  void updateTimeUnit(int value) {
+    // TODO: implement updateTimeUnit
+  }
+
+  @override
+  void updateUnit(int value) {
+    // TODO: implement updateUnit
   }
 }
 

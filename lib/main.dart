@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Builder(
         builder: (context) => Scaffold(
+          //backgroundColor: Colors.blueGrey,
           appBar: AppBar(
             title: Text("Sweet Dreams"),
           ),
@@ -103,7 +104,11 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
   }
 }
 
-/*
+class TimeClockScreen extends StatefulWidget {
+  @override
+  _TimeClockScreen createState() => _TimeClockScreen();
+}
+
 class _TimeClockScreen extends State<TimeClockScreen> {
   @override
   Widget build(BuildContext context) {
