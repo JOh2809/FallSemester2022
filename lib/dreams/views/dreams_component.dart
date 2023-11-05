@@ -386,12 +386,12 @@ class SleepLogPage extends StatefulWidget {
 }
 
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
+
+  final FocusNode _qualityRatingFocus = FocusNode();
   var _qualityRatingController = TextEditingController();
-  String _qualityRating = "0.0";
   var _resultString = '';
   var _message = '';
-  var _messageTwo = '';
-  final FocusNode _qualityRatingFocus = FocusNode();
+  String _qualityRating = "0.0";
 
   var _formKey = GlobalKey<FormState>();
 
@@ -401,14 +401,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     this.widget.presenter.unitsView = this;
   }
 
-  /*
-  @override
-  void updateQualityRating({required String qualityRating}) {
-    setState(() {
-      _qualityRatingController.text = qualityRating != null ? qualityRating : '';
-    });
-  }
-*/
   void _recorder() {
     if(_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -430,12 +422,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
-  @override
-  void updateMessageTwo(String messageTwo) {
-    setState(() {
-      _messageTwo = messageTwo;
-    });
-  }
 
   _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
     currentFocus.unfocus();

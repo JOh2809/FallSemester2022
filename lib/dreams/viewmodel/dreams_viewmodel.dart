@@ -37,11 +37,6 @@ class UNITSViewModel {
     _message = outResult;
   }
 
-  String get messageTwo => _messageTwo;
-  set messageTwo(String outResult){
-    _messageTwo = outResult;
-  }
-
   UnitType get unitTypeTime => _unitTypeTime;
   set unitTypeTime(UnitType setValue){
     _unitTypeTime = setValue;
