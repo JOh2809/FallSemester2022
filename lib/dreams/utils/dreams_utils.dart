@@ -54,14 +54,13 @@ List<dynamic> calculator(double hour, double minute, double sleepHour, double sl
   return result;
 }
 
-//List<dynamic>
-double recorder(double qualityRating) {
- // List result = new List.filled(1, null, growable: false); //Adjust list max index value if needed.
-  double result = 0.0;
+List<dynamic> recorder(double qualityRating) {
+ List result = new List.filled(1, null, growable: false); //Adjust list max index value if needed.
+ //double result = 0.0;
  //double tempQualityRating = 0.0;
 
-  result = qualityRating;
-  //result[0] = tempQualityRating;
+  //result = qualityRating;
+  result[0] = qualityRating;
   return result;
 
   //database entries

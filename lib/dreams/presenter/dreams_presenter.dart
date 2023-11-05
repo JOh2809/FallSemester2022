@@ -223,15 +223,11 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
       qualityRating = double.parse(qualityRatingString);
     } catch (e){}
 
-    //List temp = new List.filled(1, null, growable: false);
+    List temp = new List.filled(1, null, growable: false);
     _viewModel.qualityRating = qualityRating;
-    //temp = recorder(qualityRating);
+    temp = recorder(qualityRating);
 
-    //UnitType tempRating = temp[0];
-
-    //tempRating = _viewModel.qualityRating as UnitType;
-    //_viewModel.messageTwo = "Updated Rating is";
-    _viewModel.units = recorder(qualityRating);
+    _viewModel.units = temp[0];
     _view.updateResultValue(_viewModel.resultInString);
   }
 
