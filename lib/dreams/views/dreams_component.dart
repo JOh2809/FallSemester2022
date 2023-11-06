@@ -29,10 +29,11 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   var _messageTwo = '';
   var _value = 0;
   var _valueTime = 0;
-  final FocusNode _hourFocus = FocusNode();
-  final FocusNode _sleepHourFocus = FocusNode();
+  final FocusNode _hourFocus = FocusNode(); // The hour the user want's to wake up at
+  final FocusNode _sleepHourFocus = FocusNode(); // The number of hours the user want's to sleep for
   final FocusNode _sleepMinuteFocus = FocusNode();
   final FocusNode _minuteFocus = FocusNode();
+
 
   var _formKey = GlobalKey<FormState>();
 
@@ -388,10 +389,13 @@ class SleepLogPage extends StatefulWidget {
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
 
   final FocusNode _qualityRatingFocus = FocusNode();
+  final FocusNode _hoursSleptFocus = FocusNode();
   var _qualityRatingController = TextEditingController();
+  var _hoursSleptController = TextEditingController();
   var _resultString = '';
   var _message = '';
   String _qualityRating = "0.0";
+  String _hoursSlept = "0.0";
 
   var _formKey = GlobalKey<FormState>();
 
@@ -423,9 +427,11 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   }
 
 
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -451,14 +457,40 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
           labelText: 'Quality of sleep on a scale of 1-10',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.7)),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
             icon: Icon(Icons.scale),
           fillColor: Colors.blueAccent
         ),
       );
     }
+    TextFormField hoursSleptField(BuildContext context) { //Hours slept
+      return TextFormField(
+        controller: _hoursSleptController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
+        focusNode: _hoursSleptFocus,
+        onFieldSubmitted: (term) {
+          _fieldFocusChange(context, _hoursSleptFocus, _qualityRatingFocus);
+        },
+        validator: (value) {
+          if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 24)) {
+            return ('Hour between 0 - 24');
+          }
+        },
+        onSaved: (value) {
+          _hoursSlept = value!;
+        },
+        decoration: InputDecoration(
+          hintText: 'e.g.) 8',
+          labelText: 'Hours slept today',
+          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
+          icon: Icon(Icons.timer),
+          fillColor: Colors.white,
+        ),
+      );
+    }
 
-    var _sleepQualityView = Container(
+    var _sleepLogView = Container(
       color: Colors.blue.shade300,
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
@@ -467,6 +499,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              hoursSleptField(context),
               qualityRatingField(context),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
@@ -478,7 +511,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       ),
     );
 
-    var _qualityResultView = Column(
+    var _sleepLogResultView = Column(
       children: <Widget>[
         Center(
           child: Text(
@@ -501,11 +534,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       ),
       body: ListView(
           children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
-              ,),
-              _sleepQualityView,
+              _sleepLogView,
               Padding(
                 padding: EdgeInsets.only(top: 170.0, bottom: 20.0),
                 child: ElevatedButton.icon(
@@ -517,7 +546,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                   label: Text('Historical Sleep Data'),
                 ),
               ),
-            _qualityResultView,
+            _sleepLogResultView,
             ],
           ),
       );
