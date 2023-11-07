@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../views/dreams_view.dart';
 import '../viewmodel/dreams_viewmodel.dart';
 import '../utils/dreams_constant.dart';
@@ -21,11 +23,11 @@ class UNITSPresenter {
   void onSleepMinuteSubmitted(String sleepMinute){}
 }
 
-class BasicPresenter implements UNITSPresenter{
+class SleepCalculatorPresenter implements UNITSPresenter{
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
-  BasicPresenter() {
+  SleepCalculatorPresenter() {
     this._viewModel = _viewModel;
     _loadUnit();
   }
@@ -173,4 +175,12 @@ class BasicPresenter implements UNITSPresenter{
 
     }
   }
+}
+
+class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
+
+}
+
+class TimeClockPresenter {
+
 }

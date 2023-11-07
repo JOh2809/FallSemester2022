@@ -1,6 +1,10 @@
+import 'dart:core';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -239,6 +243,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           ],
         )
     );
+
   }
 
   ElevatedButton calculateButton() {
@@ -268,7 +273,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 59)) {
           return ('Minute between 0 - 59');
         }
-        return null;
       },
       onSaved: (value) {
         _sleepMinute = value!;
@@ -295,7 +299,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 12)) {
           return ('Hour between 1 - 12');
         }
-        return null;
       },
       onSaved: (value) {
         _sleepHour = value!;
@@ -322,7 +325,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 12)) {
           return ('Hour between 1 - 12');
         }
-        return null;
       },
       onSaved: (value) {
         _hour = value!;
@@ -349,7 +351,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
         if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 59)) {
           return ('Minute between 0 - 59');
         }
-        return null;
       },
       onSaved: (value) {
         _minute = value!;
@@ -369,4 +370,110 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   }
 
 
+}
+
+class SleepLogPage extends StatefulWidget {
+  final SleepLogPresenter presenter;
+
+  SleepLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepLogPageState createState() => _SleepLogPageState();
+}
+
+class _SleepLogPageState extends State<SleepLogPage> {
+
+  @override
+  Widget build(BuildContext context) { //Sleep Calculator page
+    return Scaffold(
+      appBar: AppBar( //app bar titled Sleep Calculator
+        title: Text('Sleep Log'),),
+      body: Center( //Puts a back button in the center of the screen
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); //when pressed, button brings user back to home screen
+              },
+              child: const Text('Go back!')
+          )
+      ),
+    );
+  }
+}
+
+class TimeClockPage extends StatefulWidget {
+  final TimeClockPresenter presenter;
+
+  TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _TimeClockPageState createState() => _TimeClockPageState();
+}
+
+class _TimeClockPageState extends State<TimeClockPage> {
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    seriesList = _createRandomData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Time Clock'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: barChart(),
+      ),
+    );
+  }
+}
+
+class SleepHours{
+  final String day;
+  final int hours;
+  SleepHours(this.day, this.hours);
 }
