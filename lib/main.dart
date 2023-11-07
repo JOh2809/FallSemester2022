@@ -50,22 +50,18 @@ class MyApp extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent
                   ),
-                  child: Text('Time Clock'),
+                  child: Text('Sleep Log'),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return TimeClockScreen();
-                    }));
+
                   },
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blueAccent
+                      primary: Colors.blueAccent
                   ),
-                  child: Text('Settings'),
+                  child: Text('Time Clock'),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return SettingScreen();
-                    }));
+
                   },
                 )
               ],

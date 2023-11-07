@@ -1,7 +1,3 @@
-/*
-File Name: dreams_utils.dart
- */
-
 import 'package:flutter/material.dart';
 import 'package:units/dreams/utils/dreams_constant.dart';
 import 'dart:math';

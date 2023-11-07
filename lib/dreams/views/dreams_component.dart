@@ -240,7 +240,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           ],
         )
     );
-
   }
 
   ElevatedButton calculateButton() {
