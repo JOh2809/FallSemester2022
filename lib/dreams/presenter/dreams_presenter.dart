@@ -198,8 +198,19 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
+  DATABASEViewModel _databaseViewModel = DATABASEViewModel();
+  DATABASEView _databaseView = DATABASEView();
+
+  //Initialize DatabaseViewModel within this presenter.
+  // Create separate view model for getting database values from DatabaseViewModel.
+   //Format got database value, along with message, and display it to the user.
+   //Could use datetimenow/datetimeyesterday methods to assign historical data to specific dates.
+  //Put images in assets folder and assign background image to that asset using container.
+
   SleepLogPresenter() {
     this._viewModel = _viewModel;
+    _loadUnit();
+    this._databaseViewModel = _databaseViewModel;
     _loadUnit();
   }
 
@@ -208,6 +219,7 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
     //_viewModel.valueTime = await loadValue();
     _view.updateUnit(_viewModel.value);
    // _view.updateTimeUnit(_viewModel.valueTime);
+
   }
 
   @override
@@ -228,7 +240,9 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
     temp = recorder(qualityRating);
 
     _viewModel.units = temp[0];
+
     _view.updateResultValue(_viewModel.resultInString);
+    //_databaseViewModel.qualityRating = qualityRating;
   }
 
   @override

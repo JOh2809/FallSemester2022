@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/presenter/dreams_presenter.dart';
 
@@ -11,70 +12,90 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Builder(
-        builder: (context) => Scaffold(
-          //backgroundColor: Colors.blueGrey,
-          appBar: AppBar(
-            title: Text("Sweet Dreams"),
-          ),
-          body: Center(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                  child: Text("Sweet Dreams!",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
-                  ,),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent
-                  ),
-                  child: Text('Sleep Calculator'),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
-                      return SleepCalculatorScreen();
-                    }));
-                  },
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent
-                  ),
-                  child: Text('Sleep Log'),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return SleepLogScreen();
-                    }));
-                  },
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent
-                  ),
-                  child: Text('Time Clock'),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return TimeClockScreen();
-                    }));
-                  },
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent
-                  ),
-                  child: Text('Settings'),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                      return SettingScreen();
-                    }));
-                  },
-                )
-              ],
+    return FutureBuilder(future: Firebase.initializeApp(), builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        print("Could not connect!");
+      }
+      if (snapshot.connectionState == ConnectionState.done) {
+        return MaterialApp(
+            home: Builder(
+                builder: (context) =>
+                    Scaffold(
+                      //backgroundColor: Colors.blueGrey,
+                      appBar: AppBar(
+                        title: Text("Sweet Dreams"),
+                      ),
+                      body: Center(
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(top: 20.0,
+                                    bottom: 20.0),
+                                child: Text("Sweet Dreams!",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blueAccent),
+                                  textScaleFactor: 3,)
+                                ,),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent
+                                ),
+                                child: Text('Sleep Calculator'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (
+                                          BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
+                                        return SleepCalculatorScreen();
+                                      }));
+                                },
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent
+                                ),
+                                child: Text('Sleep Log'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return SleepLogScreen();
+                                      }));
+                                },
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent
+                                ),
+                                child: Text('Time Clock'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return TimeClockScreen();
+                                      }));
+                                },
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent
+                                ),
+                                child: Text('Settings'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return SettingScreen();
+                                      }));
+                                },
+                              )
+                            ],
+                          )
+                      ),
+                    )
             )
-          ),
-        )
-      )
-    );
+        );
+      }
+      Widget loading = MaterialApp();
+      return loading;
+    });
   }
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -388,6 +389,7 @@ class SleepLogPage extends StatefulWidget {
 
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
 
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
   var _qualityRatingController = TextEditingController();
@@ -410,6 +412,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _formKey.currentState!.save();
       this.widget.presenter.onRecordClicked(_qualityRating);
     }
+    createLog(_qualityRating);
   }
 
   @override
@@ -426,6 +429,18 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
+  void createLog(String _qualityRating) {
+    databaseReference.doc("2").set({"Quality Rating": _qualityRating});
+  }
+
+  Future<void> getLog() async{
+    DocumentSnapshot data = await retrieveData();
+    print(data.data().toString());
+  }
+
+  Future<DocumentSnapshot> retrieveData() async{
+    return databaseReference.doc("1").get();
+  }
 
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
@@ -444,7 +459,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         focusNode: _qualityRatingFocus,
         onFieldSubmitted: (value){
           _qualityRatingFocus.unfocus();
-          //add to database method here.
         },
         validator: (value) {
           if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 10)) {

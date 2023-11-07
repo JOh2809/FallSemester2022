@@ -17,10 +17,7 @@ class UNITSViewModel {
   double minute = 0.0;
   double sleepHour = 0.0;
   double sleepMinute = 0.0;
-  double qualityRating = 0.0; //May have to manipulate with getter and setter.
-
-
-
+  double qualityRating = 0.0;
 
   double get units => _units;
   set units(double outResult){
@@ -72,4 +69,9 @@ class UNITSViewModel {
   String get sleepMinuteInString => sleepMinute != null ? sleepMinute.toString():'';
 
   UNITSViewModel();
+}
+
+class DATABASEViewModel {
+
+  DATABASEViewModel();
 }
