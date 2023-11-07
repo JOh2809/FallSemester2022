@@ -1,9 +1,12 @@
+import 'dart:core';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +39,6 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   final FocusNode _sleepHourFocus = FocusNode(); // The number of hours the user want's to sleep for
   final FocusNode _sleepMinuteFocus = FocusNode();
   final FocusNode _minuteFocus = FocusNode();
-
 
   var _formKey = GlobalKey<FormState>();
 
@@ -624,19 +626,63 @@ class TimeClockPage extends StatefulWidget {
 }
 
 class _TimeClockPageState extends State<TimeClockPage> {
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    seriesList = _createRandomData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Time Clock'),),
-      body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go back')
-          )
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: barChart(),
       ),
     );
   }
@@ -699,6 +745,12 @@ class _SettingPageState extends State<SettingPage> {
         )
     );
   }
+}
+
+class SleepHours{
+  final String day;
+  final int hours;
+  SleepHours(this.day, this.hours);
 }
 
 class NotificationSettingScreen extends StatefulWidget {
