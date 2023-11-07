@@ -1,10 +1,10 @@
-import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
     );
 
     var _mainPartView = Container(
-      color: Colors.grey.shade300,
+      color: Colors.blue.shade200,
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -380,10 +380,128 @@ class SleepLogPage extends StatefulWidget {
   _SleepLogPageState createState() => _SleepLogPageState();
 }
 
-class _SleepLogPageState extends State<SleepLogPage> {
+class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
+
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
+  final FocusNode _qualityRatingFocus = FocusNode();
+  var _qualityRatingController = TextEditingController();
+  var _resultString = '';
+  var _message = '';
+  String _qualityRating = "0.0";
+
+  var _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) { //Sleep Calculator page
+  void initState() {
+    super.initState();
+    this.widget.presenter.unitsView = this;
+  }
+
+  void _recorder() {
+    if(_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      this.widget.presenter.onRecordClicked(_qualityRating);
+    }
+    createLog(_qualityRating);
+  }
+
+  @override
+  void updateResultValue(String resultValue){
+    setState(() {
+      _resultString = resultValue;
+    });
+  }
+
+  @override
+  void updateMessage(String message){
+    setState(() {
+      _message = message;
+    });
+  }
+
+  void createLog(String _qualityRating) {
+    databaseReference.doc("2").set({"Quality Rating": _qualityRating});
+  }
+
+  Future<void> getLog() async{
+    DocumentSnapshot data = await retrieveData();
+    print(data.data().toString());
+  }
+
+  Future<DocumentSnapshot> retrieveData() async{
+    return databaseReference.doc("1").get();
+  }
+
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
+    currentFocus.unfocus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    TextFormField qualityRatingField(BuildContext context) {
+      return TextFormField(
+        controller: _qualityRatingController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.done,
+        focusNode: _qualityRatingFocus,
+        onFieldSubmitted: (value){
+          _qualityRatingFocus.unfocus();
+        },
+        validator: (value) {
+          if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 10)) {
+            return ('Rate the quality of your sleep between 1 - 10');
+          }
+        },
+        onSaved: (value) {
+          _qualityRating = value!;
+        },
+        decoration: InputDecoration (
+          hintText: 'e.g.) 9',
+          labelText: 'Quality of sleep on a scale of 1-10',
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.7)),
+            icon: Icon(Icons.scale),
+          fillColor: Colors.blueAccent
+        ),
+      );
+    }
+
+    var _sleepQualityView = Container(
+      color: Colors.blue.shade300,
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              qualityRatingField(context),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: recordButton(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    var _qualityResultView = Column(
+      children: <Widget>[
+        Center(
+          child: Text(
+            'Result: $_resultString',
+            style: TextStyle(
+                color: Colors.blueAccent.shade700,
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic
+            ),
+          ),
+        ),
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar( //app bar titled Sleep Calculator
         title: Text('Sleep Log'),),
@@ -395,7 +513,77 @@ class _SleepLogPageState extends State<SleepLogPage> {
               child: const Text('Go back!')
           )
       ),
+      body: ListView(
+          children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Text("Sleep Log",style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent), textScaleFactor: 3,)
+              ,),
+              _sleepQualityView,
+              Padding(
+                padding: EdgeInsets.only(top: 170.0, bottom: 20.0),
+                child: ElevatedButton.icon(
+                        onPressed: () {},
+                  icon: Icon( // <-- Icon
+                    Icons.bar_chart_sharp,
+                    size: 27.0,
+                  ),
+                  label: Text('Historical Sleep Data'),
+                ),
+              ),
+            _qualityResultView,
+            ],
+          ),
+      );
+  }
+
+  ElevatedButton recordButton() {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent.shade400
+      ),
+      onPressed: _recorder,
+      icon: Icon( // <-- Icon
+        Icons.cloud,
+        size: 27.0,
+      ),
+      label: Text('Record Sleep Data'),
     );
+  }
+
+  @override
+  void updateHour({required String hour}) {
+    // TODO: implement updateHour
+  }
+
+  @override
+  void updateMinute({required String minute}) {
+    // TODO: implement updateMinute
+  }
+
+  @override
+  void updateSleepHour({required String sleepHour}) {
+    // TODO: implement updateSleepHour
+  }
+
+  @override
+  void updateSleepMinute({required String sleepMinute}) {
+    // TODO: implement updateSleepMinute
+  }
+
+  @override
+  void updateTimeString(String timeString) {
+    // TODO: implement updateTimeString
+  }
+
+  @override
+  void updateTimeUnit(int value) {
+    // TODO: implement updateTimeUnit
+  }
+
+  @override
+  void updateUnit(int value) {
+    // TODO: implement updateUnit
   }
 }
 

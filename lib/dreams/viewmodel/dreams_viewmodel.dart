@@ -7,11 +7,13 @@ class UNITSViewModel {
 
   String _timeType = "";
   String _message = "";
+  String _messageTwo = "";
 
   double hour = 0.0;
   double minute = 0.0;
   double sleepHour = 0.0;
   double sleepMinute = 0.0;
+  double qualityRating = 0.0;
 
   double get units => _units;
   set units(double outResult){
@@ -63,4 +65,9 @@ class UNITSViewModel {
   String get sleepMinuteInString => sleepMinute != null ? sleepMinute.toString():'';
 
   UNITSViewModel();
+}
+
+class DATABASEViewModel {
+
+  DATABASEViewModel();
 }
