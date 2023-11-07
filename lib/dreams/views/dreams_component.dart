@@ -1,7 +1,10 @@
+import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -381,7 +384,7 @@ class SleepLogPage extends StatefulWidget {
 class _SleepLogPageState extends State<SleepLogPage> {
 
   @override
-  Widget build(BuildContext context) { //SLeep Calculator page
+  Widget build(BuildContext context) { //Sleep Calculator page
     return Scaffold(
       appBar: AppBar( //app bar titled Sleep Calculator
         title: Text('Sleep Log'),),
@@ -407,25 +410,70 @@ class TimeClockPage extends StatefulWidget {
 }
 
 class _TimeClockPageState extends State<TimeClockPage> {
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    seriesList = _createRandomData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Time Clock'),),
-      body: Center(
-          child: Column(
-            children: <Widget>[
-              Text("Awake for:",style: const TextStyle(fontWeight: FontWeight.bold),textScaleFactor: 2, ),
-              ElevatedButton( //adds an eleveted button that sends user back to the main page when pressed
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Go back')
-          ),
-            ]
-          )
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: barChart(),
       ),
     );
   }
+}
+
+class SleepHours{
+  final String day;
+  final int hours;
+  SleepHours(this.day, this.hours);
 }
