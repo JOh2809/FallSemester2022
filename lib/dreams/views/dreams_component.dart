@@ -412,7 +412,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _formKey.currentState!.save();
       this.widget.presenter.onRecordClicked(_qualityRating);
     }
-    createLog(_qualityRating);
+    createLog(_hoursSlept, _qualityRating);
   }
 
   @override
@@ -429,13 +429,9 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
-  void createLog(String _qualityRating) {
-    databaseReference.doc("2").set({"Quality Rating": _qualityRating});
-  }
-
-  Future<void> getLog() async{
-    DocumentSnapshot data = await retrieveData();
-    print(data.data().toString());
+  void createLog(String _hoursSlept, String _qualityRating) {
+    final data = {"Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+    databaseReference.add(data);
   }
 
   Future<DocumentSnapshot> retrieveData() async{
