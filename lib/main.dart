@@ -23,8 +23,12 @@ class MyApp extends StatelessWidget {
                       //backgroundColor: Colors.blueGrey,
                       appBar: AppBar(
                         title: Text("Sweet Dreams"),
+                        backgroundColor: Colors.purpleAccent.withOpacity(0.9),
                       ),
-                      body: Center(
+                      body: Container(
+                        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+                        fit: BoxFit.cover),
+                        ),
                           child: Column(
                             children: <Widget>[
                               Padding(
@@ -38,7 +42,7 @@ class MyApp extends StatelessWidget {
                                 ,),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Sleep Calculator'),
                                 onPressed: () {
@@ -51,7 +55,7 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Sleep Log'),
                                 onPressed: () {
@@ -63,7 +67,7 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Time Clock'),
                                 onPressed: () {
@@ -75,7 +79,7 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.8),
                                 ),
                                 child: Text('Settings'),
                                 onPressed: () {
