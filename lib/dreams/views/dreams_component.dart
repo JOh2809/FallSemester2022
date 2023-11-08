@@ -1,4 +1,6 @@
 import 'dart:core';
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
@@ -258,8 +260,8 @@ class _HomePageState extends State<HomePage> implements UNITSView {
     return ElevatedButton(
       onPressed: _calculator,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blueAccent.shade700,
-        textStyle: TextStyle(color: Colors.white70)
+          backgroundColor: Colors.blueAccent.shade700,
+          textStyle: TextStyle(color: Colors.white70)
       ),
       child: Text(
         'Calculate',
@@ -416,7 +418,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _formKey.currentState!.save();
       this.widget.presenter.onRecordClicked(_qualityRating);
     }
-     _sleepLogDate = '$Date';
+    _sleepLogDate = '$Date';
     createLog(_sleepLogDate, _hoursSlept, _qualityRating);
   }
 
@@ -512,11 +514,11 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
           _qualityRating = value!;
         },
         decoration: InputDecoration (
-          hintText: 'e.g.) 9',
-          labelText: 'Quality of sleep on a scale of 1-10',
+            hintText: 'e.g.) 9',
+            labelText: 'Quality of sleep on a scale of 1-10',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
             icon: Icon(Icons.scale),
-          fillColor: Colors.blueAccent
+            fillColor: Colors.blueAccent
         ),
       );
     }
@@ -589,27 +591,27 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         title: Text('Sleep Log'),
       ),
       body: ListView(
-          children: <Widget>[
-              _sleepLogView,
-              Padding(
-                padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent.shade400
-                  ),
-                        onPressed: () {},
-                  icon: Icon( // <-- Icon
-                    Icons.bar_chart_sharp,
-                    size: 27.0,
-                  ),
-                  label: Text('Historical Sleep Data'),
-                ),
+        children: <Widget>[
+          _sleepLogView,
+          Padding(
+            padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent.shade400
               ),
-            _sleepLogResultView,
-            //_sleepLogHistoryView,
-            ],
+              onPressed: () {},
+              icon: Icon( // <-- Icon
+                Icons.bar_chart_sharp,
+                size: 27.0,
+              ),
+              label: Text('Historical Sleep Data'),
+            ),
           ),
-      );
+          _sleepLogResultView,
+          //_sleepLogHistoryView,
+        ],
+      ),
+    );
   }
 
   ElevatedButton recordButton() {

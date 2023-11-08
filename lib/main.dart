@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/presenter/dreams_presenter.dart';
 
@@ -26,9 +27,9 @@ class MyApp extends StatelessWidget {
                         backgroundColor: Colors.purpleAccent.withOpacity(0.9),
                       ),
                       body: Container(
-                        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-                        fit: BoxFit.cover),
-                        ),
+                          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+                              fit: BoxFit.cover),
+                          ),
                           child: Column(
                             children: <Widget>[
                               Padding(
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                                 ,),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                  backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Sleep Calculator'),
                                 onPressed: () {
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                  backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Sleep Log'),
                                 onPressed: () {
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                  backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Time Clock'),
                                 onPressed: () {
@@ -79,7 +80,7 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent.withOpacity(0.8),
+                                  backgroundColor: Colors.blueAccent.withOpacity(0.8),
                                 ),
                                 child: Text('Settings'),
                                 onPressed: () {
@@ -115,14 +116,14 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
   }
 }
 
-  class SleepLogScreen extends StatefulWidget {
-    @override
-  _SleepLogScreen createState() => _SleepLogScreen();
-  }
-
-  class _SleepLogScreen extends State<SleepLogScreen> {
+class SleepLogScreen extends StatefulWidget {
   @override
-    Widget build(BuildContext context) {
+  _SleepLogScreen createState() => _SleepLogScreen();
+}
+
+class _SleepLogScreen extends State<SleepLogScreen> {
+  @override
+  Widget build(BuildContext context) {
     return new SleepLogPage(
       new SleepLogPresenter(), title: 'Sleep Log', key: Key("LOGS"),);
   }
@@ -137,7 +138,7 @@ class _TimeClockScreen extends State<TimeClockScreen> {
   @override
   Widget build(BuildContext context) {
     return new TimeClockPage(
-    new TimeClockPresenter(), title: 'Time Clock', key: Key("LOGS"),);
+      new TimeClockPresenter(), title: 'Time Clock', key: Key("LOGS"),);
   }
 }
 
