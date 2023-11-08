@@ -400,8 +400,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   var _hoursSleptController = TextEditingController();
   var _resultString = '';
   var _message = '';
+  DateTime _sleepLogDate = DateTime.now();
   String _qualityRating = "0";
   String _hoursSlept = "0.0";
+  String message = '';
 
   var _formKey = GlobalKey<FormState>();
 
@@ -416,7 +418,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _formKey.currentState!.save();
       this.widget.presenter.onRecordClicked(_qualityRating);
     }
-    createLog(_hoursSlept, _qualityRating);
+    message = '$_sleepLogDate';
+    createLog(message, _hoursSlept, _qualityRating);
   }
 
   @override
@@ -433,8 +436,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
-  void createLog(String _hoursSlept, String _qualityRating) {
-    final data = {"Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
     databaseReference.add(data);
   }
 
@@ -447,6 +450,48 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -505,7 +550,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     }
 
     var _sleepLogView = Container(
-      color: Colors.blue.shade300.withOpacity(0.3),
+      color: Colors.purpleAccent.withOpacity(0.4),
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -516,7 +561,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
               hoursSleptField(context),
               qualityRatingField(context),
               Padding(
-                padding: EdgeInsets.only(top: 10.0),
+                padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                 child: recordButton(),
               ),
             ],
@@ -544,14 +589,16 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Log'),
-
       ),
       body: ListView(
           children: <Widget>[
               _sleepLogView,
               Padding(
-                padding: EdgeInsets.only(top: 170.0, bottom: 20.0),
+                padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
                 child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent.shade400
+                  ),
                         onPressed: () {},
                   icon: Icon( // <-- Icon
                     Icons.bar_chart_sharp,
@@ -561,6 +608,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                 ),
               ),
             _sleepLogResultView,
+            //_sleepLogHistoryView,
             ],
           ),
       );
@@ -627,7 +675,6 @@ class TimeClockPage extends StatefulWidget {
 
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
-
 
   static List <charts.Series<SleepHours, String>> _createRandomData() {
     final random = Random();

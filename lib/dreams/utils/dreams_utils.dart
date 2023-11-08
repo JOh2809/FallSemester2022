@@ -56,10 +56,10 @@ List<dynamic> calculator(double hour, double minute, double sleepHour, double sl
 List<dynamic> recorder(double qualityRating) {
  List result = new List.filled(1, null, growable: false); //Adjust list max index value if needed.
 
-
-
   result[0] = qualityRating;
   return result;
+
+
 }
 
 bool isEmptyString(String string){
