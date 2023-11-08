@@ -1,9 +1,5 @@
-/*
-File Name: dreams_utils.dart
- */
-
-import 'package:flutter/cupertino.dart';
 import 'package:units/dreams/utils/dreams_constant.dart';
+import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 //import 'package:firebase_database/firebase_database.dart';
@@ -59,6 +55,8 @@ List<dynamic> calculator(double hour, double minute, double sleepHour, double sl
 
 List<dynamic> recorder(double qualityRating) {
  List result = new List.filled(1, null, growable: false); //Adjust list max index value if needed.
+
+
 
   result[0] = qualityRating;
   return result;

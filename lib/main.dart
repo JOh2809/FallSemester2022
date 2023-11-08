@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.only(top: 20.0,
                                     bottom: 20.0),
-                                child: Text("Sweet Dreams!",
+                                child: Text("Welcome and Sweet Dreams!",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blueAccent),
