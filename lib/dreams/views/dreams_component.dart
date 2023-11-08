@@ -400,10 +400,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   var _hoursSleptController = TextEditingController();
   var _resultString = '';
   var _message = '';
-  DateTime _sleepLogDate = DateTime.now();
+  DateTime Date = DateTime.now();
   String _qualityRating = "0";
   String _hoursSlept = "0.0";
-  String message = '';
+  String _sleepLogDate = '';
 
   var _formKey = GlobalKey<FormState>();
 
@@ -418,8 +418,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _formKey.currentState!.save();
       this.widget.presenter.onRecordClicked(_qualityRating);
     }
-    message = '$_sleepLogDate';
-    createLog(message, _hoursSlept, _qualityRating);
+     _sleepLogDate = '$Date';
+    createLog(_sleepLogDate, _hoursSlept, _qualityRating);
   }
 
   @override
