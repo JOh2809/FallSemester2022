@@ -414,9 +414,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   void _recorder() {
     if(_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      this.widget.presenter.onRecordClicked(_qualityRating);
+      this.widget.presenter.onRecordClicked( _hoursSlept ,_qualityRating);
     }
     createLog(_hoursSlept, _qualityRating);
+    
   }
 
   @override
@@ -529,7 +530,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       children: <Widget>[
         Center(
           child: Text(
-            'Result: $_resultString',
+            'Average Hours Slept: $_resultString',
             style: TextStyle(
                 color: Colors.blueAccent.shade700,
                 fontSize: 24.0,
@@ -624,6 +625,7 @@ class TimeClockPage extends StatefulWidget {
   @override
   _TimeClockPageState createState() => _TimeClockPageState();
 }
+
 
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
@@ -763,5 +765,27 @@ class _NotificationSettingScreen extends State<NotificationSettingScreen> {
   Widget build(BuildContext context) {
     return new NotificationSettingPage(
       new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
+  }
+}
+
+//Sleep Info Page
+class SleepInfoPage extends StatefulWidget {
+  final SleepInfoPresenter presenter;
+  final String title;
+  SleepInfoPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepInfoPageState createState() => _SleepInfoPageState();
+}
+
+class _SleepInfoPageState extends State<SleepInfoPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Info'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+      ),
+    );
   }
 }

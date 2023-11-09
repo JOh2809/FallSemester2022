@@ -301,3 +301,7 @@ class SettingPresenter {
 class NotificationSettingPresenter {
 
 }
+
+class SleepInfoPresenter{
+
+}
