@@ -464,6 +464,15 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       SleepHours('Friday', random.nextInt(9)),
       SleepHours('Saturday', random.nextInt(9)),
     ];
+    final qualityOfSleep = [
+    SleepHours('Sunday', random.nextInt(11)),
+    SleepHours('Monday', random.nextInt(11)),
+    SleepHours('Tuesday', random.nextInt(11)),
+    SleepHours('Wednesday', random.nextInt(11)),
+    SleepHours('Thursday', random.nextInt(11)),
+    SleepHours('Friday', random.nextInt(11)),
+    SleepHours('Saturday', random.nextInt(11)),
+    ];
     return[
       charts.Series<SleepHours, String>(
         id: 'Hours Slept',
@@ -472,6 +481,15 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         data: hoursOfSleep,
         fillColorFn: (SleepHours sleephours, _) {
           return charts.MaterialPalette.blue.shadeDefault;
+        },
+      ),
+      charts.Series<SleepHours, String>(
+        id: 'Quality of Sleep',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: qualityOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.green.shadeDefault;
         },
       )
     ];
@@ -687,6 +705,15 @@ class _TimeClockPageState extends State<TimeClockPage> {
       SleepHours('Friday', random.nextInt(9)),
       SleepHours('Saturday', random.nextInt(9)),
     ];
+    final qualityOfSleep = [
+      SleepHours('Sunday', random.nextInt(11)),
+      SleepHours('Monday', random.nextInt(11)),
+      SleepHours('Tuesday', random.nextInt(11)),
+      SleepHours('Wednesday', random.nextInt(11)),
+      SleepHours('Thursday', random.nextInt(11)),
+      SleepHours('Friday', random.nextInt(11)),
+      SleepHours('Saturday', random.nextInt(11)),
+    ];
     return[
       charts.Series<SleepHours, String>(
         id: 'Hours Slept',
@@ -695,6 +722,15 @@ class _TimeClockPageState extends State<TimeClockPage> {
         data: hoursOfSleep,
         fillColorFn: (SleepHours sleephours, _) {
           return charts.MaterialPalette.blue.shadeDefault;
+        },
+      ),
+      charts.Series<SleepHours, String>(
+        id: 'Quality of Sleep',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: qualityOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.green.shadeDefault;
         },
       )
     ];
