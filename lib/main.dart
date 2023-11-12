@@ -68,6 +68,18 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                ),
+                                child: Text('Sleep Diary'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return SleepDiaryScreen();
+                                      }));
+                                },
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Time Clock'),
@@ -116,7 +128,7 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
   }
 }
 
-  class SleepLogScreen extends StatefulWidget {
+class SleepLogScreen extends StatefulWidget {
     @override
   _SleepLogScreen createState() => _SleepLogScreen();
   }
@@ -126,6 +138,19 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
     Widget build(BuildContext context) {
     return new SleepLogPage(
       new SleepLogPresenter(), title: 'Sleep Log', key: Key("LOGS"),);
+  }
+}
+
+class SleepDiaryScreen extends StatefulWidget {
+  @override
+  _SleepDiaryScreen createState() => _SleepDiaryScreen();
+}
+
+class _SleepDiaryScreen extends State<SleepDiaryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepDiaryPage(
+      new SleepDiaryPresenter(), title: 'Sleep Diary', key: Key("DIARIES"),);
   }
 }
 
