@@ -1,3 +1,6 @@
+
+import 'dart:ffi';
+
 import '../views/dreams_view.dart';
 import '../viewmodel/dreams_viewmodel.dart';
 import '../utils/dreams_constant.dart';
@@ -7,6 +10,9 @@ class UNITSPresenter {
   void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString){
 
   }
+
+  void onRecordClicked(String qualityRatingString) {}
+
   void onOptionChanged(int value, {required String sleepMinuteString, required String sleepHourString}) {
 
   }
@@ -15,17 +21,19 @@ class UNITSPresenter {
   }
   set unitsView(UNITSView value){}
 
+  void onQualityRatingSubmitted(String qualityRating){}
+
   void onHourSubmitted(String hour){}
   void onMinuteSubmitted(String minute){}
   void onSleepHourSubmitted(String sleepHour){}
   void onSleepMinuteSubmitted(String sleepMinute){}
 }
 
-class BasicPresenter implements UNITSPresenter{
+class SleepCalculatorPresenter implements UNITSPresenter{
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
-  BasicPresenter() {
+  SleepCalculatorPresenter() {
     this._viewModel = _viewModel;
     _loadUnit();
   }
@@ -43,6 +51,7 @@ class BasicPresenter implements UNITSPresenter{
     _view.updateUnit(_viewModel.value);
     _view.updateTimeUnit(_viewModel.valueTime);
   }
+
 
   @override
   void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString) {
@@ -173,4 +182,134 @@ class BasicPresenter implements UNITSPresenter{
 
     }
   }
+
+  @override
+  void onRecordClicked(String qualityRatingString) {
+    // TODO: implement onRecordClicked
+  }
+
+  @override
+  void onQualityRatingSubmitted(String qualityRating) {
+    // TODO: implement onQualityRatingSubmitted
+  }
+}
+
+class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
+  UNITSViewModel _viewModel = UNITSViewModel();
+  UNITSView _view = UNITSView();
+
+  DATABASEViewModel _databaseViewModel = DATABASEViewModel();
+  DATABASEView _databaseView = DATABASEView();
+
+  //Initialize DatabaseViewModel within this presenter.
+  // Create separate view model for getting database values from DatabaseViewModel.
+   //Format got database value, along with message, and display it to the user.
+   //Could use datetimenow/datetimeyesterday methods to assign historical data to specific dates.
+  //Put images in assets folder and assign background image to that asset using container.
+
+  SleepLogPresenter() {
+    this._viewModel = _viewModel;
+    _loadUnit();
+    this._databaseViewModel = _databaseViewModel;
+    _loadUnit();
+  }
+
+  void _loadUnit() async{
+    _viewModel.value = await loadValue();
+    //_viewModel.valueTime = await loadValue();
+    _view.updateUnit(_viewModel.value);
+   // _view.updateTimeUnit(_viewModel.valueTime);
+
+  }
+
+  @override
+  set unitsView(UNITSView value) {
+    _view = value;
+    _view.updateUnit(_viewModel.value);
+  }
+
+  @override
+  void onRecordClicked(String hoursSleptString, String qualityRatingString) {
+    var qualityRating = 0.0;
+    var hoursSlept = 0.0;
+    try {
+      hoursSlept = double.parse(hoursSleptString);
+    } catch (e){}
+    try {
+      qualityRating = double.parse(qualityRatingString);
+    } catch (e){}
+
+    List temp = new List.filled(2, null, growable: false);
+    _viewModel.qualityRating = qualityRating;
+    temp = recorder(hoursSlept, qualityRating);
+
+    _viewModel.units = temp[0];
+
+    _view.updateResultValue(_viewModel.resultInString);
+    //_databaseViewModel.qualityRating = qualityRating;
+  }
+
+  @override
+  void onOptionChanged(int value, {required String qualityRatingString})  {
+
+    if (value != _viewModel.value) {
+      _viewModel.value = value;
+      saveValue(_viewModel.value);
+      var qualityRating= 0.0;
+      if (!isEmptyString(qualityRatingString)) {
+        try {
+          qualityRating = double.parse(qualityRatingString);
+        } catch (e) {
+        }
+      }
+      /*
+      if (!isEmptyString(fuelUsedString)) {
+        try {
+          fuelUsed = double.parse(fuelUsedString);
+        } catch (e) {
+
+        }
+      }
+ */
+      _view.updateUnit(_viewModel.value);
+      _view.updateResultValue(_viewModel.resultInString);
+    }
+  }
+
+
+
+  @override
+  void onQualityRatingSubmitted(String qualityRating) {
+    try{
+      _viewModel.qualityRating = double.parse(qualityRating);
+    }catch(e){
+
+    }
+  }
+
+
+}
+
+class TimeClockPresenter {
+
+}
+
+class SettingPresenter {
+
+}
+
+class NotificationSettingPresenter {
+
+}
+
+class SleepInfoPresenter{
+
+}
+
+class SleepBenefitsPresenter{
+
+}
+
+class SleepAdvicePresenter{
+
 }

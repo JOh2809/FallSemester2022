@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:units/dreams/utils/dreams_constant.dart';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
+//import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 List<dynamic> calculator(double hour, double minute, double sleepHour, double sleepMinute, UnitType uniType, UnitType unitTypeTime) {
 
@@ -52,8 +53,20 @@ List<dynamic> calculator(double hour, double minute, double sleepHour, double sl
   return result;
 }
 
+List<dynamic> recorder(double hoursSlept ,double qualityRating) {
+ List result = new List.filled(2, null, growable: false); //Adjust list max index value if needed.
+
+
+
+
+
+  result[0] = hoursSlept;
+  result[1] = qualityRating;
+  return result;
+}
+
 bool isEmptyString(String string){
-  return string == null || string.length == 0;
+  return string.length == 0;
 }
 
 Future<int> loadValue() async{

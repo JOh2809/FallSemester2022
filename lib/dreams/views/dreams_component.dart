@@ -1,7 +1,13 @@
+import 'dart:core';
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -26,10 +32,11 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   var _resultString = '';
   var _timeString = '';
   var _message = '';
+  var _messageTwo = '';
   var _value = 0;
   var _valueTime = 0;
-  final FocusNode _hourFocus = FocusNode();
-  final FocusNode _sleepHourFocus = FocusNode();
+  final FocusNode _hourFocus = FocusNode(); // The hour the user want's to wake up at
+  final FocusNode _sleepHourFocus = FocusNode(); // The number of hours the user want's to sleep for
   final FocusNode _sleepMinuteFocus = FocusNode();
   final FocusNode _minuteFocus = FocusNode();
 
@@ -71,6 +78,12 @@ class _HomePageState extends State<HomePage> implements UNITSView {
   void updateMessage(String message){
     setState(() {
       _message = message;
+    });
+  }
+  @override
+  void updateMessageTwo(String messageTwo) {
+    setState(() {
+      _messageTwo = messageTwo;
     });
   }
   @override
@@ -160,7 +173,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
     );
 
     var _mainPartView = Container(
-      color: Colors.grey.shade300,
+      color: Colors.blue.shade200,
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -240,6 +253,7 @@ class _HomePageState extends State<HomePage> implements UNITSView {
           ],
         )
     );
+
   }
 
   ElevatedButton calculateButton() {
@@ -367,3 +381,559 @@ class _HomePageState extends State<HomePage> implements UNITSView {
 
 
 }
+
+class SleepLogPage extends StatefulWidget {
+  final SleepLogPresenter presenter;
+
+  SleepLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepLogPageState createState() => _SleepLogPageState();
+}
+
+class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
+
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
+  final FocusNode _qualityRatingFocus = FocusNode();
+  final FocusNode _hoursSleptFocus = FocusNode();
+  var _qualityRatingController = TextEditingController();
+  var _hoursSleptController = TextEditingController();
+  var _resultString = '';
+  var _message = '';
+  DateTime Date = DateTime.now();
+  String _qualityRating = "0";
+  String _hoursSlept = "0.0";
+  String _sleepLogDate = '';
+
+  var _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    this.widget.presenter.unitsView = this;
+  }
+
+  void _recorder() {
+    if(_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      this.widget.presenter.onRecordClicked( _hoursSlept ,_qualityRating);
+    }
+     _sleepLogDate = '$Date';
+    createLog(_sleepLogDate, _hoursSlept, _qualityRating);
+  }
+
+  @override
+  void updateResultValue(String resultValue){
+    setState(() {
+      _resultString = resultValue;
+    });
+  }
+
+  @override
+  void updateMessage(String message){
+    setState(() {
+      _message = message;
+    });
+  }
+
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+    databaseReference.add(data);
+  }
+
+  Future<DocumentSnapshot> retrieveData() async{
+    return databaseReference.doc("1").get();
+  }
+
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    TextFormField qualityRatingField(BuildContext context) {
+      return TextFormField(
+        controller: _qualityRatingController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.done,
+        focusNode: _qualityRatingFocus,
+        onFieldSubmitted: (value){
+          _qualityRatingFocus.unfocus();
+        },
+        validator: (value) {
+          if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 10)) {
+            return ('Rate the quality of your sleep between 1 - 10');
+          }
+        },
+        onSaved: (value) {
+          _qualityRating = value!;
+        },
+        decoration: InputDecoration (
+          hintText: 'e.g.) 9',
+          labelText: 'Quality of sleep on a scale of 1-10',
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
+            icon: Icon(Icons.scale),
+          fillColor: Colors.blueAccent
+        ),
+      );
+    }
+    TextFormField hoursSleptField(BuildContext context) { //Hours slept
+      return TextFormField(
+        controller: _hoursSleptController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
+        focusNode: _hoursSleptFocus,
+        onFieldSubmitted: (term) {
+          _fieldFocusChange(context, _hoursSleptFocus, _qualityRatingFocus);
+        },
+        validator: (value) {
+          if (value!.length == 0 || (double.parse(value) < 0 || double.parse(value) > 24)) {
+            return ('Hour between 0 - 24');
+          }
+        },
+        onSaved: (value) {
+          _hoursSlept = value!;
+        },
+        decoration: InputDecoration(
+          hintText: 'e.g.) 8',
+          labelText: 'Hours slept today',
+          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
+          icon: Icon(Icons.timer),
+          fillColor: Colors.white,
+        ),
+      );
+    }
+
+    var _sleepLogView = Container(
+      color: Colors.purpleAccent.withOpacity(0.4),
+      margin: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              hoursSleptField(context),
+              qualityRatingField(context),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                child: recordButton(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    var _sleepLogResultView = Column(
+      children: <Widget>[
+        Center(
+          child: Text(
+            'Average Hours Slept: $_resultString',
+            style: TextStyle(
+                color: Colors.blueAccent.shade700,
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic
+            ),
+          ),
+        ),
+      ],
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Log'),
+      ),
+      body: ListView(
+          children: <Widget>[
+              _sleepLogView,
+              Padding(
+                padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent.shade400
+                  ),
+                        onPressed: () {},
+                  icon: Icon( // <-- Icon
+                    Icons.bar_chart_sharp,
+                    size: 27.0,
+                  ),
+                  label: Text('Historical Sleep Data'),
+                ),
+              ),
+            _sleepLogResultView,
+            //_sleepLogHistoryView,
+            ],
+          ),
+      );
+  }
+
+  ElevatedButton recordButton() {
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent.shade400
+      ),
+      onPressed: _recorder,
+      icon: Icon( // <-- Icon
+        Icons.cloud,
+        size: 27.0,
+      ),
+      label: Text('Record Sleep Data'),
+    );
+  }
+
+  @override
+  void updateHour({required String hour}) {
+    // TODO: implement updateHour
+  }
+
+  @override
+  void updateMinute({required String minute}) {
+    // TODO: implement updateMinute
+  }
+
+  @override
+  void updateSleepHour({required String sleepHour}) {
+    // TODO: implement updateSleepHour
+  }
+
+  @override
+  void updateSleepMinute({required String sleepMinute}) {
+    // TODO: implement updateSleepMinute
+  }
+
+  @override
+  void updateTimeString(String timeString) {
+    // TODO: implement updateTimeString
+  }
+
+  @override
+  void updateTimeUnit(int value) {
+    // TODO: implement updateTimeUnit
+  }
+
+  @override
+  void updateUnit(int value) {
+    // TODO: implement updateUnit
+  }
+}
+
+class TimeClockPage extends StatefulWidget {
+  final TimeClockPresenter presenter;
+
+  TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _TimeClockPageState createState() => _TimeClockPageState();
+}
+
+
+class _TimeClockPageState extends State<TimeClockPage> {
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    seriesList = _createRandomData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Time Clock'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: barChart(),
+      ),
+    );
+  }
+}
+
+class SettingPage extends StatefulWidget {
+  final SettingPresenter presenter;
+
+  SettingPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class NotificationSettingPage extends StatefulWidget {
+  final NotificationSettingPresenter presenter;
+
+  NotificationSettingPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Settings'),
+        ),
+        body: Center(
+          child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text("Notification Settings!", style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                    textScaleFactor: 3,)
+                  ,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent
+                  ),
+                  child: Text('Notification Settings'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return NotificationSettingScreen();
+                        }));
+                  },
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Go back')
+                )
+              ]),
+        )
+    );
+  }
+}
+
+class SleepHours{
+  final String day;
+  final int hours;
+  SleepHours(this.day, this.hours);
+}
+
+class NotificationSettingScreen extends StatefulWidget {
+  @override
+  _NotificationSettingScreen createState() => _NotificationSettingScreen();
+}
+
+class _NotificationSettingScreen extends State<NotificationSettingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new NotificationSettingPage(
+      new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
+  }
+}
+
+//Sleep Info Page
+class SleepInfoPage extends StatefulWidget {
+  final SleepInfoPresenter presenter;
+  final String title;
+  SleepInfoPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepInfoPageState createState() => _SleepInfoPageState();
+}
+
+class _SleepInfoPageState extends State<SleepInfoPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Info'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                ),
+                child: Text('Sleep Benefits'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepBenefitsScreen();
+                      }));
+                },
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                ),
+                child: Text('How to get more sleep'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepAdviceScreen();
+                      }));
+                },
+              ),
+
+            ]
+        ),),
+    );
+  }
+}
+
+//Sleep Benefits Page from here to line 904
+class SleepBenefitsScreen extends StatefulWidget {
+  @override
+  _SleepBenefitsScreen createState() => _SleepBenefitsScreen();
+}
+
+class _SleepBenefitsScreen extends State<SleepBenefitsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepBenefitsPage(
+      new SleepBenefitsPresenter(), title: 'Sleep Benefits', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepBenefitsPage extends StatefulWidget {
+  final SleepBenefitsPresenter presenter;
+  final String title;
+  SleepBenefitsPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
+}
+
+class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Benefits'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+      ),
+    );
+  }
+}
+
+class SleepAdviceScreen extends StatefulWidget{
+  @override
+  _SleepAdviceScreen createState() => _SleepAdviceScreen();
+}
+class _SleepAdviceScreen extends State<SleepAdviceScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepAdvicePage(
+      new SleepAdvicePresenter(), title: 'Sleep Advice', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepAdvicePage extends StatefulWidget {
+  final SleepAdvicePresenter presenter;
+  final String title;
+  SleepAdvicePage(this.presenter, {required Key? key, required this.title});
+  @override
+  _SleepAdvicePageState createState() => _SleepAdvicePageState();
+}
+
+class _SleepAdvicePageState extends State<SleepAdvicePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tips for getting more sleep'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+      ),
+    );
+  }
+}
+

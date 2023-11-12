@@ -1,4 +1,3 @@
-import '../viewmodel/dreams_viewmodel.dart';
 class UNITSView {
   void updateResultValue(String resultValue){}
   void updateTimeString(String timeString){}
@@ -9,4 +8,8 @@ class UNITSView {
   void updateMinute({required String minute}){}
   void updateUnit(int value){}
   void updateTimeUnit(int value){}
+}
+
+class DATABASEView {
+
 }
