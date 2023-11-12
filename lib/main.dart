@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
                               //Sleep Info Button
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent
+                                    backgroundColor: Colors.blueAccent
                                 ),
                                 child: Text('Sleep Info'),
                                 onPressed: () {

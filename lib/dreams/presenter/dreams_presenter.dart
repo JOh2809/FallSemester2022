@@ -305,3 +305,11 @@ class NotificationSettingPresenter {
 class SleepInfoPresenter{
 
 }
+
+class SleepBenefitsPresenter{
+
+}
+
+class SleepAdvicePresenter{
+
+}

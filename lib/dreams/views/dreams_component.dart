@@ -831,7 +831,109 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
         title: Text('Sleep Info'),),
       body: Container(
         padding: EdgeInsets.all(20.0),
+        child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                ),
+                child: Text('Sleep Benefits'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepBenefitsScreen();
+                      }));
+                },
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                ),
+                child: Text('How to get more sleep'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepAdviceScreen();
+                      }));
+                },
+              ),
+
+            ]
+        ),),
+    );
+  }
+}
+
+//Sleep Benefits Page from here to line 904
+class SleepBenefitsScreen extends StatefulWidget {
+  @override
+  _SleepBenefitsScreen createState() => _SleepBenefitsScreen();
+}
+
+class _SleepBenefitsScreen extends State<SleepBenefitsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepBenefitsPage(
+      new SleepBenefitsPresenter(), title: 'Sleep Benefits', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepBenefitsPage extends StatefulWidget {
+  final SleepBenefitsPresenter presenter;
+  final String title;
+  SleepBenefitsPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
+}
+
+class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Benefits'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
       ),
     );
   }
 }
+
+class SleepAdviceScreen extends StatefulWidget{
+  @override
+  _SleepAdviceScreen createState() => _SleepAdviceScreen();
+}
+class _SleepAdviceScreen extends State<SleepAdviceScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepAdvicePage(
+      new SleepAdvicePresenter(), title: 'Sleep Advice', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepAdvicePage extends StatefulWidget {
+  final SleepAdvicePresenter presenter;
+  final String title;
+  SleepAdvicePage(this.presenter, {required Key? key, required this.title});
+  @override
+  _SleepAdvicePageState createState() => _SleepAdvicePageState();
+}
+
+class _SleepAdvicePageState extends State<SleepAdvicePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tips for getting more sleep'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+      ),
+    );
+  }
+}
+
