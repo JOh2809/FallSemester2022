@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:units/Pages/Auth_page.dart';
-import 'package:units/Pages/Loginpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';  // Make sure this import is correct
 
-void main() async {
+Future<void> main() async  {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,  // Corrected typo here
+    options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MYAPP());
+  runApp(MyApp());
 }
 
-class MYAPP extends StatelessWidget {
-   const MYAPP ({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);  // Fix the constructor syntax here
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -22,5 +22,4 @@ class MYAPP extends StatelessWidget {
     );
   }
 }
-
 
