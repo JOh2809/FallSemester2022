@@ -1,6 +1,6 @@
 import 'dart:core';
-import 'dart:ffi';
-
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
@@ -919,11 +919,34 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
             ),
           ),
           Padding(padding: EdgeInsets.only(top: 550.0)),
-          Text('Source: National Library of Medicine, Mayo Clinic',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              fontStyle: FontStyle.italic,
+          RichText(
+            text: new TextSpan(
+                children: [
+                  new TextSpan(
+                    text: 'Source: ',
+                    style: new TextStyle(color: Colors.black),
+                  ),
+                  new TextSpan(
+                    text:'Office of Disease Prevention and Health Promotion',
+                    style: new TextStyle(color:Colors.blue),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://health.gov/myhealthfinder/healthy-living/mental-health-and-relationships/get-enough-sleep'));
+                      },
+                      ),
+                  new TextSpan(
+                    text: ' and ',
+                    style: new TextStyle(color: Colors.black),
+                  ),
+                  new TextSpan(
+                    text: 'Mayo Clinic',
+                    style: new TextStyle(color: Colors.blue),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () { launchUrl(Uri.parse('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
+                      },
+                  )
+                ]
             ),
           ),
       ]),
