@@ -196,7 +196,7 @@ class SleepCalculatorPresenter implements UNITSPresenter{
 }
 
 class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
-  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
@@ -256,7 +256,6 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
     return databaseReference.doc("1").get();
   }
 
-
   @override
   void onOptionChanged(int value, {required String qualityRatingString})  {
 
@@ -298,7 +297,12 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
 }
 
 class SleepDiaryPresenter {
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
 
+  void createEntry(String _diaryEntry, String _behaviorEntry) {
+    final data = {"Sleep Diary Entry": _diaryEntry};
+    databaseReference.add(data);
+  }
 }
 
 class TimeClockPresenter {

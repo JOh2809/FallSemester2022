@@ -392,6 +392,7 @@ class SleepLogPage extends StatefulWidget {
 
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   final SleepLogPresenter presenter;
+  _SleepLogPageState(this.presenter);
 
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
@@ -405,8 +406,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   String _sleepLogDate = '';
 
   var _formKey = GlobalKey<FormState>();
-
-  _SleepLogPageState(this.presenter);
 
   @override
   void initState() {
@@ -440,49 +439,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
-  }
-
-
-  late final List<charts.Series<dynamic, String>> seriesList;
-
-  static List <charts.Series<SleepHours, String>> _createRandomData() {
-    final random = Random();
-    final hoursOfSleep = [
-      SleepHours('Sunday', random.nextInt(9)),
-      SleepHours('Monday', random.nextInt(9)),
-      SleepHours('Tuesday', random.nextInt(9)),
-      SleepHours('Wednesday', random.nextInt(9)),
-      SleepHours('Thursday', random.nextInt(9)),
-      SleepHours('Friday', random.nextInt(9)),
-      SleepHours('Saturday', random.nextInt(9)),
-    ];
-    return[
-      charts.Series<SleepHours, String>(
-        id: 'Hours Slept',
-        domainFn: (SleepHours sleephours, _) => sleephours.day,
-        measureFn: (SleepHours sleephours, _) => sleephours.hours,
-        data: hoursOfSleep,
-        fillColorFn: (SleepHours sleephours, _) {
-          return charts.MaterialPalette.blue.shadeDefault;
-        },
-      )
-    ];
-  }
-
-  barChart() {
-    return charts.BarChart(
-      seriesList,
-      animate: true,
-      vertical: true,
-      barGroupingType: charts.BarGroupingType.grouped,
-      defaultRenderer: charts.BarRendererConfig(
-        groupingType: charts.BarGroupingType.grouped,
-        strokeWidthPx: 1.0,
-      ),
-      domainAxis: charts.OrdinalAxisSpec(
-        renderSpec: charts.NoneRenderSpec(),
-      ),
-    );
   }
 
   @override
@@ -615,7 +571,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
     fit: BoxFit.cover),
     ),
-
       child: ListView(
           children: <Widget>[
               _sleepLogView,
@@ -634,10 +589,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                 ),
               ),
             _sleepLogResultView,
-            //_sleepLogHistoryView,
             ],
           ),
-      ));
+      )
+    );
   }
 
   ElevatedButton recordButton() {
@@ -695,19 +650,24 @@ class SleepDiaryPage extends StatefulWidget {
   SleepDiaryPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  _SleepDiaryPageState createState() => _SleepDiaryPageState();
+  _SleepDiaryPageState createState() => _SleepDiaryPageState(presenter);
 }
 
 class _SleepDiaryPageState extends State<SleepDiaryPage> {
+  final SleepDiaryPresenter presenter;
+  _SleepDiaryPageState(this.presenter);
 
   final FocusNode _diaryEntryFocus = FocusNode();
+  final FocusNode _behaviorEntryFocus = FocusNode();
   var _diaryEntryController = TextEditingController();
+  var _behaviorEntryController = TextEditingController();
   String _diaryEntry = '';
+  String _behaviorEntry = '';
 
   var _formKey = GlobalKey<FormState>();
 
   void _archiver() {
-    //createLog(_diaryEntry);
+    presenter.createEntry(_diaryEntry, _behaviorEntry);
   }
 
   @override
@@ -722,20 +682,43 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
         onFieldSubmitted: (value){
           _diaryEntryFocus.unfocus();
         },
-        validator: (value){
-            if (value!.length == 0 || (double.parse(value) < 1 || double.parse(value) > 10)) {
-              return ('Rate the quality of your sleep between 1 - 10');
-            }
-        },
-        onSaved: (value){
+        onSaved: (value) {
+          value = _diaryEntryController.text;
           _diaryEntry = value!;
         },
+
         decoration: InputDecoration (
             labelText: 'Diary Entry',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             icon: Icon(
                 Icons.book_outlined,
                 size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+      );
+    }
+
+    TextFormField behaviorEntryField(BuildContext context) {
+      return TextFormField(
+        controller: _behaviorEntryController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _behaviorEntryFocus,
+        onFieldSubmitted: (value){
+          _behaviorEntryFocus.unfocus();
+        },
+        onSaved: (value) {
+          value = _behaviorEntryController.text;
+          _behaviorEntry = value!;
+        },
+
+        decoration: InputDecoration (
+            labelText: 'Behavior Entry',
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
             ),
             fillColor: Colors.blueAccent
         ),
@@ -766,6 +749,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
             child: Column(
               children: <Widget>[
                 diaryEntryField(context),
+                behaviorEntryField(context),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                   child: archiveButton(),
