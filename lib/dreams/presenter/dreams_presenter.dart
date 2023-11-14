@@ -300,7 +300,7 @@ class SleepDiaryPresenter {
   final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
 
   void createEntry(String _diaryEntry, String _behaviorEntry) {
-    final data = {"Sleep Diary Entry": _diaryEntry};
+    final data = {"Sleep Diary Entry": _diaryEntry,"Behavior Entry": _behaviorEntry};
     databaseReference.add(data);
   }
 }

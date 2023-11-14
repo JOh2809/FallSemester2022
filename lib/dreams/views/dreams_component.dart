@@ -667,6 +667,8 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   var _formKey = GlobalKey<FormState>();
 
   void _archiver() {
+    _diaryEntry = _diaryEntryController.text;
+    _behaviorEntry = _behaviorEntryController.text;
     presenter.createEntry(_diaryEntry, _behaviorEntry);
   }
 
@@ -682,11 +684,6 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
         onFieldSubmitted: (value){
           _diaryEntryFocus.unfocus();
         },
-        onSaved: (value) {
-          value = _diaryEntryController.text;
-          _diaryEntry = value!;
-        },
-
         decoration: InputDecoration (
             labelText: 'Diary Entry',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
@@ -708,11 +705,6 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
         onFieldSubmitted: (value){
           _behaviorEntryFocus.unfocus();
         },
-        onSaved: (value) {
-          value = _behaviorEntryController.text;
-          _behaviorEntry = value!;
-        },
-
         decoration: InputDecoration (
             labelText: 'Behavior Entry',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
