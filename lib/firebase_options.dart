@@ -50,20 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBbz0jPeCamNgEhsOYzSrRkcFx1Wyg7PRA',
-    appId: '1:38007275584:android:dfcf18cf7f9de5f6e01fa5',
-    messagingSenderId: '38007275584',
-    projectId: 'sleeptracke',
-    storageBucket: 'sleeptracke.appspot.com',
+    apiKey: 'AIzaSyBO_1CGUhEzJw7tEQnIKYRigmVWZc0MpYA',
+    appId: '1:459604809666:android:aace97f10adaed494da85b',
+    messagingSenderId: '459604809666',
+    projectId: 'sweetdreams-8b106',
+    databaseURL: 'https://sweetdreams-8b106-default-rtdb.firebaseio.com',
+    storageBucket: 'sweetdreams-8b106.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDWvEjmKANKxS90_9drcRDU1qdXUfFVhgc',
-    appId: '1:38007275584:ios:312d674465f287bee01fa5',
-    messagingSenderId: '38007275584',
-    projectId: 'sleeptracke',
-    storageBucket: 'sleeptracke.appspot.com',
-    iosClientId: '38007275584-3f7b437rsndeaeqngvjjqi06nrn043th.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBp3fO1GgDMHOxaC4jjcAfwOSXxREdvZmw',
+    appId: '1:459604809666:ios:d28c610cee1d151b4da85b',
+    messagingSenderId: '459604809666',
+    projectId: 'sweetdreams-8b106',
+    databaseURL: 'https://sweetdreams-8b106-default-rtdb.firebaseio.com',
+    storageBucket: 'sweetdreams-8b106.appspot.com',
+    iosClientId: '459604809666-pfnkbkrtdcv3karrie8kv20ukc9q29rb.apps.googleusercontent.com',
     iosBundleId: 'com.example.units',
   );
 }

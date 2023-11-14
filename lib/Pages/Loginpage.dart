@@ -7,19 +7,26 @@ import 'package:units/components/My_textfield.dart';
 class Loginpage extends StatelessWidget {
   Loginpage({Key? key}) : super(key: key);
 
+// Define TextEditingController for email and password input fields
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+// Asynchronous function to sign in the user // username and password
   Future<void> signUserIn(BuildContext context) async {
     try {
+      // Use FirebaseAuth instance to sign in with email and password
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+
       // Handle successful login
-      Navigator.pushReplacementNamed(context, '/home'); // Navigate to the home screen
+      // Navigate to the home screen after successful login
+      Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
+      // Handle errors that may occur during the sign-in process
       print('Error signing in: $e');
+
       // Show error message to the user using a SnackBar or another method
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -29,7 +36,7 @@ class Loginpage extends StatelessWidget {
       );
     }
   }
-
+// google function for sign in implemented at  line 153
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
       print("Starting Google Sign-In process...");
