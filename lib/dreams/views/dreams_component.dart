@@ -889,7 +889,7 @@ class SleepBenefitsPage extends StatefulWidget {
   @override
   _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
 }
-
+//Consider changing the font in the future
 class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
   @override
   Widget build(BuildContext context) {
@@ -897,8 +897,37 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
       appBar: AppBar(
         title: Text('Sleep Benefits'),),
       body: Container(
-        padding: EdgeInsets.all(20.0),
-      ),
+        child: Column(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+          Text(
+          'The recommended amount of sleep for an adult is between 7-9 hours each night. '
+              'Meeting this goal can result in: ',
+            style: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+        ),
+          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+          Text(
+            'Getting less than 7 hours of sleep can result in weight gain, high blood pressure, and depression.',
+            style: TextStyle(
+               color: Colors.redAccent,
+               fontSize: 18,
+               fontWeight: FontWeight.w700,
+            ),
+          ),
+          Padding(padding: EdgeInsets.only(top: 550.0)),
+          Text('Source: National Library of Medicine, Mayo Clinic',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+      ]),
+      )
     );
   }
 }

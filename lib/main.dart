@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
@@ -78,10 +80,11 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               //Sleep Info Button
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Sleep Info'),
                                 onPressed: () {
@@ -91,9 +94,10 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent.withOpacity(0.8),
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Settings'),
                                 onPressed: () {
