@@ -5,6 +5,7 @@ import '../views/dreams_view.dart';
 import '../viewmodel/dreams_viewmodel.dart';
 import '../utils/dreams_constant.dart';
 import '../utils/dreams_utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UNITSPresenter {
   void onCalculateClicked(String hourString, String minuteString, String sleepMinuteString, String sleepHourString){
@@ -195,6 +196,7 @@ class SleepCalculatorPresenter implements UNITSPresenter{
 }
 
 class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
@@ -245,6 +247,15 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
     //_databaseViewModel.qualityRating = qualityRating;
   }
 
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+    databaseReference.add(data);
+  }
+
+  Future<DocumentSnapshot> retrieveData() async{
+    return databaseReference.doc("1").get();
+  }
+
   @override
   void onOptionChanged(int value, {required String qualityRatingString})  {
 
@@ -272,7 +283,6 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
   }
 
 
-
   @override
   void onQualityRatingSubmitted(String qualityRating) {
     try{
@@ -283,6 +293,15 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
   }
 
 
+}
+
+class SleepDiaryPresenter {
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
+
+  void createEntry(String _diaryEntry, String _behaviorEntry) {
+    final data = {"Sleep Diary Entry": _diaryEntry,"Behavior Entry": _behaviorEntry};
+    databaseReference.add(data);
+  }
 }
 
 class TimeClockPresenter {

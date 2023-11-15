@@ -5,7 +5,7 @@ import 'package:units/firebase_options.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/presenter/dreams_presenter.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationApi().initNotifications();
@@ -73,6 +73,18 @@ class MyApp extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
+                                child: Text('Sleep Diary'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return SleepDiaryScreen();
+                                      }));
+                                },
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                ),
                                 child: Text('Time Clock'),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -120,7 +132,7 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
 }
 
 class SleepLogScreen extends StatefulWidget {
-  @override
+    @override
   _SleepLogScreen createState() => _SleepLogScreen();
 }
 
@@ -129,6 +141,19 @@ class _SleepLogScreen extends State<SleepLogScreen> {
   Widget build(BuildContext context) {
     return new SleepLogPage(
       new SleepLogPresenter(), title: 'Sleep Log', key: Key("LOGS"),);
+  }
+}
+
+class SleepDiaryScreen extends StatefulWidget {
+  @override
+  _SleepDiaryScreen createState() => _SleepDiaryScreen();
+}
+
+class _SleepDiaryScreen extends State<SleepDiaryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepDiaryPage(
+      new SleepDiaryPresenter(), title: 'Sleep Diary', key: Key("DIARIES"),);
   }
 }
 
