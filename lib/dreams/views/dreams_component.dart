@@ -898,27 +898,58 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
         title: Text('Sleep Benefits'),),
       body: Container(
         child: Column(
-        children: <Widget>[
-          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
-          Text(
-          'The recommended amount of sleep for an adult is between 7-9 hours each night. '
-              'Meeting this goal can result in: ',
-            style: TextStyle(
-              color: Colors.deepPurple,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
-        ),
-          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
-          Text(
-            'Getting less than 7 hours of sleep can result in weight gain, high blood pressure, and depression.',
-            style: TextStyle(
-               color: Colors.redAccent,
-               fontSize: 18,
-               fontWeight: FontWeight.w700,
-            ),
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(20)),
+            RichText(
+                text: new TextSpan(
+                children: [
+                  new TextSpan(
+                      text:'The recommended amount of sleep for an adult is between 7-9 hours each night.'
+                        ' Getting this amount of sleep can result in: \n\n',
+                    style: new TextStyle(color: Colors.deepPurple, fontSize: 18, fontWeight: FontWeight.w700)
+                  ),
+                  new TextSpan(
+                    text: '     • An improved immune system\n'
+                          '     • Reduced risk for serious health problems\n'
+                          '     • Clearer thinking',
+                    style: new TextStyle(color: Colors.deepPurple, fontSize: 18, fontWeight: FontWeight.w700)
+                  ),
+                ]
+              )
           ),
-          Padding(padding: EdgeInsets.only(top: 550.0)),
+          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+            RichText(
+                text: new TextSpan(
+                    children: [
+                      new TextSpan(
+                          text:'Getting less than 7 hours of sleep can result in: \n\n',
+                          style: new TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700)
+                      ),
+                      new TextSpan(
+                          text: '     • Depression\n'
+                                '     • Diabetes, heart disease, and high blood \n'
+                                '       pressure\n'
+                                '     • Weight gain',
+                          style: new TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700)
+                      ),
+                    ]
+                )
+            ),
+            Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+            RichText(
+                text: new TextSpan(
+                    children: [
+                      new TextSpan(
+                          text:'Needing more than 9 hours of sleep to feel\n'
+                               'rested could indicate an underlying sleep or \n'
+                               'medical problem'
+                               ,
+                          style: new TextStyle(color: Colors.blueAccent, fontSize: 19, fontWeight: FontWeight.w900)
+                      ),
+                    ]
+                )
+            ),
+          Padding(padding: EdgeInsets.only(top: 200.0)),
           RichText(
             text: new TextSpan(
                 children: [
@@ -928,24 +959,34 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                   ),
                   new TextSpan(
                     text:'Office of Disease Prevention and Health Promotion',
-                    style: new TextStyle(color:Colors.blue),
+                    style: new TextStyle(color:Colors.purple),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
                             'https://health.gov/myhealthfinder/healthy-living/mental-health-and-relationships/get-enough-sleep'));
                       },
-                      ),
-                  new TextSpan(
-                    text: ' and ',
-                    style: new TextStyle(color: Colors.black),
                   ),
+                  new TextSpan(text: ', ', style: new TextStyle(color: Colors.black)),
                   new TextSpan(
                     text: 'Mayo Clinic',
-                    style: new TextStyle(color: Colors.blue),
+                    style: new TextStyle(color: Colors.red),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () { launchUrl(Uri.parse('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
                       },
-                  )
+                  ),
+                  new TextSpan(
+                    text: ', and ',
+                    style: new TextStyle(color: Colors.black),
+                  ),
+                  new TextSpan(
+                    text:'Johns Hopkins University',
+                    style: new TextStyle(color:Colors.blueAccent),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://www.hopkinsmedicine.org/health/wellness-and-prevention/oversleeping-bad-for-your-health#:~:text=Oversleeping%20is%20associated%20with%20many,Obesity'));
+                      },
+                  ),
                 ]
             ),
           ),
@@ -981,9 +1022,33 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tips for getting more sleep'),),
+        title: Text('Advice for Sleep'),),
       body: Container(
         padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget> [
+            RichText(
+                text: new TextSpan(
+                    children: [
+                      new TextSpan(
+                          text:'Tips for getting better sleep: \n\n',
+                          style: new TextStyle(color: Colors.purple, fontSize: 24, fontWeight: FontWeight.w900)
+                      ),
+                      new TextSpan(
+                          text:'     • Be consistent, go to bed and wake up at \n'
+                               '       the same time each night\n\n'
+                               '     • Make sure bedroom is comfortable and \n'
+                               '       sufficiently dark\n\n'
+                               '     • Get some exercise during the day\n\n'
+                               '     • Remove electronic devices, such as TVs,\n'
+                               '       from your bedroom\n' ,
+                          style: new TextStyle(color: Colors.purple, fontSize: 16, fontWeight: FontWeight.w600)
+                      ),
+                    ]
+                )
+            ),
+          ],
+        ),
       ),
     );
   }
