@@ -1,12 +1,14 @@
 import 'dart:core';
 import 'dart:ffi';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -966,5 +968,17 @@ class _NotificationSettingScreen extends State<NotificationSettingScreen> {
   Widget build(BuildContext context) {
     return new NotificationSettingPage(
       new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
+  }
+}
+
+class NotificationApi {
+  final _notificationMessaging = FirebaseMessaging.instance;
+
+  Future<void> initNotifications() async {
+    await _notificationMessaging.requestPermission();
+
+    final fCMToken = await _notificationMessaging.getToken();
+
+    print('Token: $fCMToken');
   }
 }

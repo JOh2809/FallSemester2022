@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>459604809666-pfnkbkrtdcv3karrie8kv20ukc9q29rb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.459604809666-pfnkbkrtdcv3karrie8kv20ukc9q29rb</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>459604809666-o3r4r6to7ve7q3oeurf5r5pf457d9k9k.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBp3fO1GgDMHOxaC4jjcAfwOSXxREdvZmw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>459604809666</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.units</string>
+	<key>PROJECT_ID</key>
+	<string>sweetdreams-8b106</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sweetdreams-8b106.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:459604809666:ios:d28c610cee1d151b4da85b</string>
+	<key>DATABASE_URL</key>
+	<string>https://sweetdreams-8b106-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

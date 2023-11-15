@@ -205,8 +205,8 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
 
   //Initialize DatabaseViewModel within this presenter.
   // Create separate view model for getting database values from DatabaseViewModel.
-   //Format got database value, along with message, and display it to the user.
-   //Could use datetimenow/datetimeyesterday methods to assign historical data to specific dates.
+  //Format got database value, along with message, and display it to the user.
+  //Could use datetimenow/datetimeyesterday methods to assign historical data to specific dates.
   //Put images in assets folder and assign background image to that asset using container.
 
   SleepLogPresenter() {
@@ -220,7 +220,7 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
     _viewModel.value = await loadValue();
     //_viewModel.valueTime = await loadValue();
     _view.updateUnit(_viewModel.value);
-   // _view.updateTimeUnit(_viewModel.valueTime);
+    // _view.updateTimeUnit(_viewModel.valueTime);
 
   }
 
@@ -274,7 +274,6 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
         try {
           fuelUsed = double.parse(fuelUsedString);
         } catch (e) {
-
         }
       }
  */
