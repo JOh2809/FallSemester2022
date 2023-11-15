@@ -247,8 +247,8 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
     //_databaseViewModel.qualityRating = qualityRating;
   }
 
-  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
-    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating, String _timesNapped, String _timeFellAsleep) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating, "Times Napped": _timesNapped, "Time it Took to Fall Asleep": _timeFellAsleep};
     databaseReference.add(data);
   }
 
