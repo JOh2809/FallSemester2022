@@ -828,19 +828,29 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Info'),),
+        title: Text('Sleep Info'),
+      backgroundColor: Colors.purpleAccent.withOpacity(.9),),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+            fit: BoxFit.cover),
+        ),
+        //padding: EdgeInsets.all(20.0),
         child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                padding: EdgeInsets.only(top: 80.0, bottom: 20.0),
               ),
               ElevatedButton(
+
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent
+                    backgroundColor: Colors.blueAccent.withOpacity(.4),
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(150, 60),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
-                child: Text('Sleep Benefits'),
+                child: Text('Sleep Benefits', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -848,11 +858,17 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
                       }));
                 },
               ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent
+                    backgroundColor: Colors.blueAccent.withOpacity(.4),
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(150, 60),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
-                child: Text('How to get more sleep'),
+                child: Text('How to get more sleep', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -1023,6 +1039,9 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
       appBar: AppBar(
         title: Text('Advice for Sleep'),),
       body: Container(
+        //decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+          //fit: BoxFit.cover),
+       // ),
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: <Widget> [
@@ -1040,27 +1059,60 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
                                '       sufficiently dark\n\n'
                                '     • Get some exercise during the day\n\n'
                                '     • Remove electronic devices, such as TVs,\n'
-                               '       from your bedroom\n' ,
-                          style: new TextStyle(color: Colors.purple, fontSize: 16, fontWeight: FontWeight.w600)
+                               '       from your bedroom\n\n' ,
+                          style: new TextStyle(color: Colors.purple, fontSize: 18, fontWeight: FontWeight.w600)
                       ),
                     ]
                 )
             ),
-            Padding(padding: EdgeInsets.only(top: 450)),
+            RichText(text: new TextSpan(
+                children: [
+                  new TextSpan(text: 'Source:', style: new TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
+                  new TextSpan(
+                    text:' Centers for Disease Control and Prevention',
+                    style: new TextStyle(color:Colors.purple, fontSize: 14, fontWeight: FontWeight.w800),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html'));
+                      },
+                  ),
+                ]
+            )),
+            Padding(padding: EdgeInsets.only(top: 200)),
             RichText(text: new TextSpan(
               children: [
-                new TextSpan(text: 'Source:', style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800)),
+                new TextSpan(text: 'Further Reading: \n\n', style: new TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800)),
+                  new TextSpan(
+                    text:'     • United Kingdom National Health Service\n\n',
+                    style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/how-to-fall-asleep-faster-and-sleep-better/'));
+                      },
+                  ),
                 new TextSpan(
-                  text:' Centers for Disease Control and Prevention',
-                  style: new TextStyle(color:Colors.purple),
+                  text:'     • Healthline\n\n',
+                  style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () {
                       launchUrl(Uri.parse(
-                          'https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html'));
+                          'https://www.healthline.com/nutrition/17-tips-to-sleep-better'));
+                    },
+                ),
+                new TextSpan(
+                  text:'     • Headspace\n\n',
+                  style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrl(Uri.parse(
+                          'https://www.headspace.com/sleep/how-to-sleep-better'));
                     },
                 ),
               ]
-            ))
+            )
+            ),
           ],
         ),
       ),
