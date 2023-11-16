@@ -451,7 +451,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   }
 
 
-  late final List<charts.Series<dynamic, String>> seriesList;
+  /*late final List<charts.Series<dynamic, String>> seriesList;
 
   static List <charts.Series<SleepHours, String>> _createRandomData() {
     final random = Random();
@@ -509,7 +509,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         renderSpec: charts.NoneRenderSpec(),
       ),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -683,6 +683,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
 }
 
 class TimeClockPage extends StatefulWidget {
+
   final TimeClockPresenter presenter;
 
   TimeClockPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
@@ -694,28 +695,22 @@ class TimeClockPage extends StatefulWidget {
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
 
-  static List <charts.Series<SleepHours, String>> _createRandomData() {
-    final random = Random();
-    final hoursOfSleep = [
-      SleepHours('Sunday', random.nextInt(9)),
-      SleepHours('Monday', random.nextInt(9)),
-      SleepHours('Tuesday', random.nextInt(9)),
-      SleepHours('Wednesday', random.nextInt(9)),
-      SleepHours('Thursday', random.nextInt(9)),
-      SleepHours('Friday', random.nextInt(9)),
-      SleepHours('Saturday', random.nextInt(9)),
-    ];
-    final qualityOfSleep = [
-      SleepHours('Sunday', random.nextInt(11)),
-      SleepHours('Monday', random.nextInt(11)),
-      SleepHours('Tuesday', random.nextInt(11)),
-      SleepHours('Wednesday', random.nextInt(11)),
-      SleepHours('Thursday', random.nextInt(11)),
-      SleepHours('Friday', random.nextInt(11)),
-      SleepHours('Saturday', random.nextInt(11)),
-    ];
+  static List <charts.Series<SleepHours, String>> _getSleepData() {
+    final List logList = [];
+    final List<SleepHours> hoursOfSleep = [];
+    final List<SleepHours> qualityOfSleep = [];
+    final firestore = FirebaseFirestore.instance;
+    firestore.collection("Sleep Logs").where("Sleep Log Date", isLessThanOrEqualTo: DateTime.now().subtract(Duration(days: 7))).get().then(
+            (querySnapshot) {
+              print("Successfully Completed");
+          for(var docSnapshot in querySnapshot.docs){
+            //final data = docSnapshot.data() as Map<String, dynamic>;
+            print('${docSnapshot.id} => ${docSnapshot.data()}');
+          }
+        }
+    );
     return[
-      charts.Series<SleepHours, String>(
+      charts.Series<SleepHours, String>( //hours slept column
         id: 'Hours Slept',
         domainFn: (SleepHours sleephours, _) => sleephours.day,
         measureFn: (SleepHours sleephours, _) => sleephours.hours,
@@ -724,7 +719,7 @@ class _TimeClockPageState extends State<TimeClockPage> {
           return charts.MaterialPalette.blue.shadeDefault;
         },
       ),
-      charts.Series<SleepHours, String>(
+      charts.Series<SleepHours, String>( //quality of sleep column
         id: 'Quality of Sleep',
         domainFn: (SleepHours sleephours, _) => sleephours.day,
         measureFn: (SleepHours sleephours, _) => sleephours.hours,
@@ -755,7 +750,7 @@ class _TimeClockPageState extends State<TimeClockPage> {
   @override
   void initState() {
     super.initState();
-    seriesList = _createRandomData();
+    seriesList = _getSleepData();
   }
 
   @override
