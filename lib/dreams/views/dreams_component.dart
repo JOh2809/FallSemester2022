@@ -413,6 +413,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   String _timesNapped = "0";
   String _sleepLogDate = '';
 
+
   var _formKey = GlobalKey<FormState>();
 
   @override
@@ -549,10 +550,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration(
           hintText: 'e.g.) 8',
-          labelText: 'How many times did you nap today, if at all?',
+          labelText: 'How many times did you nap\ntoday, if at all?',
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           icon: Icon(
-            Icons.timer,
+            Icons.numbers_sharp,
             size: 30.0,
           ),
           fillColor: Colors.white,
@@ -574,10 +575,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration(
           hintText: 'e.g.) 8',
-          labelText: 'How long did it take you to fall asleep?',
+          labelText: 'How long did it take you to\nfall asleep?',
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           icon: Icon(
-            Icons.timer,
+            Icons.punch_clock,
             size: 30.0,
           ),
           fillColor: Colors.white,
