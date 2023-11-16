@@ -949,16 +949,16 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                     ]
                 )
             ),
-          Padding(padding: EdgeInsets.only(top: 200.0)),
+          Padding(padding: EdgeInsets.only(top: 250.0)),
           RichText(
             text: new TextSpan(
                 children: [
                   new TextSpan(
                     text: 'Source: ',
-                    style: new TextStyle(color: Colors.black),
+                    style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
                   ),
                   new TextSpan(
-                    text:'Office of Disease Prevention and Health Promotion',
+                    text:'Office of Disease Prevention and Health Promotion,\n',
                     style: new TextStyle(color:Colors.purple),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
@@ -966,9 +966,8 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                             'https://health.gov/myhealthfinder/healthy-living/mental-health-and-relationships/get-enough-sleep'));
                       },
                   ),
-                  new TextSpan(text: ', ', style: new TextStyle(color: Colors.black)),
                   new TextSpan(
-                    text: 'Mayo Clinic',
+                    text: '   Mayo Clinic',
                     style: new TextStyle(color: Colors.red),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () { launchUrl(Uri.parse('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
@@ -1047,6 +1046,21 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
                     ]
                 )
             ),
+            Padding(padding: EdgeInsets.only(top: 450)),
+            RichText(text: new TextSpan(
+              children: [
+                new TextSpan(text: 'Source:', style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800)),
+                new TextSpan(
+                  text:' Centers for Disease Control and Prevention',
+                  style: new TextStyle(color:Colors.purple),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrl(Uri.parse(
+                          'https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html'));
+                    },
+                ),
+              ]
+            ))
           ],
         ),
       ),
