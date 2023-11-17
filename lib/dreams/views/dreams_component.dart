@@ -4,11 +4,14 @@ import 'dart:ffi';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:visibility_detector/visibility_detector.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'VideoPlayer.dart';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -820,6 +823,39 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
         ],
       ),
     ));
+  }
+}
+
+class SleepMusicPage extends StatefulWidget {
+  final SleepMusicPresenter presenter;
+
+  SleepMusicPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepMusicPageState createState() => _SleepMusicPageState(presenter);
+}
+
+class _SleepMusicPageState extends State<SleepMusicPage> {
+  final SleepMusicPresenter presenter;
+  _SleepMusicPageState(this.presenter);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Music'),),
+      body: SingleChildScrollView(
+          child: Column(children: [
+            Text("(ULTRA CALM) Sleep Music "),
+            YoutubeVideo("https://www.youtube.com/watch?v=SaRjRbkW6K4"),
+            Text("Relaxing Water Sounds for Sleep"),
+            YoutubeVideo("https://www.youtube.com/watch?v=A1IYf7fKdhY"),
+            Text("Deep White Noise for Falling Asleep"),
+            YoutubeVideo("https://www.youtube.com/watch?v=FdN1pnEaJs0")
+          ],),
+
+      ),
+    );
   }
 }
 

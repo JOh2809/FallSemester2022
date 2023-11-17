@@ -303,6 +303,9 @@ class SleepDiaryPresenter {
   }
 }
 
+class SleepMusicPresenter {
+}
+
 class TimeClockPresenter {
 
 }
