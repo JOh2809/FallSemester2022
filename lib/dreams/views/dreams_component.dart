@@ -428,7 +428,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   void _recorder() {
     if(_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      this.widget.presenter.onRecordClicked(_qualityRating);
+      this.widget.presenter.onRecordClicked( _hoursSlept ,_qualityRating);
     }
      _sleepLogDate = '$Date';
     presenter.createLog(_sleepLogDate, _hoursSlept, _qualityRating, _timesNapped, _timeFellAsleep);
@@ -448,9 +448,61 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+    databaseReference.add(data);
+  }
+
+  Future<DocumentSnapshot> retrieveData() async{
+    return databaseReference.doc("1").get();
+  }
+
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+
+  late final List<charts.Series<dynamic, String>> seriesList;
+
+  static List <charts.Series<SleepHours, String>> _createRandomData() {
+    final random = Random();
+    final hoursOfSleep = [
+      SleepHours('Sunday', random.nextInt(9)),
+      SleepHours('Monday', random.nextInt(9)),
+      SleepHours('Tuesday', random.nextInt(9)),
+      SleepHours('Wednesday', random.nextInt(9)),
+      SleepHours('Thursday', random.nextInt(9)),
+      SleepHours('Friday', random.nextInt(9)),
+      SleepHours('Saturday', random.nextInt(9)),
+    ];
+    return[
+      charts.Series<SleepHours, String>(
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
+        fillColorFn: (SleepHours sleephours, _) {
+          return charts.MaterialPalette.blue.shadeDefault;
+        },
+      )
+    ];
+  }
+
+  barChart() {
+    return charts.BarChart(
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
+      defaultRenderer: charts.BarRendererConfig(
+        groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 1.0,
+      ),
+      domainAxis: charts.OrdinalAxisSpec(
+        renderSpec: charts.NoneRenderSpec(),
+      ),
+    );
   }
 
   @override
@@ -622,7 +674,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       children: <Widget>[
         Center(
           child: Text(
-            'Result: $_resultString',
+            'Average Hours Slept: $_resultString',
             style: TextStyle(
                 color: Colors.yellow,
                 fontSize: 24.0,
@@ -878,6 +930,7 @@ class TimeClockPage extends StatefulWidget {
   _TimeClockPageState createState() => _TimeClockPageState();
 }
 
+
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
 
@@ -1029,3 +1082,156 @@ class NotificationApi {
     print('Token: $fCMToken');
   }
 }
+
+//Sleep Info Page
+class SleepInfoPage extends StatefulWidget {
+  final SleepInfoPresenter presenter;
+  final String title;
+  SleepInfoPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepInfoPageState createState() => _SleepInfoPageState();
+}
+
+class _SleepInfoPageState extends State<SleepInfoPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Info'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                ),
+                child: Text('Sleep Benefits'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepBenefitsScreen();
+                      }));
+                },
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent
+                ),
+                child: Text('How to get more sleep'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepAdviceScreen();
+                      }));
+                },
+              ),
+
+            ]
+        ),),
+    );
+  }
+}
+
+//Sleep Benefits Page from here to line 904
+class SleepBenefitsScreen extends StatefulWidget {
+  @override
+  _SleepBenefitsScreen createState() => _SleepBenefitsScreen();
+}
+
+class _SleepBenefitsScreen extends State<SleepBenefitsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepBenefitsPage(
+      new SleepBenefitsPresenter(), title: 'Sleep Benefits', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepBenefitsPage extends StatefulWidget {
+  final SleepBenefitsPresenter presenter;
+  final String title;
+  SleepBenefitsPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
+}
+//Consider changing the font in the future
+class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Benefits'),),
+      body: Container(
+        child: Column(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+          Text(
+          'The recommended amount of sleep for an adult is between 7-9 hours each night. '
+              'Meeting this goal can result in: ',
+            style: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+        ),
+          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+          Text(
+            'Getting less than 7 hours of sleep can result in weight gain, high blood pressure, and depression.',
+            style: TextStyle(
+               color: Colors.redAccent,
+               fontSize: 18,
+               fontWeight: FontWeight.w700,
+            ),
+          ),
+          Padding(padding: EdgeInsets.only(top: 550.0)),
+          Text('Source: National Library of Medicine, Mayo Clinic',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+      ]),
+      )
+    );
+  }
+}
+
+class SleepAdviceScreen extends StatefulWidget{
+  @override
+  _SleepAdviceScreen createState() => _SleepAdviceScreen();
+}
+class _SleepAdviceScreen extends State<SleepAdviceScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepAdvicePage(
+      new SleepAdvicePresenter(), title: 'Sleep Advice', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepAdvicePage extends StatefulWidget {
+  final SleepAdvicePresenter presenter;
+  final String title;
+  SleepAdvicePage(this.presenter, {required Key? key, required this.title});
+  @override
+  _SleepAdvicePageState createState() => _SleepAdvicePageState();
+}
+
+class _SleepAdvicePageState extends State<SleepAdvicePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tips for getting more sleep'),),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+      ),
+    );
+  }
+}
+

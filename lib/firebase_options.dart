@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -59,5 +56,16 @@ class DefaultFirebaseOptions {
     projectId: 'sweetdreams-8b106',
     databaseURL: 'https://sweetdreams-8b106-default-rtdb.firebaseio.com',
     storageBucket: 'sweetdreams-8b106.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBp3fO1GgDMHOxaC4jjcAfwOSXxREdvZmw',
+    appId: '1:459604809666:ios:d28c610cee1d151b4da85b',
+    messagingSenderId: '459604809666',
+    projectId: 'sweetdreams-8b106',
+    databaseURL: 'https://sweetdreams-8b106-default-rtdb.firebaseio.com',
+    storageBucket: 'sweetdreams-8b106.appspot.com',
+    iosClientId: '459604809666-pfnkbkrtdcv3karrie8kv20ukc9q29rb.apps.googleusercontent.com',
+    iosBundleId: 'com.example.units',
   );
 }

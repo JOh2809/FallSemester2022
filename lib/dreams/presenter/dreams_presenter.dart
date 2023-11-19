@@ -231,15 +231,19 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
   }
 
   @override
-  void onRecordClicked(String qualityRatingString) {
+  void onRecordClicked(String hoursSleptString, String qualityRatingString) {
     var qualityRating = 0.0;
+    var hoursSlept = 0.0;
+    try {
+      hoursSlept = double.parse(hoursSleptString);
+    } catch (e){}
     try {
       qualityRating = double.parse(qualityRatingString);
     } catch (e){}
 
-    List temp = new List.filled(1, null, growable: false);
+    List temp = new List.filled(2, null, growable: false);
     _viewModel.qualityRating = qualityRating;
-    temp = recorder(qualityRating);
+    temp = recorder(hoursSlept, qualityRating);
 
     _viewModel.units = temp[0];
 
@@ -315,5 +319,17 @@ class SettingPresenter {
 }
 
 class NotificationSettingPresenter {
+
+}
+
+class SleepInfoPresenter{
+
+}
+
+class SleepBenefitsPresenter{
+
+}
+
+class SleepAdvicePresenter{
 
 }
