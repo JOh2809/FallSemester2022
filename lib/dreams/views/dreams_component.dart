@@ -844,18 +844,28 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Music'),),
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+        fit: BoxFit.cover),
+        ),
+      child: SingleChildScrollView(
           child: Column(children: [
-            Text("(ULTRA CALM) Sleep Music "),
+            Text("(ULTRA CALM) Sleep Music",
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),),
             YoutubeVideo("https://www.youtube.com/watch?v=SaRjRbkW6K4"),
-            Text("Relaxing Water Sounds for Sleep"),
+            Text("Relaxing Water Sounds for Sleep",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),),
             YoutubeVideo("https://www.youtube.com/watch?v=A1IYf7fKdhY"),
-            Text("Deep White Noise for Falling Asleep"),
+            Text("Deep White Noise for Falling Asleep",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),),
             YoutubeVideo("https://www.youtube.com/watch?v=FdN1pnEaJs0")
           ],),
 
       ),
-    );
+    ));
   }
 }
 
