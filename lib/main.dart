@@ -125,7 +125,7 @@ class MyApp extends StatelessWidget {
                               Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                  //backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                   backgroundColor: Colors.blueAccent.withOpacity(0.8),
                                 ),
                                 child: Text('Settings'),

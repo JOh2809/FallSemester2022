@@ -448,15 +448,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
-  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
-    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
-    databaseReference.add(data);
-  }
-
-  Future<DocumentSnapshot> retrieveData() async{
-    return databaseReference.doc("1").get();
-  }
-
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
