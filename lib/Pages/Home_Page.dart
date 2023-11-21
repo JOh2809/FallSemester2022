@@ -6,6 +6,7 @@ import '../firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Auth_page.dart';
 import 'Loginpage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void signUserOut(){
   FirebaseAuth.instance.signOut();
@@ -97,6 +98,7 @@ class DynamicHomePage extends StatelessWidget {
                   },
                 ),
 
+                /*
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
@@ -110,6 +112,7 @@ class DynamicHomePage extends StatelessWidget {
                     ));
                   },
                 ),
+                 */
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(

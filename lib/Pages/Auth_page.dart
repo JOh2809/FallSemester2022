@@ -7,9 +7,6 @@ import 'package:units/main.dart';
 
 import '../dreams/views/dreams_component.dart';
 
-
-
-
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
 

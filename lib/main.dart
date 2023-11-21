@@ -6,6 +6,7 @@ import 'package:units/firebase_options.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/presenter/dreams_presenter.dart';
 import 'firebase_options.dart';  // Make sure this import is correct
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
