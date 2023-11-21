@@ -196,7 +196,7 @@ class SleepCalculatorPresenter implements UNITSPresenter{
 }
 
 class SleepLogPresenter { //May have to implement UNITSPresenter or new presenter for values specific for sleep log.
-  final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
   UNITSViewModel _viewModel = UNITSViewModel();
   UNITSView _view = UNITSView();
 
@@ -231,24 +231,27 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
   }
 
   @override
-  void onRecordClicked(String qualityRatingString) {
+  void onRecordClicked(String hoursSleptString, String qualityRatingString) {
     var qualityRating = 0.0;
+    var hoursSlept = 0.0;
+    try {
+      hoursSlept = double.parse(hoursSleptString);
+    } catch (e){}
     try {
       qualityRating = double.parse(qualityRatingString);
     } catch (e){}
 
-    List temp = new List.filled(1, null, growable: false);
+    List temp = new List.filled(2, null, growable: false);
     _viewModel.qualityRating = qualityRating;
-    temp = recorder(qualityRating);
+    temp = recorder(hoursSlept, qualityRating);
 
     _viewModel.units = temp[0];
 
     _view.updateResultValue(_viewModel.resultInString);
-    //_databaseViewModel.qualityRating = qualityRating;
   }
 
-  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
-    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating, String _timesNapped, String _timeFellAsleep) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating, "Times Napped": _timesNapped, "Time it Took to Fall Asleep": _timeFellAsleep};
     databaseReference.add(data);
   }
 
@@ -291,11 +294,12 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
 
     }
   }
-
-
 }
 
 class SleepDiaryPresenter {
+}
+
+class NewDiaryPresenter {
   final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
 
   void createEntry(String _diaryEntry, String _behaviorEntry) {
@@ -304,14 +308,18 @@ class SleepDiaryPresenter {
   }
 }
 
-class TimeClockPresenter {
+class OldDiariesPresenter {}
 
-}
+class SleepMusicPresenter {}
 
-class SettingPresenter {
+class TimeClockPresenter {}
 
-}
+class SettingPresenter {}
 
-class NotificationSettingPresenter {
+class NotificationSettingPresenter {}
 
-}
+class SleepInfoPresenter {}
+
+class SleepBenefitsPresenter {}
+
+class SleepAdvicePresenter {}

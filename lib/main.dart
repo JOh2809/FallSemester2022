@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blueAccent.withOpacity(0.4),
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blueAccent.withOpacity(0.4),
@@ -83,6 +85,19 @@ class MyApp extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                ),
+                                child: Text('Sleep Music'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return SleepMusicScreen();
+                                      }));
+                                },
+                              ),
+
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
                                 ),
                                 child: Text('Time Clock'),
@@ -93,6 +108,21 @@ class MyApp extends StatelessWidget {
                                       }));
                                 },
                               ),
+                              Padding(padding: EdgeInsets.all(10.0)),
+                              //Sleep Info Button
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                                ),
+                                child: Text('Sleep Info'),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return SleepInfoScreen();
+                                      }));
+                                },
+                              ),
+                              Padding(padding: EdgeInsets.all(10.0)),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blueAccent.withOpacity(0.8),
@@ -104,7 +134,7 @@ class MyApp extends StatelessWidget {
                                         return SettingScreen();
                                       }));
                                 },
-                              )
+                              ),
                             ],
                           )
                       ),
@@ -157,6 +187,20 @@ class _SleepDiaryScreen extends State<SleepDiaryScreen> {
   }
 }
 
+
+class SleepMusicScreen extends StatefulWidget {
+  @override
+  _SleepMusicScreen createState() => _SleepMusicScreen();
+}
+
+class _SleepMusicScreen extends State<SleepMusicScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepMusicPage(
+        new SleepMusicPresenter(), title: 'Sleep Music', key: Key("Music"),); //SleepMusicPage
+  }
+}
+
 class TimeClockScreen extends StatefulWidget {
   @override
   _TimeClockScreen createState() => _TimeClockScreen();
@@ -181,5 +225,18 @@ class _SettingScreen extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return new SettingPage(
       new SettingPresenter(), title: 'Settings', key: Key("LOGS"),);
+  }
+}
+
+class SleepInfoScreen extends StatefulWidget {
+  @override
+  _SleepInfoScreen createState() => _SleepInfoScreen();
+}
+
+class _SleepInfoScreen extends State<SleepInfoScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepInfoPage(
+      new SleepInfoPresenter(), title: 'Sleep Info', key: Key("LOGS"),);
   }
 }

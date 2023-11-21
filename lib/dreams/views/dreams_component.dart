@@ -1,13 +1,22 @@
 import 'dart:core';
 import 'dart:ffi';
 
+<<<<<<< HEAD
+=======
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:visibility_detector/visibility_detector.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'VideoPlayer.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
@@ -397,14 +406,21 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
+  final FocusNode _timesNappedFocus = FocusNode();
+  final FocusNode _timeFellAsleepFocus = FocusNode();
   var _qualityRatingController = TextEditingController();
   var _hoursSleptController = TextEditingController();
+  var _timesNappedController = TextEditingController();
+  var _timeFellAsleepController = TextEditingController();
   var _resultString = '';
   var _message = '';
   DateTime Date = DateTime.now();
   String _qualityRating = "0";
   String _hoursSlept = "0.0";
+  String _timeFellAsleep = "0.0";
+  String _timesNapped = "0";
   String _sleepLogDate = '';
+
 
   var _formKey = GlobalKey<FormState>();
 
@@ -417,10 +433,14 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   void _recorder() {
     if(_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      this.widget.presenter.onRecordClicked(_qualityRating);
+      this.widget.presenter.onRecordClicked( _hoursSlept ,_qualityRating);
     }
      _sleepLogDate = '$Date';
+<<<<<<< HEAD
     createLog(_sleepLogDate, _hoursSlept, _qualityRating);
+=======
+    presenter.createLog(_sleepLogDate, _hoursSlept, _qualityRating, _timesNapped, _timeFellAsleep);
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
   }
 
   @override
@@ -515,6 +535,32 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   @override
   Widget build(BuildContext context) {
 
+<<<<<<< HEAD
+=======
+    var _dreamTypeView = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Radio<int>(
+          activeColor: Colors.blueAccent.shade700,
+          value: 0, groupValue: null, onChanged: null,
+        ),
+        Text(
+          'Dream',
+          style: TextStyle(color: Colors.blueAccent.shade700, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        Radio<int>(
+          activeColor: Colors.blueAccent.shade700,
+          value: 1, groupValue: null, onChanged: null,
+        ),
+        Text(
+          'Nightmare',
+          style: TextStyle(color: Colors.blueAccent.shade700, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ],
+
+    );
+
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
     TextFormField qualityRatingField(BuildContext context) {
       return TextFormField(
         controller: _qualityRatingController,
@@ -534,13 +580,23 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
+<<<<<<< HEAD
           labelText: 'Quality of sleep on a scale of 1-10',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
             icon: Icon(Icons.scale),
+=======
+          labelText: 'On a scale of 1 - 10, how would you\nrate your sleep?',
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+                Icons.scale,
+                size: 30.0,
+            ),
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
           fillColor: Colors.blueAccent
         ),
       );
     }
+
     TextFormField hoursSleptField(BuildContext context) { //Hours slept
       return TextFormField(
         controller: _hoursSleptController,
@@ -560,9 +616,68 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration(
           hintText: 'e.g.) 8',
+<<<<<<< HEAD
           labelText: 'Hours slept today',
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
           icon: Icon(Icons.timer),
+=======
+          labelText: 'How long did you sleep for?',
+          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          icon: Icon(
+              Icons.timer,
+              size: 30.0,
+          ),
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
+          fillColor: Colors.white,
+        ),
+      );
+    }
+
+    TextFormField timesNappedField(BuildContext context) { //Hours slept
+      return TextFormField(
+        controller: _timesNappedController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
+        focusNode: _timesNappedFocus,
+        onFieldSubmitted: (term) {
+          _fieldFocusChange(context, _hoursSleptFocus, _qualityRatingFocus);
+        },
+        onSaved: (value) {
+          _timesNapped = value!;
+        },
+        decoration: InputDecoration(
+          hintText: 'e.g.) 8',
+          labelText: 'How many times did you nap\ntoday, if at all?',
+          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          icon: Icon(
+            Icons.numbers_sharp,
+            size: 30.0,
+          ),
+          fillColor: Colors.white,
+        ),
+      );
+    }
+
+    TextFormField timeFellAsleepField(BuildContext context) { //Hours slept
+      return TextFormField(
+        controller: _timeFellAsleepController,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
+        focusNode: _timeFellAsleepFocus,
+        onFieldSubmitted: (term) {
+          _fieldFocusChange(context, _hoursSleptFocus, _qualityRatingFocus);
+        },
+        onSaved: (value) {
+          _timeFellAsleep = value!;
+        },
+        decoration: InputDecoration(
+          hintText: 'e.g.) 8',
+          labelText: 'How long did it take you to\nfall asleep?',
+          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          icon: Icon(
+            Icons.punch_clock,
+            size: 30.0,
+          ),
           fillColor: Colors.white,
         ),
       );
@@ -579,6 +694,14 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
             children: <Widget>[
               hoursSleptField(context),
               qualityRatingField(context),
+              timesNappedField(context),
+              timeFellAsleepField(context),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Text("Did you have a dream or a nightmare?",style: const TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.5,)
+                ,),
+              _dreamTypeView,
+
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                 child: recordButton(),
@@ -593,9 +716,9 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       children: <Widget>[
         Center(
           child: Text(
-            'Result: $_resultString',
+            'Average Hours Slept: $_resultString',
             style: TextStyle(
-                color: Colors.blueAccent.shade700,
+                color: Colors.yellow,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -612,6 +735,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       body: ListView(
           children: <Widget>[
               _sleepLogView,
+<<<<<<< HEAD
               Padding(
                 padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
                 child: ElevatedButton.icon(
@@ -626,6 +750,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                   label: Text('Historical Sleep Data'),
                 ),
               ),
+=======
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
             _sleepLogResultView,
             //_sleepLogHistoryView,
             ],
@@ -682,6 +808,306 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     // TODO: implement updateUnit
   }
 }
+<<<<<<< HEAD
+=======
+class SleepDiaryPage extends StatefulWidget {
+  final SleepDiaryPresenter presenter;
+
+  SleepDiaryPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepDiaryPageState createState() => _SleepDiaryPageState(presenter);
+}
+
+class _SleepDiaryPageState extends State<SleepDiaryPage> {
+  final SleepDiaryPresenter presenter;
+  _SleepDiaryPageState(this.presenter);
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Diary'),
+      ),
+    body: Container(
+    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+    fit: BoxFit.cover),
+    ),
+
+      child: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 20.0,
+                bottom: 20.0),
+            child: Text("My Sleep Diary",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent),
+              textScaleFactor: 3,)
+            ,),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blueAccent.withOpacity(0.4),
+            ),
+            child: Text('Create New Diary Entry'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (
+                      BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
+                    return NewDiaryScreen();
+                  }));
+            },
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blueAccent.withOpacity(0.4),
+            ),
+            child: Text('Past Diary Entries'),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (
+                      BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
+                    return OldDiariesScreen();
+                  }));
+            },
+          ),
+        ],
+      ),
+    ));
+  }
+}
+
+class NewDiaryScreen extends StatefulWidget {
+  @override
+  _NewDiaryScreen createState() => _NewDiaryScreen();
+}
+
+class _NewDiaryScreen extends State<NewDiaryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new NewDiaryPage(
+      new NewDiaryPresenter(), title: 'New Diary', key: Key("NEW DIARY"),);
+  }
+}
+
+class NewDiaryPage extends StatefulWidget {
+  final NewDiaryPresenter presenter;
+
+  NewDiaryPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _NewDiaryPageState createState() => _NewDiaryPageState(presenter);
+}
+
+class _NewDiaryPageState extends State<NewDiaryPage> {
+  final NewDiaryPresenter presenter;
+  _NewDiaryPageState(this.presenter);
+
+  final FocusNode _diaryEntryFocus = FocusNode();
+  final FocusNode _behaviorEntryFocus = FocusNode();
+  var _diaryEntryController = TextEditingController();
+  var _behaviorEntryController = TextEditingController();
+  String _diaryEntry = '';
+  String _behaviorEntry = '';
+
+  var _formKey = GlobalKey<FormState>();
+
+  void _archiver() {
+    _diaryEntry = _diaryEntryController.text;
+    _behaviorEntry = _behaviorEntryController.text;
+    presenter.createEntry(_diaryEntry, _behaviorEntry);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    TextFormField diaryEntryField(BuildContext context) {
+      return TextFormField(
+        controller: _diaryEntryController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _diaryEntryFocus,
+        onFieldSubmitted: (value){
+          _diaryEntryFocus.unfocus();
+        },
+        decoration: InputDecoration (
+            labelText: 'Diary Entry',
+            border: OutlineInputBorder(),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+        maxLines: 5,
+        minLines: 1,
+      );
+    }
+
+    TextFormField behaviorEntryField(BuildContext context) {
+      return TextFormField(
+        controller: _behaviorEntryController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _behaviorEntryFocus,
+        onFieldSubmitted: (value){
+          _behaviorEntryFocus.unfocus();
+        },
+        decoration: InputDecoration (
+            labelText: 'Behavior Entry',
+            border: OutlineInputBorder(),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+        maxLines: 5,
+        minLines: 1,
+      );
+    }
+
+    ElevatedButton archiveButton() {
+      return ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueAccent.shade400
+        ),
+        onPressed: _archiver,
+        icon: Icon( // <-- Icon
+          Icons.download_done_outlined,
+          size: 30.0,
+        ),
+        label: Text('Archive Diary Entry'),
+      );
+    }
+
+    var _sleepDiaryView = Container(
+        color: Colors.lightBlueAccent.withOpacity(0.9),
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                diaryEntryField(context),
+                SizedBox(height: 200,),
+                behaviorEntryField(context),
+                SizedBox(height: 420,),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                  child: archiveButton(),
+                ),
+              ],
+            ),
+          ),
+        )
+    );
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Create New Sleep Diary'),
+        ),
+        body: Container(
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+              fit: BoxFit.cover),
+          ),
+
+          child: ListView(
+            children: <Widget>[
+              _sleepDiaryView,
+            ],
+          ),
+        ));
+  }
+
+
+}
+
+class OldDiariesScreen extends StatefulWidget {
+  @override
+  _OldDiariesScreen createState() => _OldDiariesScreen();
+}
+
+class _OldDiariesScreen extends State<OldDiariesScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new OldDiariesPage(
+      new OldDiariesPresenter(), title: 'Old Diaries', key: Key("OLD DIARIES"),);
+  }
+}
+
+class OldDiariesPage extends StatefulWidget {
+  final OldDiariesPresenter presenter;
+
+  OldDiariesPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _OldDiariesPageState createState() => _OldDiariesPageState(presenter);
+}
+
+class _OldDiariesPageState extends State<OldDiariesPage> {
+  final OldDiariesPresenter presenter;
+  _OldDiariesPageState(this.presenter);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+        title: Text('Sleep Diary History'),
+    ));
+  }
+
+
+}
+
+class SleepMusicPage extends StatefulWidget {
+  final SleepMusicPresenter presenter;
+
+  SleepMusicPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  _SleepMusicPageState createState() => _SleepMusicPageState(presenter);
+}
+
+class _SleepMusicPageState extends State<SleepMusicPage> {
+  final SleepMusicPresenter presenter;
+  _SleepMusicPageState(this.presenter);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Music'),),
+      body: Container(
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+        fit: BoxFit.cover),
+        ),
+      child: SingleChildScrollView(
+          child: Column(children: [
+            Text("(ULTRA CALM) Sleep Music",
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),),
+            YoutubeVideo("https://www.youtube.com/watch?v=SaRjRbkW6K4"),
+            Text("Relaxing Water Sounds for Sleep",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),),
+            YoutubeVideo("https://www.youtube.com/watch?v=A1IYf7fKdhY"),
+            Text("Deep White Noise for Falling Asleep",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),),
+            YoutubeVideo("https://www.youtube.com/watch?v=FdN1pnEaJs0")
+          ],),
+
+      ),
+    ));
+  }
+}
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
 
 class TimeClockPage extends StatefulWidget {
 
@@ -692,6 +1118,7 @@ class TimeClockPage extends StatefulWidget {
   @override
   _TimeClockPageState createState() => _TimeClockPageState();
 }
+
 
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
@@ -852,4 +1279,325 @@ class _NotificationSettingScreen extends State<NotificationSettingScreen> {
     return new NotificationSettingPage(
       new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
   }
+<<<<<<< HEAD
+=======
+}
+
+//Sleep Info Page
+class SleepInfoPage extends StatefulWidget {
+  final SleepInfoPresenter presenter;
+  final String title;
+  SleepInfoPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepInfoPageState createState() => _SleepInfoPageState();
+}
+
+class _SleepInfoPageState extends State<SleepInfoPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Info'),
+      backgroundColor: Colors.purpleAccent.withOpacity(.9),),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+            fit: BoxFit.cover),
+        ),
+        //padding: EdgeInsets.all(20.0),
+        child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 80.0, bottom: 20.0),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent.withOpacity(.4),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                ),
+                child: Text('Sleep Benefits', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepBenefitsScreen();
+                      }));
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent.withOpacity(.4),
+                    foregroundColor: Colors.white,
+                    //minimumSize: Size(150, 60),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                ),
+                child: Text('How to get more sleep', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepAdviceScreen();
+                      }));
+                },
+              ),
+
+            ]
+        ),),
+    );
+  }
+}
+
+//Sleep Benefits Page from here to line 904
+class SleepBenefitsScreen extends StatefulWidget {
+  @override
+  _SleepBenefitsScreen createState() => _SleepBenefitsScreen();
+}
+
+class _SleepBenefitsScreen extends State<SleepBenefitsScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepBenefitsPage(
+      new SleepBenefitsPresenter(), title: 'Sleep Benefits', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepBenefitsPage extends StatefulWidget {
+  final SleepBenefitsPresenter presenter;
+  final String title;
+  SleepBenefitsPage(this.presenter, {required Key? key, required this.title}) : super(key : key);
+  @override
+  _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
+}
+//Consider changing the font in the future
+class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sleep Benefits'),),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(20)),
+            RichText(
+                text: new TextSpan(
+                children: [
+                  new TextSpan(
+                      text:'The recommended amount of sleep for an adult is between 7-9 hours each night.'
+                        ' Getting this amount of sleep can result in: \n\n',
+                    style: new TextStyle(color: Colors.deepPurple, fontSize: 18, fontWeight: FontWeight.w700)
+                  ),
+                  new TextSpan(
+                    text: '     • An improved immune system\n'
+                          '     • Reduced risk for serious health problems\n'
+                          '     • Clearer thinking',
+                    style: new TextStyle(color: Colors.deepPurple, fontSize: 18, fontWeight: FontWeight.w700)
+                  ),
+                ]
+              )
+          ),
+          Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+            RichText(
+                text: new TextSpan(
+                    children: [
+                      new TextSpan(
+                          text:'Getting less than 7 hours of sleep can result in: \n\n',
+                          style: new TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700)
+                      ),
+                      new TextSpan(
+                          text: '     • Depression\n'
+                                '     • Diabetes, heart disease, and high blood \n'
+                                '       pressure\n'
+                                '     • Weight gain',
+                          style: new TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700)
+                      ),
+                    ]
+                )
+            ),
+            Padding(padding: EdgeInsets.only(top: 20.0, bottom: 20.0)),
+            RichText(
+                text: new TextSpan(
+                    children: [
+                      new TextSpan(
+                          text:'Needing more than 9 hours of sleep to feel\n'
+                               'rested could indicate an underlying sleep or \n'
+                               'medical problem'
+                               ,
+                          style: new TextStyle(color: Colors.blueAccent, fontSize: 19, fontWeight: FontWeight.w900)
+                      ),
+                    ]
+                )
+            ),
+          Padding(padding: EdgeInsets.only(top: 250.0)),
+          RichText(
+            text: new TextSpan(
+                children: [
+                  new TextSpan(
+                    text: 'Source: ',
+                    style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+                  ),
+                  new TextSpan(
+                    text:'Office of Disease Prevention and Health Promotion,\n',
+                    style: new TextStyle(color:Colors.purple),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://health.gov/myhealthfinder/healthy-living/mental-health-and-relationships/get-enough-sleep'));
+                      },
+                  ),
+                  new TextSpan(
+                    text: '   Mayo Clinic\n',
+                    style: new TextStyle(color: Colors.red),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () { launchUrl(Uri.parse('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
+                      },
+                  ),
+                  new TextSpan(
+                    text: ', and ',
+                    style: new TextStyle(color: Colors.black),
+                  ),
+                  new TextSpan(
+                    text:'Johns Hopkins University',
+                    style: new TextStyle(color:Colors.blueAccent),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://www.hopkinsmedicine.org/health/wellness-and-prevention/oversleeping-bad-for-your-health#:~:text=Oversleeping%20is%20associated%20with%20many,Obesity'));
+                      },
+                  ),
+                ]
+            ),
+          ),
+      ]),
+      )
+    );
+  }
+}
+
+class SleepAdviceScreen extends StatefulWidget{
+  @override
+  _SleepAdviceScreen createState() => _SleepAdviceScreen();
+}
+class _SleepAdviceScreen extends State<SleepAdviceScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepAdvicePage(
+      new SleepAdvicePresenter(), title: 'Sleep Advice', key: Key("LOGS"),
+    );
+  }
+}
+
+class SleepAdvicePage extends StatefulWidget {
+  final SleepAdvicePresenter presenter;
+  final String title;
+  SleepAdvicePage(this.presenter, {required Key? key, required this.title});
+  @override
+  _SleepAdvicePageState createState() => _SleepAdvicePageState();
+}
+
+class _SleepAdvicePageState extends State<SleepAdvicePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Advice for Sleep'),),
+      body: Container(
+        //decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+          //fit: BoxFit.cover),
+       // ),
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget> [
+            RichText(
+                text: new TextSpan(
+                    children: [
+                      new TextSpan(
+                          text:'Tips for getting better sleep: \n\n',
+                          style: new TextStyle(color: Colors.purple, fontSize: 24, fontWeight: FontWeight.w900)
+                      ),
+                      new TextSpan(
+                          text:'     • Be consistent, go to bed and wake up at \n'
+                               '       the same time each night\n\n'
+                               '     • Make sure bedroom is comfortable and \n'
+                               '       sufficiently dark\n\n'
+                               '     • Get some exercise during the day\n\n'
+                               '     • Remove electronic devices, such as TVs,\n'
+                               '       from your bedroom\n\n' ,
+                          style: new TextStyle(color: Colors.purple, fontSize: 18, fontWeight: FontWeight.w600)
+                      ),
+                    ]
+                )
+            ),
+            RichText(text: new TextSpan(
+                children: [
+                  new TextSpan(text: 'Source:', style: new TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
+                  new TextSpan(
+                    text:' Centers for Disease Control and Prevention',
+                    style: new TextStyle(color:Colors.purple, fontSize: 14, fontWeight: FontWeight.w800),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html'));
+                      },
+                  ),
+                ]
+            )),
+            Padding(padding: EdgeInsets.only(top: 200)),
+            RichText(text: new TextSpan(
+              children: [
+                new TextSpan(text: 'Further Reading: \n\n', style: new TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800)),
+                  new TextSpan(
+                    text:'     • United Kingdom National Health Service\n\n',
+                    style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                    recognizer: new TapGestureRecognizer()
+                      ..onTap = () {
+                        launchUrl(Uri.parse(
+                            'https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/how-to-fall-asleep-faster-and-sleep-better/'));
+                      },
+                  ),
+                new TextSpan(
+                  text:'     • Healthline\n\n',
+                  style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrl(Uri.parse(
+                          'https://www.healthline.com/nutrition/17-tips-to-sleep-better'));
+                    },
+                ),
+                new TextSpan(
+                  text:'     • Headspace\n\n',
+                  style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () {
+                      launchUrl(Uri.parse(
+                          'https://www.headspace.com/sleep/how-to-sleep-better'));
+                    },
+                ),
+              ]
+            )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class NotificationApi {
+  final _notificationMessaging = FirebaseMessaging.instance;
+
+  Future<void> initNotifications() async {
+    await _notificationMessaging.requestPermission();
+
+    final fCMToken = await _notificationMessaging.getToken();
+
+    print('Token: $fCMToken');
+  }
+>>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
 }
