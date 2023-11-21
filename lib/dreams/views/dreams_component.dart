@@ -1,7 +1,6 @@
 import 'dart:core';
 import 'dart:ffi';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../views/dreams_view.dart';
@@ -390,13 +389,12 @@ class SleepLogPage extends StatefulWidget {
   SleepLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  _SleepLogPageState createState() => _SleepLogPageState(presenter);
+  _SleepLogPageState createState() => _SleepLogPageState();
 }
 
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
-  final SleepLogPresenter presenter;
-  _SleepLogPageState(this.presenter);
 
+  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
   var _qualityRatingController = TextEditingController();
@@ -422,7 +420,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       this.widget.presenter.onRecordClicked(_qualityRating);
     }
      _sleepLogDate = '$Date';
-    presenter.createLog(_sleepLogDate, _hoursSlept, _qualityRating);
+    createLog(_sleepLogDate, _hoursSlept, _qualityRating);
   }
 
   @override
@@ -439,15 +437,21 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     });
   }
 
+  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
+    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
+    databaseReference.add(data);
+  }
+
+  Future<DocumentSnapshot> retrieveData() async{
+    return databaseReference.doc("1").get();
+  }
+
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 364ca13ca310d3b58e82fce01fb63e7c3ac13456
   /*late final List<charts.Series<dynamic, String>> seriesList;
 
   static List <charts.Series<SleepHours, String>> _createRandomData() {
@@ -511,28 +515,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   @override
   Widget build(BuildContext context) {
 
-    var _dreamTypeView = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
-          value: 0, groupValue: null, onChanged: null,
-        ),
-        Text(
-          'Dream',
-          style: TextStyle(color: Colors.blueAccent.shade700, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Radio<int>(
-          activeColor: Colors.blueAccent.shade700,
-          value: 1, groupValue: null, onChanged: null,
-        ),
-        Text(
-          'Nightmare',
-          style: TextStyle(color: Colors.blueAccent.shade700, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-
     TextFormField qualityRatingField(BuildContext context) {
       return TextFormField(
         controller: _qualityRatingController,
@@ -553,11 +535,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
           labelText: 'Quality of sleep on a scale of 1-10',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            icon: Icon(
-                Icons.scale,
-                size: 30.0,
-            ),
+            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
+            icon: Icon(Icons.scale),
           fillColor: Colors.blueAccent
         ),
       );
@@ -582,18 +561,15 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         decoration: InputDecoration(
           hintText: 'e.g.) 8',
           labelText: 'Hours slept today',
-          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          icon: Icon(
-              Icons.timer,
-              size: 30.0,
-          ),
+          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
+          icon: Icon(Icons.timer),
           fillColor: Colors.white,
         ),
       );
     }
 
     var _sleepLogView = Container(
-      color: Colors.lightBlueAccent.withOpacity(0.9),
+      color: Colors.purpleAccent.withOpacity(0.4),
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -607,7 +583,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                 padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                 child: recordButton(),
               ),
-              _dreamTypeView,
             ],
           ),
         ),
@@ -634,15 +609,11 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       appBar: AppBar(
         title: Text('Sleep Log'),
       ),
-    body: Container(
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-    fit: BoxFit.cover),
-    ),
-      child: ListView(
+      body: ListView(
           children: <Widget>[
               _sleepLogView,
               Padding(
-                padding: EdgeInsets.only(top: 5.0, bottom: 20.0),
+                padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent.shade400
@@ -650,16 +621,16 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                         onPressed: () {},
                   icon: Icon( // <-- Icon
                     Icons.bar_chart_sharp,
-                    size: 30.0,
+                    size: 27.0,
                   ),
                   label: Text('Historical Sleep Data'),
                 ),
               ),
             _sleepLogResultView,
+            //_sleepLogHistoryView,
             ],
           ),
-      )
-    );
+      );
   }
 
   ElevatedButton recordButton() {
@@ -670,7 +641,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       onPressed: _recorder,
       icon: Icon( // <-- Icon
         Icons.cloud,
-        size: 30.0,
+        size: 27.0,
       ),
       label: Text('Record Sleep Data'),
     );
@@ -709,130 +680,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   @override
   void updateUnit(int value) {
     // TODO: implement updateUnit
-  }
-}
-class SleepDiaryPage extends StatefulWidget {
-  final SleepDiaryPresenter presenter;
-
-  SleepDiaryPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  _SleepDiaryPageState createState() => _SleepDiaryPageState(presenter);
-}
-
-class _SleepDiaryPageState extends State<SleepDiaryPage> {
-  final SleepDiaryPresenter presenter;
-  _SleepDiaryPageState(this.presenter);
-
-  final FocusNode _diaryEntryFocus = FocusNode();
-  final FocusNode _behaviorEntryFocus = FocusNode();
-  var _diaryEntryController = TextEditingController();
-  var _behaviorEntryController = TextEditingController();
-  String _diaryEntry = '';
-  String _behaviorEntry = '';
-
-  var _formKey = GlobalKey<FormState>();
-
-  void _archiver() {
-    _diaryEntry = _diaryEntryController.text;
-    _behaviorEntry = _behaviorEntryController.text;
-    presenter.createEntry(_diaryEntry, _behaviorEntry);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    TextFormField diaryEntryField(BuildContext context) {
-      return TextFormField(
-        controller: _diaryEntryController,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-        focusNode: _diaryEntryFocus,
-        onFieldSubmitted: (value){
-          _diaryEntryFocus.unfocus();
-        },
-        decoration: InputDecoration (
-            labelText: 'Diary Entry',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            icon: Icon(
-                Icons.book_outlined,
-                size: 30.0,
-            ),
-            fillColor: Colors.blueAccent
-        ),
-      );
-    }
-
-    TextFormField behaviorEntryField(BuildContext context) {
-      return TextFormField(
-        controller: _behaviorEntryController,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-        focusNode: _behaviorEntryFocus,
-        onFieldSubmitted: (value){
-          _behaviorEntryFocus.unfocus();
-        },
-        decoration: InputDecoration (
-            labelText: 'Behavior Entry',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            icon: Icon(
-              Icons.book_outlined,
-              size: 30.0,
-            ),
-            fillColor: Colors.blueAccent
-        ),
-      );
-    }
-
-    ElevatedButton archiveButton() {
-      return ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent.shade400
-        ),
-        onPressed: _archiver,
-        icon: Icon( // <-- Icon
-          Icons.download_done_outlined,
-          size: 30.0,
-        ),
-        label: Text('Archive Diary Entry'),
-      );
-    }
-
-    var _sleepDiaryView = Container(
-        color: Colors.lightBlueAccent.withOpacity(0.9),
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                diaryEntryField(context),
-                behaviorEntryField(context),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                  child: archiveButton(),
-                ),
-              ],
-            ),
-          ),
-        )
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sleep Diary'),
-      ),
-    body: Container(
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-    fit: BoxFit.cover),
-    ),
-      child: ListView(
-        children: <Widget>[
-          _sleepDiaryView,
-        ],
-      ),
-    ));
   }
 }
 
@@ -1004,29 +851,5 @@ class _NotificationSettingScreen extends State<NotificationSettingScreen> {
   Widget build(BuildContext context) {
     return new NotificationSettingPage(
       new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
-  }
-}
-
-Future<void> handleBackgroundMessage(RemoteMessage message) async {
-  print('Title: ${message.notification?.title}');
-  print('Body: ${message.notification?.body}');
-  print('Payload: ${message.data}');
-}
-
-class NotificationApi {
-  final _notificationMessaging = FirebaseMessaging.instance;
-
-  Future<void> initNotifications() async {
-    await _notificationMessaging.requestPermission();//.then(
-            //(value) { return value.notificationCenter.index.});
-
-    final fCMToken = await _notificationMessaging.getToken();
-
-    print('Token: $fCMToken');
-
-    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
-  }
-  void handleMessage(RemoteMessage? message) {
-    if (message == null) return;
   }
 }
