@@ -8,6 +8,7 @@ import '../presenter/dreams_presenter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   final UNITSPresenter presenter;
@@ -694,20 +695,29 @@ class TimeClockPage extends StatefulWidget {
 
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
+  final firestore = FirebaseFirestore.instance;
 
-  static List <charts.Series<SleepHours, String>> _getSleepData() {
-    final List logList = [];
+  Future<DocumentSnapshot> retrieveData() async{
+    return firestore.doc("1").get();
+  }
+
+  List <charts.Series<SleepHours, String>> _getSleepData() {
     final List<SleepHours> hoursOfSleep = [];
     final List<SleepHours> qualityOfSleep = [];
-    final firestore = FirebaseFirestore.instance;
-    firestore.collection("Sleep Logs").where("Sleep Log Date", isLessThanOrEqualTo: DateTime.now().subtract(Duration(days: 7))).get().then(
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+    String string = dateFormat.format(DateTime.now().subtract(Duration(days: 7)));
+    firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then(
             (querySnapshot) {
               print("Successfully Completed");
-          for(var docSnapshot in querySnapshot.docs){
-            //final data = docSnapshot.data() as Map<String, dynamic>;
-            print('${docSnapshot.id} => ${docSnapshot.data()}');
-          }
-        }
+              for(var docSnapshot in querySnapshot.docs){
+                String date = docSnapshot['Sleep Log Date'].toString();
+                int hours = int.parse(docSnapshot['Hours Slept'].toString());
+                int quality = int.parse(docSnapshot['Quality Rating'].toString());
+                hoursOfSleep.add(SleepHours(date, hours));
+                qualityOfSleep.add(SleepHours(date, quality));
+              }
+            },
+      onError: (e) => print("Error completing: $e"),
     );
     return[
       charts.Series<SleepHours, String>( //hours slept column
@@ -720,7 +730,7 @@ class _TimeClockPageState extends State<TimeClockPage> {
         },
       ),
       charts.Series<SleepHours, String>( //quality of sleep column
-        id: 'Quality of Sleep',
+        id: 'Quality Rating',
         domainFn: (SleepHours sleephours, _) => sleephours.day,
         measureFn: (SleepHours sleephours, _) => sleephours.hours,
         data: qualityOfSleep,
