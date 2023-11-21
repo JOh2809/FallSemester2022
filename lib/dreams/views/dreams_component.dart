@@ -444,9 +444,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-<<<<<<< HEAD
-=======
-
   /*late final List<charts.Series<dynamic, String>> seriesList;
 
   static List <charts.Series<SleepHours, String>> _createRandomData() {
@@ -507,7 +504,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     );
   }*/
 
->>>>>>> 364ca13ca310d3b58e82fce01fb63e7c3ac13456
   @override
   Widget build(BuildContext context) {
 
