@@ -1179,11 +1179,9 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
                 padding: EdgeInsets.only(top: 80.0, bottom: 20.0),
               ),
               ElevatedButton(
-
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent.withOpacity(.4),
                     foregroundColor: Colors.white,
-                    minimumSize: Size(150, 60),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
                 child: Text('Sleep Benefits', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
@@ -1202,7 +1200,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent.withOpacity(.4),
                     foregroundColor: Colors.white,
-                    minimumSize: Size(150, 60),
+                    //minimumSize: Size(150, 60),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
                 child: Text('How to get more sleep', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
@@ -1320,7 +1318,7 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                       },
                   ),
                   new TextSpan(
-                    text: '   Mayo Clinic',
+                    text: '   Mayo Clinic\n',
                     style: new TextStyle(color: Colors.red),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () { launchUrl(Uri.parse('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));

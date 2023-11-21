@@ -317,16 +317,9 @@ class TimeClockPresenter {}
 class SettingPresenter {}
 
 class NotificationSettingPresenter {}
-}
 
-class SleepInfoPresenter{
+class SleepInfoPresenter {}
 
-}
+class SleepBenefitsPresenter {}
 
-class SleepBenefitsPresenter{
-
-}
-
-class SleepAdvicePresenter{
-
-}
+class SleepAdvicePresenter {}
