@@ -920,14 +920,26 @@ class _NotificationSettingScreen extends State<NotificationSettingScreen> {
   }
 }
 
+Future<void> handleBackgroundMessage(RemoteMessage message) async {
+  print('Title: ${message.notification?.title}');
+  print('Body: ${message.notification?.body}');
+  print('Payload: ${message.data}');
+}
+
 class NotificationApi {
   final _notificationMessaging = FirebaseMessaging.instance;
 
   Future<void> initNotifications() async {
-    await _notificationMessaging.requestPermission();
+    await _notificationMessaging.requestPermission();//.then(
+            //(value) { return value.notificationCenter.index.});
 
     final fCMToken = await _notificationMessaging.getToken();
 
     print('Token: $fCMToken');
+
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+  }
+  void handleMessage(RemoteMessage? message) {
+    if (message == null) return;
   }
 }

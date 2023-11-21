@@ -171,6 +171,7 @@ class _TimeClockScreen extends State<TimeClockScreen> {
 }
 
 class SettingScreen extends StatefulWidget {
+
   @override
   _SettingScreen createState() => _SettingScreen();
 }
