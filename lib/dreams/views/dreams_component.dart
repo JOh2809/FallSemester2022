@@ -709,7 +709,6 @@ class _TimeClockPageState extends State<TimeClockPage> {
                 int hours = int.parse(docSnapshot['Hours Slept'].toString());       // pull the hours slept as an int
                 int quality = int.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
                 hoursOfSleep.add(SleepHours(date, hours, quality));                 // add the pulled data to the hours list
-
               }
               for(var log in hoursOfSleep){
                 print(log.toString());                                              // for now, print the values to show pulling data works
