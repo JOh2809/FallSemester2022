@@ -11,7 +11,7 @@ class Loginpage extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-// Asynchronous function to sign in the user // username and password
+// Asynchronous funct ion to sign in the user // username and password
   Future<void> signUserIn(BuildContext context) async {
     try {
       // Use FirebaseAuth instance to sign in with email and password
@@ -22,7 +22,8 @@ class Loginpage extends StatelessWidget {
 
       // Handle successful login
       // Navigate to the home screen after successful login
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed
+        (context, '/home');
     } catch (e) {
       // Handle errors that may occur during the sign-in process
       print('Error signing in: $e');
@@ -61,7 +62,7 @@ class Loginpage extends StatelessWidget {
 
         // Handle successful Google Sign-In
         print("Navigating to home screen...");
-        Navigator.pushReplacementNamed(context, '/home'); // Provide context parameter
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
         print('Google Sign-In canceled');
       }
@@ -77,7 +78,6 @@ class Loginpage extends StatelessWidget {
       );
     }
   }
-
 
 
   @override

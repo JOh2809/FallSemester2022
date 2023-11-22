@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:units/Pages/Home_Page.dart';
 import 'package:units/Pages/Loginpage.dart';
-import 'package:units/Pages/home_page.dart';
 
+import 'package:units/main.dart';
 
-
+import '../dreams/views/dreams_component.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class AuthPage extends StatelessWidget {
             return CircularProgressIndicator();
           } else if (snapshot.hasData) {
             // User is logged in
-            return HomePage();
+            return DynamicHomePage();
           } else {
             // User is not logged in
             return Loginpage();
@@ -30,3 +31,4 @@ class AuthPage extends StatelessWidget {
     );
   }
 }
+
