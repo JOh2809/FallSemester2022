@@ -451,12 +451,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _message = message;
     });
   }
-
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
-
 
   /*late final List<charts.Series<dynamic, String>> seriesList;
 
@@ -980,8 +978,6 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
           ),
         ));
   }
-
-
 }
 
 class OldDiariesScreen extends StatefulWidget {
