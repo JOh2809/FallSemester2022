@@ -395,12 +395,13 @@ class SleepLogPage extends StatefulWidget {
   SleepLogPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
   @override
-  _SleepLogPageState createState() => _SleepLogPageState();
+  _SleepLogPageState createState() => _SleepLogPageState(presenter);
 }
 
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
+  final SleepLogPresenter presenter;
+  _SleepLogPageState(this.presenter);
 
-  final databaseReference = FirebaseFirestore.instance.collection('Sleep Logs');
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
   final FocusNode _timesNappedFocus = FocusNode();
@@ -433,7 +434,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       this.widget.presenter.onRecordClicked( _hoursSlept ,_qualityRating);
     }
      _sleepLogDate = '$Date';
-    createLog(_sleepLogDate, _hoursSlept, _qualityRating);
     presenter.createLog(_sleepLogDate, _hoursSlept, _qualityRating, _timesNapped, _timeFellAsleep);
   }
 
@@ -449,15 +449,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     setState(() {
       _message = message;
     });
-  }
-
-  void createLog(String _sleepLogDate, String _hoursSlept, String _qualityRating) {
-    final data = {"Sleep Log Date": _sleepLogDate, "Hours Slept": _hoursSlept, "Quality Rating": _qualityRating};
-    databaseReference.add(data);
-  }
-
-  Future<DocumentSnapshot> retrieveData() async{
-    return databaseReference.doc("1").get();
   }
 
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
@@ -571,9 +562,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
-          labelText: 'Quality of sleep on a scale of 1-10',
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
-            icon: Icon(Icons.scale),
           labelText: 'On a scale of 1 - 10, how would you\nrate your sleep?',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             icon: Icon(
@@ -604,9 +592,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration(
           hintText: 'e.g.) 8',
-          labelText: 'Hours slept today',
-          labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
-          icon: Icon(Icons.timer),
           labelText: 'How long did you sleep for?',
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           icon: Icon(
@@ -669,7 +654,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     }
 
     var _sleepLogView = Container(
-      color: Colors.purpleAccent.withOpacity(0.4),
+      color: Colors.lightBlueAccent.withOpacity(0.9),
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(8.0),
       child: SingleChildScrollView(
@@ -717,28 +702,18 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       appBar: AppBar(
         title: Text('Sleep Log'),
       ),
-      body: ListView(
+    body: Container(
+    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+    fit: BoxFit.cover),
+    ),
+      child: ListView(
           children: <Widget>[
               _sleepLogView,
-              Padding(
-                padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent.shade400
-                  ),
-                        onPressed: () {},
-                  icon: Icon( // <-- Icon
-                    Icons.bar_chart_sharp,
-                    size: 27.0,
-                  ),
-                  label: Text('Historical Sleep Data'),
-                ),
-              ),
             _sleepLogResultView,
-            //_sleepLogHistoryView,
             ],
           ),
-      );
+      )
+    );
   }
 
   ElevatedButton recordButton() {
@@ -749,7 +724,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       onPressed: _recorder,
       icon: Icon( // <-- Icon
         Icons.cloud,
-        size: 27.0,
+        size: 30.0,
       ),
       label: Text('Record Sleep Data'),
     );
@@ -1349,7 +1324,6 @@ class SleepBenefitsPage extends StatefulWidget {
   @override
   _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
 }
-
 //Consider changing the font in the future
 class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
   @override
@@ -1460,7 +1434,6 @@ class SleepAdviceScreen extends StatefulWidget{
   @override
   _SleepAdviceScreen createState() => _SleepAdviceScreen();
 }
-
 class _SleepAdviceScreen extends State<SleepAdviceScreen> {
   @override
   Widget build(BuildContext context) {
@@ -1567,7 +1540,7 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
 }
 
 
-/*
+
 class NotificationApi {
   final _notificationMessaging = FirebaseMessaging.instance;
 
@@ -1579,5 +1552,3 @@ class NotificationApi {
     print('Token: $fCMToken');
   }
 }
-
- */
