@@ -5,10 +5,13 @@ import 'package:units/firebase_options.dart';
 import 'dreams/views/dreams_component.dart';
 import 'dreams/presenter/dreams_presenter.dart';
 
-void main() async {
+void main() {
+  /*
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationApi().initNotifications();
+
+   */
   runApp(MyApp());
 }
 

@@ -1,12 +1,9 @@
 import 'dart:core';
 import 'dart:ffi';
 
-<<<<<<< HEAD
-=======
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -436,11 +433,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       this.widget.presenter.onRecordClicked( _hoursSlept ,_qualityRating);
     }
      _sleepLogDate = '$Date';
-<<<<<<< HEAD
     createLog(_sleepLogDate, _hoursSlept, _qualityRating);
-=======
     presenter.createLog(_sleepLogDate, _hoursSlept, _qualityRating, _timesNapped, _timeFellAsleep);
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
   }
 
   @override
@@ -535,8 +529,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   @override
   Widget build(BuildContext context) {
 
-<<<<<<< HEAD
-=======
     var _dreamTypeView = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -560,7 +552,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
 
     );
 
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
     TextFormField qualityRatingField(BuildContext context) {
       return TextFormField(
         controller: _qualityRatingController,
@@ -580,18 +571,15 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration (
           hintText: 'e.g.) 9',
-<<<<<<< HEAD
           labelText: 'Quality of sleep on a scale of 1-10',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
             icon: Icon(Icons.scale),
-=======
           labelText: 'On a scale of 1 - 10, how would you\nrate your sleep?',
             labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             icon: Icon(
                 Icons.scale,
                 size: 30.0,
             ),
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
           fillColor: Colors.blueAccent
         ),
       );
@@ -616,18 +604,15 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         },
         decoration: InputDecoration(
           hintText: 'e.g.) 8',
-<<<<<<< HEAD
           labelText: 'Hours slept today',
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black.withOpacity(0.6)),
           icon: Icon(Icons.timer),
-=======
           labelText: 'How long did you sleep for?',
           labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           icon: Icon(
               Icons.timer,
               size: 30.0,
           ),
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
           fillColor: Colors.white,
         ),
       );
@@ -735,7 +720,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       body: ListView(
           children: <Widget>[
               _sleepLogView,
-<<<<<<< HEAD
               Padding(
                 padding: EdgeInsets.only(top: 200.0, bottom: 20.0),
                 child: ElevatedButton.icon(
@@ -750,8 +734,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
                   label: Text('Historical Sleep Data'),
                 ),
               ),
-=======
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
             _sleepLogResultView,
             //_sleepLogHistoryView,
             ],
@@ -808,8 +790,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     // TODO: implement updateUnit
   }
 }
-<<<<<<< HEAD
-=======
 class SleepDiaryPage extends StatefulWidget {
   final SleepDiaryPresenter presenter;
 
@@ -1107,7 +1087,6 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
     ));
   }
 }
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
 
 class TimeClockPage extends StatefulWidget {
 
@@ -1279,8 +1258,6 @@ class _NotificationSettingScreen extends State<NotificationSettingScreen> {
     return new NotificationSettingPage(
       new NotificationSettingPresenter(), title: 'Notification Settings', key: Key("LOGS"),);
   }
-<<<<<<< HEAD
-=======
 }
 
 //Sleep Info Page
@@ -1372,6 +1349,7 @@ class SleepBenefitsPage extends StatefulWidget {
   @override
   _SleepBenefitsPageState createState() => _SleepBenefitsPageState();
 }
+
 //Consider changing the font in the future
 class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
   @override
@@ -1482,6 +1460,7 @@ class SleepAdviceScreen extends StatefulWidget{
   @override
   _SleepAdviceScreen createState() => _SleepAdviceScreen();
 }
+
 class _SleepAdviceScreen extends State<SleepAdviceScreen> {
   @override
   Widget build(BuildContext context) {
@@ -1588,7 +1567,7 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
 }
 
 
-
+/*
 class NotificationApi {
   final _notificationMessaging = FirebaseMessaging.instance;
 
@@ -1599,5 +1578,6 @@ class NotificationApi {
 
     print('Token: $fCMToken');
   }
->>>>>>> df81ca2d202210c41a099258729f5a43c57feb7a
 }
+
+ */
