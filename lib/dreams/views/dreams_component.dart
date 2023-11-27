@@ -11,22 +11,23 @@ import '../views/dreams_view.dart';
 import '../presenter/dreams_presenter.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:flutter_charts/flutter_charts.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'VideoPlayer.dart';
 import 'package:intl/intl.dart';
 
-class HomePage extends StatefulWidget {
+class SleepCalculatorPage extends StatefulWidget {
   final UNITSPresenter presenter;
 
-  HomePage(this.presenter, {required Key? key, required this.title}) : super(key: key);
+  SleepCalculatorPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _SleepCalculatorPageState createState() => _SleepCalculatorPageState();
 }
 
-class _HomePageState extends State<HomePage> implements UNITSView {
+class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UNITSView {
 
   var _sleepHourController = TextEditingController();
   var _sleepMinuteController = TextEditingController();
@@ -450,12 +451,10 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       _message = message;
     });
   }
-
   _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
-
 
   /*late final List<charts.Series<dynamic, String>> seriesList;
 
@@ -979,8 +978,6 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
           ),
         ));
   }
-
-
 }
 
 class OldDiariesScreen extends StatefulWidget {
@@ -1541,16 +1538,3 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
   }
 }
 
-
-
-class NotificationApi {
-  final _notificationMessaging = FirebaseMessaging.instance;
-
-  Future<void> initNotifications() async {
-    await _notificationMessaging.requestPermission();
-
-    final fCMToken = await _notificationMessaging.getToken();
-
-    print('Token: $fCMToken');
-  }
-}
