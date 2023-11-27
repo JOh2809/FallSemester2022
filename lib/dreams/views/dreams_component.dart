@@ -386,8 +386,6 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
-
-
 }
 
 class SleepLogPage extends StatefulWidget {
@@ -1003,8 +1001,16 @@ class OldDiariesPage extends StatefulWidget {
 }
 
 class _OldDiariesPageState extends State<OldDiariesPage> {
+  //final firestore = FirebaseFirestore.instance;
   final OldDiariesPresenter presenter;
   _OldDiariesPageState(this.presenter);
+/*
+  Future<DocumentSnapshot> retrieveData() async {
+    return firestore.doc("1").get();
+  }
+
+  List <chart.Series>
+*/
 
   @override
   Widget build(BuildContext context) {

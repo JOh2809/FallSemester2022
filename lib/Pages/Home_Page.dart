@@ -132,6 +132,34 @@ class DynamicHomePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
+                  child: Text('Sleep Diary'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepDiaryScreen();
+                      },
+                    ));
+                  },
+                ),
+                SizedBox(height: 10.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                  ),
+                  child: Text('Sleep Music'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return SleepMusicScreen();
+                      },
+                    ));
+                  },
+                ),
+                SizedBox(height: 10.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                  ),
                   child: Text('Time Clock'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -179,8 +207,6 @@ class DynamicHomePage extends StatelessWidget {
 }
 
 
-
-
 class SleepCalculatorScreen extends StatefulWidget {
   @override
   _SleepCalculatorScreen createState() => _SleepCalculatorScreen();
@@ -193,8 +219,6 @@ class _SleepCalculatorScreen extends State<SleepCalculatorScreen> {
   }
 }
 
-
-
 class SleepLogScreen extends StatefulWidget {
   @override
   _SleepLogScreen createState() => _SleepLogScreen();
@@ -205,6 +229,30 @@ class _SleepLogScreen extends State<SleepLogScreen> {
   Widget build(BuildContext context) {
     return new SleepLogPage(
       new SleepLogPresenter(), title: 'Sleep Log', key: Key("LOGS"),);
+  }
+}
+
+class SleepDiaryScreen extends StatefulWidget {
+  @override _SleepDiaryScreen createState() => _SleepDiaryScreen();
+}
+
+class _SleepDiaryScreen extends State<SleepDiaryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepDiaryPage(
+      new SleepDiaryPresenter(), title: 'Sleep Diary', key: Key("DIARIES"),);
+  }
+}
+
+class SleepMusicScreen extends StatefulWidget {
+  @override _SleepMusicScreen createState() => _SleepMusicScreen();
+}
+
+class _SleepMusicScreen extends State<SleepMusicScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return new SleepMusicPage(
+      new SleepMusicPresenter(), title: 'Sleep Music', key: Key("MUSIC"),);
   }
 }
 
