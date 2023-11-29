@@ -1137,6 +1137,7 @@ class _TimeClockPageState extends State<TimeClockPage> {
   @override
   void initState() {
     super.initState();
+    barChartState();
   }
 
   void barChartState() async {
@@ -1148,8 +1149,6 @@ class _TimeClockPageState extends State<TimeClockPage> {
   @override
   Widget build(BuildContext context) {                                  //builds the Time Clock page with the bar graph
     return FutureBuilder(future: populateList(), builder: (context, snapshot) {
-      List<SleepHours> barData = snapshot.data as List<SleepHours>;
-      
       return Scaffold(
         appBar: AppBar(
           title: Text('Time Clock'),),
