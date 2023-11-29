@@ -888,7 +888,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
               onPressed: () async {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return OldDiariesPage(key: null, entry: _diaryEntry,);
+                    return SleepDiaryHistoryPage(key: null, entry: _diaryEntry,);
                   },
                 ));
               },
@@ -909,12 +909,12 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   }
 }
 
-class OldDiariesPage extends StatelessWidget {
+class SleepDiaryHistoryPage extends StatelessWidget {
   final String entry;
-  OldDiariesPage({required Key? key, required this.entry}) : super(key: key);
-  
+  SleepDiaryHistoryPage({required Key? key, required this.entry}) : super(key: key);
+  final _biggerFont = const TextStyle(fontSize: 18.0);
   final firestore = FirebaseFirestore.instance;
-  late final List<Map<dynamic, dynamic>> seriesList = [];
+  final List<String> items = List<String>.generate(10, (i) => '$i');
 
   @override
   Widget build(BuildContext context) {
@@ -932,9 +932,17 @@ class OldDiariesPage extends StatelessWidget {
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
         fit: BoxFit.cover),
         ),
-      child: Text(
-        entry,
-        style:  TextStyle(fontSize: 24),
+      child: ListTile(
+        shape: RoundedRectangleBorder( //<-- SEE HERE
+          side: BorderSide(width: 2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        leading: CircleAvatar(
+          backgroundColor: const Color(0xff6ae792),
+
+        ),
+        subtitle: Text(entry),
+        trailing: Icon(Icons.more_vert),
       ),
       ),
     );
