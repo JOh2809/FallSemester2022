@@ -1075,31 +1075,34 @@ class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
   final firestore = FirebaseFirestore.instance;
 
-  List <charts.Series<SleepHours, String>> _getSleepData() {
+  Future <List<SleepHours>> populateList() async {
     final List<SleepHours> hoursOfSleep = [];
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
     String string = dateFormat.format(DateTime.now().subtract(Duration(days: 7)));
-    firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then(
-            (querySnapshot) {
-              print("Successfully Completed");
-              for(var docSnapshot in querySnapshot.docs){
-                String date = docSnapshot['Sleep Log Date'].toString();             // pull the date of the sleep log as a string
-                int hours = int.parse(docSnapshot['Hours Slept'].toString());       // pull the hours slept as an int
-                int quality = int.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
-                hoursOfSleep.add(SleepHours(date, hours, quality));                 // add the pulled data to the hours list
-              }
-              for(var log in hoursOfSleep){
-                print(log.toString());                                              // for now, print the values to show pulling data works
-              }
-            },
+    await firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then(
+          (querySnapshot) {
+        print("Successfully Completed");
+        for(var docSnapshot in querySnapshot.docs){
+          String date = docSnapshot['Sleep Log Date'].toString();                   // pull the date of the sleep log as a string
+          double hours = double.parse(docSnapshot['Hours Slept'].toString());       // pull the hours slept as an int
+          double quality = double.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
+          hoursOfSleep.add(SleepHours(date, hours, quality));                       // add the pulled data to the hours list
+          print(hoursOfSleep.length);
+        }
+      },
       onError: (e) => print("Error completing: $e"),
     );
+    print(hoursOfSleep.length);
+    return hoursOfSleep;
+  }
+
+  List <charts.Series<SleepHours, String>> _getSleepData(List<SleepHours> sleepData){
     return[
       charts.Series<SleepHours, String>( //hours slept column       //should return a column of hours for the date
         id: 'Hours Slept',                                          //name of column
         domainFn: (SleepHours sleephours, _) => sleephours.day,     //x-axis is the date
         measureFn: (SleepHours sleephours, _) => sleephours.hours,  //y-axis is the hours
-        data: hoursOfSleep,                                         //use hoursOfSleep as the data set
+        data: sleepData,                                         //use hoursOfSleep as the data set
         fillColorFn: (SleepHours sleephours, _) {
           return charts.MaterialPalette.blue.shadeDefault;          //makes the column blue
         },
@@ -1108,7 +1111,7 @@ class _TimeClockPageState extends State<TimeClockPage> {
         id: 'Quality Rating',                                       //name of column
         domainFn: (SleepHours sleephours, _) => sleephours.day,     //x-axis is the date
         measureFn: (SleepHours sleephours, _) => sleephours.quality,//y-axis is the quality rating
-        data: hoursOfSleep,                                         //use hoursOfSleep as the data set
+        data: sleepData,                                         //use hoursOfSleep as the data set
         fillColorFn: (SleepHours sleephours, _) {
           return charts.MaterialPalette.green.shadeDefault;         //makes the column green
         },
@@ -1124,7 +1127,6 @@ class _TimeClockPageState extends State<TimeClockPage> {
       barGroupingType: charts.BarGroupingType.grouped,              //groups the columns together
       defaultRenderer: charts.BarRendererConfig(
         groupingType: charts.BarGroupingType.grouped,
-        strokeWidthPx: 1.0,
       ),
       domainAxis: charts.OrdinalAxisSpec(
         renderSpec: charts.NoneRenderSpec(),
@@ -1132,22 +1134,31 @@ class _TimeClockPageState extends State<TimeClockPage> {
     );
   }
 
-
   @override
   void initState() {
     super.initState();
-    seriesList = _getSleepData();                                   //calls _getSleepData to fill seriesList with sleep logs from the last 7 days
+  }
+
+  void barChartState() async {
+    Future <List<SleepHours>> logs = populateList();
+    List<SleepHours> list2 = await logs;
+    seriesList = _getSleepData(list2);
   }
 
   @override
-  Widget build(BuildContext context) {                              //builds the Time Clock page with the bar graph
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Time Clock'),),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: barChart(),
-      ),
+  Widget build(BuildContext context) {                                  //builds the Time Clock page with the bar graph
+    return FutureBuilder(future: populateList(), builder: (context, snapshot) {
+      List<SleepHours> barData = snapshot.data as List<SleepHours>;
+      
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Time Clock'),),
+        body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: barChart(),
+        ),
+      );
+    }
     );
   }
 }
@@ -1213,8 +1224,8 @@ class _SettingPageState extends State<SettingPage> {
 
 class SleepHours{
   final String day;
-  final int hours;
-  final int quality;
+  final double hours;
+  final double quality;
   SleepHours(this.day, this.hours, this.quality);
   toString(){
     return "Date: $day\nHours Recorded: $hours\nQuality Rating: $quality";
