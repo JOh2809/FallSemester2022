@@ -787,7 +787,11 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   void _archiver() {
     _diaryEntry = _diaryEntryController.text;
     _behaviorEntry = _behaviorEntryController.text;
-    presenter.createEntry(_diaryEntry, _behaviorEntry);
+    presenter.archiveEntry(_diaryEntry, _behaviorEntry);
+  }
+
+  void _remover() {
+    presenter.removeEntry();
   }
 
   @override
@@ -853,6 +857,20 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
           size: 30.0,
         ),
         label: Text('Archive Diary Entry'),
+      );
+    }
+
+    ElevatedButton removeButton() {
+      return ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueAccent.shade400
+        ),
+        onPressed: _remover,
+        icon: Icon( // <-- Icon
+          Icons.download_done_outlined,
+          size: 30.0,
+        ),
+        label: Text('Remove Diary Entry'),
       );
     }
 
@@ -932,18 +950,41 @@ class SleepDiaryHistoryPage extends StatelessWidget {
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
         fit: BoxFit.cover),
         ),
-      child: ListTile(
-        shape: RoundedRectangleBorder( //<-- SEE HERE
-          side: BorderSide(width: 2),
-          borderRadius: BorderRadius.circular(20),
+      child: Hero(
+        tag: 'ListTile-Hero',
+        child: Card(
+          child: ListTile(
+              leading: Icon(Icons.book_outlined),
+            title: const Text('Sleep Diary Entry 1'),
+            subtitle: Text(entry),
+            tileColor: Colors.cyan,
+              trailing: Icon(Icons.more_vert),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<Widget>(builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
+                    body: Center(
+                      child: Hero(
+                        tag: 'ListTile-Hero',
+                        child: Card(
+                          child: ListTile(
+                            title: Text(entry),
+                            tileColor: Colors.blue[700],
+                            onTap: () {
+                              Navigator.pop(context);
+                            })
+                        )
+                      )
+                    ),
+                  );
+              }
+              ));
+            }
+          ),
         ),
-        leading: CircleAvatar(
-          backgroundColor: const Color(0xff6ae792),
-
-        ),
-        subtitle: Text(entry),
-        trailing: Icon(Icons.more_vert),
-      ),
+      )
       ),
     );
   }
