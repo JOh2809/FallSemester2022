@@ -442,7 +442,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     return _average;
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -664,7 +663,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         title: Text('Sleep Log'),
       ),
     body: Container(
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
     fit: BoxFit.cover),
     ),
       child: ListView(
@@ -838,7 +837,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
             )],
         ),
         body: Container(
-              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+            decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
               fit: BoxFit.cover),
             ),
           child: new Column(
@@ -992,7 +991,7 @@ class SleepDiaryHistoryPage extends StatelessWidget {
           ),
     ),
       body:  Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
         fit: BoxFit.cover),
         ),
       child: Hero(
@@ -1035,7 +1034,6 @@ class SleepDiaryHistoryPage extends StatelessWidget {
   }
 }
 
-
 class SleepMusicPage extends StatefulWidget {
   final SleepMusicPresenter presenter;
 
@@ -1055,7 +1053,7 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
       appBar: AppBar(
         title: Text('Sleep Music'),),
       body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
         fit: BoxFit.cover),
         ),
       child: SingleChildScrollView(
@@ -1226,7 +1224,11 @@ class _SettingPageState extends State<SettingPage> {
         appBar: AppBar(
           title: Text('Settings'),
         ),
-        body: Center(
+    body: Container(
+    alignment: Alignment.center,
+    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+    fit: BoxFit.cover),
+    ),
           child: Column(
               children: <Widget>[
                 Padding(
@@ -1290,7 +1292,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
       backgroundColor: Colors.purpleAccent.withOpacity(.9),),
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
             fit: BoxFit.cover),
         ),
         //padding: EdgeInsets.all(20.0),
@@ -1369,6 +1371,9 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
       appBar: AppBar(
         title: Text('Sleep Benefits'),),
       body: Container(
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+          fit: BoxFit.cover),
+          ),
         child: Column(
           children: <Widget>[
             Padding(padding: EdgeInsets.all(20)),
@@ -1495,9 +1500,9 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
       appBar: AppBar(
         title: Text('Advice for Sleep'),),
       body: Container(
-        //decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-          //fit: BoxFit.cover),
-       // ),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+        fit: BoxFit.cover),
+        ),
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: <Widget> [

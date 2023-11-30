@@ -68,7 +68,7 @@ class DynamicHomePage extends StatelessWidget {
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+                image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
