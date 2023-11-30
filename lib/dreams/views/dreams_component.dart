@@ -454,66 +454,6 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-  /*late final List<charts.Series<dynamic, String>> seriesList;
-
-  static List <charts.Series<SleepHours, String>> _createRandomData() {
-    final random = Random();
-    final hoursOfSleep = [
-      SleepHours('Sunday', random.nextInt(9)),
-      SleepHours('Monday', random.nextInt(9)),
-      SleepHours('Tuesday', random.nextInt(9)),
-      SleepHours('Wednesday', random.nextInt(9)),
-      SleepHours('Thursday', random.nextInt(9)),
-      SleepHours('Friday', random.nextInt(9)),
-      SleepHours('Saturday', random.nextInt(9)),
-    ];
-    final qualityOfSleep = [
-    SleepHours('Sunday', random.nextInt(11)),
-    SleepHours('Monday', random.nextInt(11)),
-    SleepHours('Tuesday', random.nextInt(11)),
-    SleepHours('Wednesday', random.nextInt(11)),
-    SleepHours('Thursday', random.nextInt(11)),
-    SleepHours('Friday', random.nextInt(11)),
-    SleepHours('Saturday', random.nextInt(11)),
-    ];
-    return[
-      charts.Series<SleepHours, String>(
-        id: 'Hours Slept',
-        domainFn: (SleepHours sleephours, _) => sleephours.day,
-        measureFn: (SleepHours sleephours, _) => sleephours.hours,
-        data: hoursOfSleep,
-        fillColorFn: (SleepHours sleephours, _) {
-          return charts.MaterialPalette.blue.shadeDefault;
-        },
-      ),
-      charts.Series<SleepHours, String>(
-        id: 'Quality of Sleep',
-        domainFn: (SleepHours sleephours, _) => sleephours.day,
-        measureFn: (SleepHours sleephours, _) => sleephours.hours,
-        data: qualityOfSleep,
-        fillColorFn: (SleepHours sleephours, _) {
-          return charts.MaterialPalette.green.shadeDefault;
-        },
-      )
-    ];
-  }
-
-  barChart() {
-    return charts.BarChart(
-      seriesList,
-      animate: true,
-      vertical: true,
-      barGroupingType: charts.BarGroupingType.grouped,
-      defaultRenderer: charts.BarRendererConfig(
-        groupingType: charts.BarGroupingType.grouped,
-        strokeWidthPx: 1.0,
-      ),
-      domainAxis: charts.OrdinalAxisSpec(
-        renderSpec: charts.NoneRenderSpec(),
-      ),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
 
@@ -775,143 +715,132 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   final SleepDiaryPresenter presenter;
   _SleepDiaryPageState(this.presenter);
 
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sleep Diary'),
-      ),
-    body: Container(
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-    fit: BoxFit.cover),
-    ),
-
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 20.0,
-                bottom: 20.0),
-            child: Text("My Sleep Diary",
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent),
-              textScaleFactor: 3,)
-            ,),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent.withOpacity(0.4),
-            ),
-            child: Text('Create New Diary Entry'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                      BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
-                    return NewDiaryScreen();
-                  }));
-            },
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent.withOpacity(0.4),
-            ),
-            child: Text('Past Diary Entries'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                      BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
-                    return OldDiariesScreen();
-                  }));
-            },
-          ),
-        ],
-      ),
-    ));
-  }
-}
-
-class NewDiaryScreen extends StatefulWidget {
-  @override
-  _NewDiaryScreen createState() => _NewDiaryScreen();
-}
-
-class _NewDiaryScreen extends State<NewDiaryScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new NewDiaryPage(
-      new NewDiaryPresenter(), title: 'New Diary', key: Key("NEW DIARY"),);
-  }
-}
-
-class NewDiaryPage extends StatefulWidget {
-  final NewDiaryPresenter presenter;
-
-  NewDiaryPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  _NewDiaryPageState createState() => _NewDiaryPageState(presenter);
-}
-
-class _NewDiaryPageState extends State<NewDiaryPage> {
-  final NewDiaryPresenter presenter;
-  _NewDiaryPageState(this.presenter);
-
   final FocusNode _diaryEntryFocus = FocusNode();
   final FocusNode _behaviorEntryFocus = FocusNode();
   var _diaryEntryController = TextEditingController();
   var _behaviorEntryController = TextEditingController();
-  String _diaryEntry = '';
-  String _behaviorEntry = '';
+
+  List<dynamicWidget> dynamicList = [];
+  List<String> _diaryEntryNumber = [];
+  List<String> _diaryEntry = [];
 
   var _formKey = GlobalKey<FormState>();
 
-  void _archiver() {
-    _diaryEntry = _diaryEntryController.text;
-    _behaviorEntry = _behaviorEntryController.text;
-    presenter.createEntry(_diaryEntry, _behaviorEntry);
+  addDynamic() {
+    if (_diaryEntryNumber.length != 0) {
+      _diaryEntryNumber = [];
+      _diaryEntry = [];
+      dynamicList = [];
+    }
+    setState(() {});
+    if (dynamicList.length >= 10) {
+      return;
+    }
+    dynamicList.add(new dynamicWidget());
+  }
+
+  void _remover() {
+    presenter.removeEntry();
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget dynamicTextField = new Flexible(
+      flex: 2,
+      child: new ListView.builder(
+        itemCount: dynamicList.length,
+        itemBuilder: (_, index) => dynamicList[index],
+      ),
+    );
 
+    Widget result = new Flexible(
+        flex: 1,
+        child: new Card(
+          child: ListView.builder(
+            itemCount: _diaryEntryNumber.length,
+            itemBuilder: (_, index) {
+              return new Padding(
+                padding: new EdgeInsets.all(10.0),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Container(
+                      margin: new EdgeInsets.only(left: 10.0),
+                      child: new Text("${index +
+                          1} : ${_diaryEntryNumber[index]}             ${_diaryEntry[index]}"),
+                    ),
+                    new Divider()
+                  ],
+                ),
+              );
+            },
+          ),
+        ));
+
+    submitData() {
+      _diaryEntry = [];
+      dynamicList.forEach((widget) => _diaryEntryNumber.add(widget._diaryEntryNumber.text));
+      dynamicList.forEach((widget) => _diaryEntry.add(widget._diaryEntry.text));
+      setState(() {});
+      print(_diaryEntryNumber.length);
+    }
+
+    Widget archiveButton = new Container(
+      child: new ElevatedButton(
+        onPressed: null,
+          //_archiver,
+        child: new Padding(
+          padding: new EdgeInsets.all(16.0),
+          child: new Text('Archive Diary Entries'),
+        ),
+      ),
+    );
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Create New Sleep Diary'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.history),
+              onPressed:
+              submitData,
+            )],
+        ),
+        body: Container(
+              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+              fit: BoxFit.cover),
+            ),
+          child: new Column(
+            children: <Widget>[
+              _diaryEntryNumber.length == 0 ? dynamicTextField : result,
+              _diaryEntryNumber.length == 0 ? archiveButton : new Container(),
+            ]
+          )
+        ),
+        floatingActionButton: new FloatingActionButton(
+            onPressed:
+              addDynamic,
+            child: new Icon(Icons.add)
+        )
+      //_sleepDiaryView,
+    );
+  }
+}
+    /*
     TextFormField diaryEntryField(BuildContext context) {
       return TextFormField(
         controller: _diaryEntryController,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         focusNode: _diaryEntryFocus,
-        onFieldSubmitted: (value){
+        onFieldSubmitted: (value) {
           _diaryEntryFocus.unfocus();
         },
-        decoration: InputDecoration (
+        decoration: InputDecoration(
             labelText: 'Diary Entry',
             border: OutlineInputBorder(),
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            icon: Icon(
-              Icons.book_outlined,
-              size: 30.0,
-            ),
-            fillColor: Colors.blueAccent
-        ),
-        maxLines: 5,
-        minLines: 1,
-      );
-    }
-
-    TextFormField behaviorEntryField(BuildContext context) {
-      return TextFormField(
-        controller: _behaviorEntryController,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-        focusNode: _behaviorEntryFocus,
-        onFieldSubmitted: (value){
-          _behaviorEntryFocus.unfocus();
-        },
-        decoration: InputDecoration (
-            labelText: 'Behavior Entry',
-            border: OutlineInputBorder(),
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             icon: Icon(
               Icons.book_outlined,
               size: 30.0,
@@ -937,6 +866,20 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
       );
     }
 
+    ElevatedButton removeButton() {
+      return ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueAccent.shade400
+        ),
+        onPressed: _remover,
+        icon: Icon( // <-- Icon
+          Icons.download_done_outlined,
+          size: 30.0,
+        ),
+        label: Text('Remove Diary Entry'),
+      );
+    }
+
     var _sleepDiaryView = Container(
         color: Colors.lightBlueAccent.withOpacity(0.9),
         margin: EdgeInsets.all(8.0),
@@ -959,72 +902,108 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
           ),
         )
     );
+     */
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Create New Sleep Diary'),
-        ),
-        body: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-              fit: BoxFit.cover),
-          ),
 
-          child: ListView(
-            children: <Widget>[
-              _sleepDiaryView,
-            ],
-          ),
-        ));
-  }
-}
+class dynamicWidget extends StatelessWidget {
+  TextEditingController _diaryEntry = new TextEditingController();
+  TextEditingController _diaryEntryNumber = new TextEditingController();
 
-class OldDiariesScreen extends StatefulWidget {
-  @override
-  _OldDiariesScreen createState() => _OldDiariesScreen();
-}
-
-class _OldDiariesScreen extends State<OldDiariesScreen> {
   @override
   Widget build(BuildContext context) {
-    return new OldDiariesPage(
-      new OldDiariesPresenter(), title: 'Old Diaries', key: Key("OLD DIARIES"),);
-    // code to present retrieved data from firebase
+    return Container(
+      margin: new EdgeInsets.all(8.0),
+      child:ListBody(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(8.0),
+                color: Colors.cyan.withOpacity(0.9),
+                width: 260,
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                child: new TextFormField(
+                  controller: _diaryEntry,
+                  decoration: const InputDecoration(
+                      labelText: 'Diary Entry',
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 
-class OldDiariesPage extends StatefulWidget {
-  final OldDiariesPresenter presenter;
-
-  OldDiariesPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  _OldDiariesPageState createState() => _OldDiariesPageState(presenter);
-}
-
-class _OldDiariesPageState extends State<OldDiariesPage> {
-  //final firestore = FirebaseFirestore.instance;
-  final OldDiariesPresenter presenter;
-  _OldDiariesPageState(this.presenter);
-
-/*
-  Future<DocumentSnapshot> retrieveData() async {
-    return firestore.doc("1").get();
-  }
-
-  List <chart.Series>
+class SleepDiaryHistoryPage extends StatelessWidget {
+  /*
+  final String entry;
+  SleepDiaryHistoryPage({required Key? key, required this.entry}) : super(key: key);
+  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final firestore = FirebaseFirestore.instance;
+  final List<String> items = List<String>.generate(10, (i) => '$i');
 */
 
+  const SleepDiaryHistoryPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
         title: Text('Sleep Diary History'),
-
-    ));
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.arrow_back_ios),
+          ),
+    ),
+      body:  Container(
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+        fit: BoxFit.cover),
+        ),
+      child: Hero(
+        tag: 'ListTile-Hero',
+        child: Card(
+          child: ListTile(
+              leading: Icon(Icons.book_outlined),
+            title: const Text('Sleep Diary Entry 1'),
+            //subtitle: Text(entry),
+            tileColor: Colors.cyan,
+              trailing: Icon(Icons.more_vert),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<Widget>(builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
+                    body: Center(
+                      child: Hero(
+                        tag: 'ListTile-Hero',
+                        child: Card(
+                          child: ListTile(
+                            //title: Text(entry),
+                            tileColor: Colors.blue[700],
+                            onTap: () {
+                              Navigator.pop(context);
+                            })
+                        )
+                      )
+                    ),
+                  );
+              }
+              ));
+            }
+          ),
+        ),
+      )
+      ),
+    );
   }
-
-
 }
+
 
 class SleepMusicPage extends StatefulWidget {
   final SleepMusicPresenter presenter;
@@ -1079,58 +1058,60 @@ class TimeClockPage extends StatefulWidget {
   _TimeClockPageState createState() => _TimeClockPageState();
 }
 
-
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
   final firestore = FirebaseFirestore.instance;
 
+  Future<DocumentSnapshot> retrieveData() async{
+    return firestore.doc("1").get();
+  }
+
   List <charts.Series<SleepHours, String>> _getSleepData() {
     final List<SleepHours> hoursOfSleep = [];
+    final List<SleepHours> qualityOfSleep = [];
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
     String string = dateFormat.format(DateTime.now().subtract(Duration(days: 7)));
     firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then(
             (querySnapshot) {
               print("Successfully Completed");
               for(var docSnapshot in querySnapshot.docs){
-                String date = docSnapshot['Sleep Log Date'].toString();             // pull the date of the sleep log as a string
-                int hours = int.parse(docSnapshot['Hours Slept'].toString());       // pull the hours slept as an int
-                int quality = int.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
-                hoursOfSleep.add(SleepHours(date, hours, quality));                 // add the pulled data to the hours list
-              }
-              for(var log in hoursOfSleep){
-                print(log.toString());                                              // for now, print the values to show pulling data works
+                String date = docSnapshot['Sleep Log Date'].toString();
+                int hours = int.parse(docSnapshot['Hours Slept'].toString());
+                int quality = int.parse(docSnapshot['Quality Rating'].toString());
+                hoursOfSleep.add(SleepHours(date, hours));
+                qualityOfSleep.add(SleepHours(date, quality));
               }
             },
       onError: (e) => print("Error completing: $e"),
     );
     return[
-      charts.Series<SleepHours, String>( //hours slept column       //should return a column of hours for the date
-        id: 'Hours Slept',                                          //name of column
-        domainFn: (SleepHours sleephours, _) => sleephours.day,     //x-axis is the date
-        measureFn: (SleepHours sleephours, _) => sleephours.hours,  //y-axis is the hours
-        data: hoursOfSleep,                                         //use hoursOfSleep as the data set
+      charts.Series<SleepHours, String>( //hours slept column
+        id: 'Hours Slept',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: hoursOfSleep,
         fillColorFn: (SleepHours sleephours, _) {
-          return charts.MaterialPalette.blue.shadeDefault;          //makes the column blue
+          return charts.MaterialPalette.blue.shadeDefault;
         },
       ),
       charts.Series<SleepHours, String>( //quality of sleep column
-        id: 'Quality Rating',                                       //name of column
-        domainFn: (SleepHours sleephours, _) => sleephours.day,     //x-axis is the date
-        measureFn: (SleepHours sleephours, _) => sleephours.quality,//y-axis is the quality rating
-        data: hoursOfSleep,                                         //use hoursOfSleep as the data set
+        id: 'Quality Rating',
+        domainFn: (SleepHours sleephours, _) => sleephours.day,
+        measureFn: (SleepHours sleephours, _) => sleephours.hours,
+        data: qualityOfSleep,
         fillColorFn: (SleepHours sleephours, _) {
-          return charts.MaterialPalette.green.shadeDefault;         //makes the column green
+          return charts.MaterialPalette.green.shadeDefault;
         },
       )
     ];
   }
 
-  barChart() {                                                      //constructs the bar chart
+  barChart() {
     return charts.BarChart(
-      seriesList,                                                   //uses seriesList for the columns and axes
-      animate: true,                                                //animates the graph
-      vertical: true,                                               //makes the graph vertical
-      barGroupingType: charts.BarGroupingType.grouped,              //groups the columns together
+      seriesList,
+      animate: true,
+      vertical: true,
+      barGroupingType: charts.BarGroupingType.grouped,
       defaultRenderer: charts.BarRendererConfig(
         groupingType: charts.BarGroupingType.grouped,
         strokeWidthPx: 1.0,
@@ -1141,15 +1122,14 @@ class _TimeClockPageState extends State<TimeClockPage> {
     );
   }
 
-
   @override
   void initState() {
     super.initState();
-    seriesList = _getSleepData();                                   //calls _getSleepData to fill seriesList with sleep logs from the last 7 days
+    seriesList = _getSleepData();
   }
 
   @override
-  Widget build(BuildContext context) {                              //builds the Time Clock page with the bar graph
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Time Clock'),),
@@ -1223,11 +1203,7 @@ class _SettingPageState extends State<SettingPage> {
 class SleepHours{
   final String day;
   final int hours;
-  final int quality;
-  SleepHours(this.day, this.hours, this.quality);
-  toString(){
-    return "Date: $day\nHours Recorded: $hours\nQuality Rating: $quality";
-  }
+  SleepHours(this.day, this.hours);
 }
 
 class NotificationSettingScreen extends StatefulWidget {
@@ -1547,3 +1523,16 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
   }
 }
 
+
+
+class NotificationApi {
+  final _notificationMessaging = FirebaseMessaging.instance;
+
+  Future<void> initNotifications() async {
+    await _notificationMessaging.requestPermission();
+
+    final fCMToken = await _notificationMessaging.getToken();
+
+    print('Token: $fCMToken');
+  }
+}
