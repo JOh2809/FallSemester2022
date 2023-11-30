@@ -988,6 +988,7 @@ class _OldDiariesScreen extends State<OldDiariesScreen> {
   Widget build(BuildContext context) {
     return new OldDiariesPage(
       new OldDiariesPresenter(), title: 'Old Diaries', key: Key("OLD DIARIES"),);
+    // code to present retrieved data from firebase
   }
 }
 
@@ -1004,6 +1005,7 @@ class _OldDiariesPageState extends State<OldDiariesPage> {
   //final firestore = FirebaseFirestore.instance;
   final OldDiariesPresenter presenter;
   _OldDiariesPageState(this.presenter);
+
 /*
   Future<DocumentSnapshot> retrieveData() async {
     return firestore.doc("1").get();
@@ -1017,6 +1019,7 @@ class _OldDiariesPageState extends State<OldDiariesPage> {
     return Scaffold(
         appBar: AppBar(
         title: Text('Sleep Diary History'),
+
     ));
   }
 
