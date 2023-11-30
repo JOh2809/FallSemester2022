@@ -386,8 +386,6 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
-
-
 }
 
 class SleepLogPage extends StatefulWidget {
@@ -802,88 +800,6 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   final SleepDiaryPresenter presenter;
   _SleepDiaryPageState(this.presenter);
 
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sleep Diary'),
-      ),
-    body: Container(
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-    fit: BoxFit.cover),
-    ),
-
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 20.0,
-                bottom: 20.0),
-            child: Text("My Sleep Diary",
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent),
-              textScaleFactor: 3,)
-            ,),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent.withOpacity(0.4),
-            ),
-            child: Text('Create New Diary Entry'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                      BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
-                    return NewDiaryScreen();
-                  }));
-            },
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent.withOpacity(0.4),
-            ),
-            child: Text('Past Diary Entries'),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                      BuildContext context) { //Navigate to second route "Sleep Calculator" when pressed.
-                    return OldDiariesScreen();
-                  }));
-            },
-          ),
-        ],
-      ),
-    ));
-  }
-}
-
-class NewDiaryScreen extends StatefulWidget {
-  @override
-  _NewDiaryScreen createState() => _NewDiaryScreen();
-}
-
-class _NewDiaryScreen extends State<NewDiaryScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new NewDiaryPage(
-      new NewDiaryPresenter(), title: 'New Diary', key: Key("NEW DIARY"),);
-  }
-}
-
-class NewDiaryPage extends StatefulWidget {
-  final NewDiaryPresenter presenter;
-
-  NewDiaryPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  _NewDiaryPageState createState() => _NewDiaryPageState(presenter);
-}
-
-class _NewDiaryPageState extends State<NewDiaryPage> {
-  final NewDiaryPresenter presenter;
-  _NewDiaryPageState(this.presenter);
-
   final FocusNode _diaryEntryFocus = FocusNode();
   final FocusNode _behaviorEntryFocus = FocusNode();
   var _diaryEntryController = TextEditingController();
@@ -901,20 +817,20 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
 
   @override
   Widget build(BuildContext context) {
-
     TextFormField diaryEntryField(BuildContext context) {
       return TextFormField(
         controller: _diaryEntryController,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         focusNode: _diaryEntryFocus,
-        onFieldSubmitted: (value){
+        onFieldSubmitted: (value) {
           _diaryEntryFocus.unfocus();
         },
-        decoration: InputDecoration (
+        decoration: InputDecoration(
             labelText: 'Diary Entry',
             border: OutlineInputBorder(),
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             icon: Icon(
               Icons.book_outlined,
               size: 30.0,
@@ -932,13 +848,14 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         focusNode: _behaviorEntryFocus,
-        onFieldSubmitted: (value){
+        onFieldSubmitted: (value) {
           _behaviorEntryFocus.unfocus();
         },
-        decoration: InputDecoration (
+        decoration: InputDecoration(
             labelText: 'Behavior Entry',
             border: OutlineInputBorder(),
-            labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             icon: Icon(
               Icons.book_outlined,
               size: 30.0,
@@ -990,12 +907,24 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Create New Sleep Diary'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.history),
+              onPressed: () async {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return SleepDiaryHistoryPage(key: null, entry: _diaryEntry,);
+                  },
+                ));
+              },
+            )
+          ],
         ),
         body: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+          decoration: BoxDecoration(image: DecorationImage(
+              image: AssetImage("assets/images/background-sweet-dreams.jpg"),
               fit: BoxFit.cover),
           ),
-
           child: ListView(
             children: <Widget>[
               _sleepDiaryView,
@@ -1005,41 +934,44 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
   }
 }
 
-class OldDiariesScreen extends StatefulWidget {
-  @override
-  _OldDiariesScreen createState() => _OldDiariesScreen();
-}
-
-class _OldDiariesScreen extends State<OldDiariesScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return new OldDiariesPage(
-      new OldDiariesPresenter(), title: 'Old Diaries', key: Key("OLD DIARIES"),);
-  }
-}
-
-class OldDiariesPage extends StatefulWidget {
-  final OldDiariesPresenter presenter;
-
-  OldDiariesPage(this.presenter, {required Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  _OldDiariesPageState createState() => _OldDiariesPageState(presenter);
-}
-
-class _OldDiariesPageState extends State<OldDiariesPage> {
-  final OldDiariesPresenter presenter;
-  _OldDiariesPageState(this.presenter);
+class SleepDiaryHistoryPage extends StatelessWidget {
+  final String entry;
+  SleepDiaryHistoryPage({required Key? key, required this.entry}) : super(key: key);
+  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final firestore = FirebaseFirestore.instance;
+  final List<String> items = List<String>.generate(10, (i) => '$i');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
         title: Text('Sleep Diary History'),
-    ));
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.arrow_back_ios),
+          ),
+    ),
+      body:  Container(
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+        fit: BoxFit.cover),
+        ),
+      child: ListTile(
+        shape: RoundedRectangleBorder( //<-- SEE HERE
+          side: BorderSide(width: 2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        leading: CircleAvatar(
+          backgroundColor: const Color(0xff6ae792),
+
+        ),
+        subtitle: Text(entry),
+        trailing: Icon(Icons.more_vert),
+      ),
+      ),
+    );
   }
-
-
 }
 
 class SleepMusicPage extends StatefulWidget {
@@ -1094,7 +1026,6 @@ class TimeClockPage extends StatefulWidget {
   @override
   _TimeClockPageState createState() => _TimeClockPageState();
 }
-
 
 class _TimeClockPageState extends State<TimeClockPage> {
   late final List<charts.Series<dynamic, String>> seriesList;
