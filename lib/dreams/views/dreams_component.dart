@@ -400,9 +400,10 @@ class SleepLogPage extends StatefulWidget {
 }
 
 class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
+  final firestore = FirebaseFirestore.instance;
   final SleepLogPresenter presenter;
   _SleepLogPageState(this.presenter);
-
+  List _HoursSleptList = [];
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
   final FocusNode _timesNappedFocus = FocusNode();
@@ -419,9 +420,30 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   String _timeFellAsleep = "0.0";
   String _timesNapped = "0";
   String _sleepLogDate = '';
-
+  String _average = "";
 
   var _formKey = GlobalKey<FormState>();
+
+  String _getSleepHourAverage() {
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+    String string = dateFormat.format(DateTime.now().subtract(Duration(days: 72)));
+    firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then(
+          (querySnapshot) {
+        print("Successfully Completed");
+        for(var docSnapshot in querySnapshot.docs) {
+          int hours = int.parse(docSnapshot['Hours Slept'].toString()); // pull the hours slept as an int
+          print("Hours Slept: $hours");
+          _HoursSleptList.add(hours);
+          double mean = _HoursSleptList.reduce((a,b) => a + b) / _HoursSleptList.length;
+          _average = mean.toStringAsFixed(3); // S
+
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+    return _average;
+  }
+
 
   @override
   void initState() {
@@ -441,6 +463,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   @override
   void updateResultValue(String resultValue){
     setState(() {
+      _getSleepHourAverage();
+      resultValue = _average;
       _resultString = resultValue;
     });
   }
@@ -685,7 +709,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       children: <Widget>[
         Center(
           child: Text(
-            'Average Hours Slept: $_resultString',
+            'The average amount of sleep you get (in hours) is: $_resultString',
             style: TextStyle(
                 color: Colors.yellow,
                 fontSize: 24.0,
@@ -728,6 +752,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       label: Text('Record Sleep Data'),
     );
   }
+
 
   @override
   void updateHour({required String hour}) {
