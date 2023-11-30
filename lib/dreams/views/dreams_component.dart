@@ -723,6 +723,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   List<dynamicWidget> dynamicList = [];
   List<String> _diaryEntryNumber = [];
   List<String> _diaryEntry = [];
+  List<String> _behaviorEntry = [];
 
   var _formKey = GlobalKey<FormState>();
 
@@ -731,6 +732,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
       _diaryEntryNumber = [];
       _diaryEntry = [];
       dynamicList = [];
+      _behaviorEntry = [];
     }
     setState(() {});
     if (dynamicList.length >= 10) {
@@ -908,6 +910,8 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
 class dynamicWidget extends StatelessWidget {
   TextEditingController _diaryEntry = new TextEditingController();
   TextEditingController _diaryEntryNumber = new TextEditingController();
+  TextEditingController _behaviorEntry = new TextEditingController();
+  TextEditingController _behaviorEntryNumber = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -929,76 +933,22 @@ class dynamicWidget extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.number,
                 ),
-              )
+              ),
+              Container(
+                margin: EdgeInsets.all(8.0),
+                color: Colors.cyan.withOpacity(0.9),
+                width: 260,
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                child: new TextFormField(
+                  controller: _behaviorEntry,
+                  decoration: const InputDecoration(
+                  labelText: 'Behavior Entry',
+                  ),
+                ),
+              ),
             ],
           )
         ],
-      ),
-    );
-  }
-}
-
-class SleepDiaryHistoryPage extends StatelessWidget {
-  /*
-  final String entry;
-  SleepDiaryHistoryPage({required Key? key, required this.entry}) : super(key: key);
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-  final firestore = FirebaseFirestore.instance;
-  final List<String> items = List<String>.generate(10, (i) => '$i');
-*/
-
-  const SleepDiaryHistoryPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-        title: Text('Sleep Diary History'),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(Icons.arrow_back_ios),
-          ),
-    ),
-      body:  Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background-sweet-dreams.jpg"),
-        fit: BoxFit.cover),
-        ),
-      child: Hero(
-        tag: 'ListTile-Hero',
-        child: Card(
-          child: ListTile(
-              leading: Icon(Icons.book_outlined),
-            title: const Text('Sleep Diary Entry 1'),
-            //subtitle: Text(entry),
-            tileColor: Colors.cyan,
-              trailing: Icon(Icons.more_vert),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<Widget>(builder: (BuildContext context) {
-                  return Scaffold(
-                    appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
-                    body: Center(
-                      child: Hero(
-                        tag: 'ListTile-Hero',
-                        child: Card(
-                          child: ListTile(
-                            //title: Text(entry),
-                            tileColor: Colors.blue[700],
-                            onTap: () {
-                              Navigator.pop(context);
-                            })
-                        )
-                      )
-                    ),
-                  );
-              }
-              ));
-            }
-          ),
-        ),
-      )
       ),
     );
   }
