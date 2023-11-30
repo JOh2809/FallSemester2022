@@ -726,6 +726,12 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
 
   var _formKey = GlobalKey<FormState>();
 
+  _archiver() {
+    _diaryEntry = [];
+  //  _diaryEntryFireStore = _diaryEntry.text;
+   // presenter.archiveEntry(_diaryEntryFireStore);
+  }
+
   addDynamic() {
     if (_diaryEntryNumber.length != 0) {
       _diaryEntryNumber = [];
@@ -787,8 +793,8 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
 
     Widget archiveButton = new Container(
       child: new ElevatedButton(
-        onPressed: null,
-          //_archiver,
+        onPressed:
+          _archiver,
         child: new Padding(
           padding: new EdgeInsets.all(16.0),
           child: new Text('Archive Diary Entries'),
