@@ -299,18 +299,20 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
 class SleepDiaryPresenter {
   final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
 
-  void createEntry(String _diaryEntry, String _behaviorEntry) {
+  void archiveEntry(String _diaryEntry) {
     final data = {
       "Sleep Diary Entry": _diaryEntry,
-      "Behavior Entry": _behaviorEntry
+      //"Behavior Entry": _behaviorEntry
     };
     databaseReference.add(data);
   }
+
+  void removeEntry() {
+    databaseReference.doc("1").delete();
+  }
 }
 
-class NewDiaryPresenter {}
-
-class OldDiariesPresenter {}
+class SleepDiaryHistoryPresenter {}
 
 class SleepMusicPresenter {}
 

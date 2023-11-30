@@ -53,6 +53,7 @@ class DynamicHomePage extends StatelessWidget {
     User? user = FirebaseAuth.instance.currentUser;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
