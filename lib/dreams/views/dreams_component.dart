@@ -711,6 +711,10 @@ class SleepDiaryPage extends StatefulWidget {
   _SleepDiaryPageState createState() => _SleepDiaryPageState(presenter);
 }
 
+void _archiver() {
+
+}
+
 class _SleepDiaryPageState extends State<SleepDiaryPage> {
   final SleepDiaryPresenter presenter;
   _SleepDiaryPageState(this.presenter);
@@ -724,6 +728,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   List<String> _diaryEntryNumber = [];
   List<String> _diaryEntry = [];
   List<String> _behaviorEntry = [];
+  List<String> _behaviorEntryNumber = [];
 
   var _formKey = GlobalKey<FormState>();
 
@@ -733,6 +738,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
       _diaryEntry = [];
       dynamicList = [];
       _behaviorEntry = [];
+      _behaviorEntryNumber = [];
     }
     setState(() {});
     if (dynamicList.length >= 10) {
@@ -769,7 +775,8 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
                     new Container(
                       margin: new EdgeInsets.only(left: 10.0),
                       child: new Text("${index +
-                          1} : ${_diaryEntryNumber[index]}             ${_diaryEntry[index]}"),
+                          1} : ${_diaryEntryNumber[index]}      ${_diaryEntry[index]}       "
+                          "    ${_behaviorEntryNumber[index]}      ${_behaviorEntry[index]}"),
                     ),
                     new Divider()
                   ],
@@ -785,12 +792,17 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
       dynamicList.forEach((widget) => _diaryEntry.add(widget._diaryEntry.text));
       setState(() {});
       print(_diaryEntryNumber.length);
+      _behaviorEntry = [];
+      dynamicList.forEach((widget) => _behaviorEntryNumber.add(widget._behaviorEntryNumber.text));
+      dynamicList.forEach((widget) => _behaviorEntry.add(widget._behaviorEntry.text));
+      setState(() {});
+      print(_behaviorEntryNumber.length);
     }
 
     Widget archiveButton = new Container(
       child: new ElevatedButton(
-        onPressed: null,
-          //_archiver,
+        onPressed:
+          _archiver,
         child: new Padding(
           padding: new EdgeInsets.all(16.0),
           child: new Text('Archive Diary Entries'),
@@ -924,12 +936,12 @@ class dynamicWidget extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(8.0),
                 color: Colors.cyan.withOpacity(0.9),
-                width: 260,
+                width: 180,
                 padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                 child: new TextFormField(
                   controller: _diaryEntry,
                   decoration: const InputDecoration(
-                      labelText: 'Diary Entry',
+                      labelText: 'Date Entry',
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -937,13 +949,14 @@ class dynamicWidget extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(8.0),
                 color: Colors.cyan.withOpacity(0.9),
-                width: 260,
+                width: 180,
                 padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                 child: new TextFormField(
                   controller: _behaviorEntry,
                   decoration: const InputDecoration(
                   labelText: 'Behavior Entry',
                   ),
+                  keyboardType: TextInputType.text,
                 ),
               ),
             ],
@@ -1470,19 +1483,5 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
         ),
       ),
     );
-  }
-}
-
-
-
-class NotificationApi {
-  final _notificationMessaging = FirebaseMessaging.instance;
-
-  Future<void> initNotifications() async {
-    await _notificationMessaging.requestPermission();
-
-    final fCMToken = await _notificationMessaging.getToken();
-
-    print('Token: $fCMToken');
   }
 }
