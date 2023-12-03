@@ -401,7 +401,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   final firestore = FirebaseFirestore.instance;
   final SleepLogPresenter presenter;
   _SleepLogPageState(this.presenter);
-  List _HoursSleptList = [];
+  List _sleepHoursList = [];
+  List _sleepQualityList = [];
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
   final FocusNode _timesNappedFocus = FocusNode();
@@ -411,6 +412,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   var _timesNappedController = TextEditingController();
   var _timeFellAsleepController = TextEditingController();
   var _resultString = '';
+  var _resultString2 = '';
   var _message = '';
   DateTime Date = DateTime.now();
   String _qualityRating = "0";
@@ -418,28 +420,49 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   String _timeFellAsleep = "0.0";
   String _timesNapped = "0";
   String _sleepLogDate = '';
-  String _average = "";
+  String _averageHourSlept = "";
+  String _averageSleepQuality = "";
 
   var _formKey = GlobalKey<FormState>();
 
   String _getSleepHourAverage() {
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-    String string = dateFormat.format(DateTime.now().subtract(Duration(days: 72)));
-    firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then(
+    String string = dateFormat.format(DateTime.now());
+    firestore.collection("Sleep Logs").where("Sleep Log Date", isLessThan: string).get().then(
           (querySnapshot) {
         print("Successfully Completed");
         for(var docSnapshot in querySnapshot.docs) {
           int hours = int.parse(docSnapshot['Hours Slept'].toString()); // pull the hours slept as an int
           print("Hours Slept: $hours");
-          _HoursSleptList.add(hours);
-          double mean = _HoursSleptList.reduce((a,b) => a + b) / _HoursSleptList.length;
-          _average = mean.toStringAsFixed(3); // S
+          _sleepHoursList.add(hours);
+          double mean = _sleepHoursList.reduce((a,b) => a + b) / _sleepHoursList.length;
+          _averageHourSlept = mean.toStringAsFixed(3); // Limits the length of the average to something more palatable
 
         }
       },
       onError: (e) => print("Error completing: $e"),
     );
-    return _average;
+    return _averageHourSlept;
+  }
+
+  String _getSleepQualityAverage() {
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+    String string = dateFormat.format(DateTime.now());
+    firestore.collection("Sleep Logs").where("Sleep Log Date", isLessThan: string).get().then(
+          (querySnapshot) {
+        print("Successfully Completed");
+        for(var docSnapshot in querySnapshot.docs) {
+          int sleepQuality = int.parse(docSnapshot['Quality Rating'].toString()); // pull the hours slept as an int
+          print("Sleep quality: $sleepQuality");
+          _sleepQualityList.add(sleepQuality);
+          double mean = _sleepQualityList.reduce((a,b) => a + b) / _sleepQualityList.length;
+          _averageSleepQuality = mean.toStringAsFixed(3); // S
+
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+    return _averageHourSlept;
   }
 
 
@@ -447,6 +470,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   void initState() {
     super.initState();
     this.widget.presenter.unitsView = this;
+    updateResultValue(_resultString);
+
   }
 
   void _recorder() {
@@ -462,11 +487,21 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   void updateResultValue(String resultValue){
     setState(() {
       _getSleepHourAverage();
-      resultValue = _average;
+      resultValue = _averageHourSlept;
       _resultString = resultValue;
+      _getSleepQualityAverage();
+      resultValue = _averageSleepQuality;
+      _resultString2 = resultValue;
     });
   }
-
+  @override
+  void updateResultValue2(String resultValue2){
+    setState(() {
+      _getSleepQualityAverage();
+      resultValue2 = _averageSleepQuality;
+      _resultString2 = resultValue2;
+    });
+  }
   @override
   void updateMessage(String message){
     setState(() {
@@ -707,7 +742,8 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
       children: <Widget>[
         Center(
           child: Text(
-            'The average amount of sleep you get (in hours) is: $_resultString',
+            'The average amount of sleep you get (in hours) is: $_resultString\n\n'
+                'The average quality of the sleep (1 being low quality, 10 being high quality) you get is: $_resultString2',
             style: TextStyle(
                 color: Colors.yellow,
                 fontSize: 24.0,
