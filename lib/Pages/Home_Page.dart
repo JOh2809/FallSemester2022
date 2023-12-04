@@ -63,12 +63,30 @@ class DynamicHomePage extends StatelessWidget {
                 icon: Icon(Icons.logout),
               ),
             ],
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/logo_sweet_dreams.jpg',
+                    scale: 4,
+                  ),
+                  const SizedBox(
+                    width: 0,
+                  ),
+                  const Text(
+                    'Sweet Dreams',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+              backgroundColor: Colors.deepOrangeAccent, //<-- SEE HERE
           ),
           backgroundColor: Colors.purpleAccent.withOpacity(0.9),
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/background-sweet-dreams.jpg"),
+                image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -79,17 +97,20 @@ class DynamicHomePage extends StatelessWidget {
                   child: Text(
                     "Welcome ${user?.displayName ?? 'User'} and Sweet Dreams!",
                     style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w800,
                     ),
                     textScaleFactor: 3,
                   ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                        backgroundColor: Colors.purple.withOpacity(.4),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Sleep Calculator'),
+
+                  child: Text('Sleep Calculator', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -117,9 +138,11 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Sleep Log'),
+                  child: Text('Sleep Log', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -131,9 +154,11 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Sleep Diary'),
+                  child: Text('Sleep Diary', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -145,9 +170,11 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Sleep Music'),
+                  child: Text('Sleep Music', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -159,9 +186,11 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Time Clock'),
+                  child: Text('Sleep Log Statistics', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -173,9 +202,11 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Sleep Info'),
+                  child: Text('Sleep Info', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -187,9 +218,11 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Settings'),
+                  child: Text('Settings', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
