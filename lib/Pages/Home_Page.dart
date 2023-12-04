@@ -96,20 +96,17 @@ class DynamicHomePage extends StatelessWidget {
                   child: Text(
                     "Welcome${user?.displayName ?? 'User'} and Sweet Dreams!",
                     style: const TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                     textScaleFactor: 3,
                   ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple.withOpacity(.4),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-
-                  child: Text('Sleep Calculator', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Sleep Calculator'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -137,11 +134,9 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Sleep Log', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Sleep Log'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -153,11 +148,9 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Sleep Diary', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Sleep Diary'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -169,11 +162,9 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Sleep Music', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Sleep Music'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -185,15 +176,13 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Sleep Log Statistics', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Sleep Graph'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return TimeClockScreen();
+                        return SleepGraphScreen();
                       },
                     ));
                   },
@@ -201,11 +190,9 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Sleep Info', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Sleep Info'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -217,11 +204,9 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Settings', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Settings'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -289,16 +274,16 @@ class _SleepMusicScreen extends State<SleepMusicScreen> {
   }
 }
 
-class TimeClockScreen extends StatefulWidget {
+class SleepGraphScreen extends StatefulWidget {
   @override
-  _TimeClockScreen createState() => _TimeClockScreen();
+  _SleepGraphScreen createState() => _SleepGraphScreen();
 }
 
-class _TimeClockScreen extends State<TimeClockScreen> {
+class _SleepGraphScreen extends State<SleepGraphScreen> {
   @override
   Widget build(BuildContext context) {
-    return new TimeClockPage(
-      new TimeClockPresenter(), title: 'Time Clock', key: Key("LOGS"),);
+    return new SleepGraphPage(
+      new SleepGraphPresenter(), title: 'Time Clock', key: Key("LOGS"),);
   }
 }
 

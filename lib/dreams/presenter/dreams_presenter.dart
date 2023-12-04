@@ -320,7 +320,7 @@ class SleepDiaryHistoryPresenter {}
 
 class SleepMusicPresenter {}
 
-class TimeClockPresenter {}
+class SleepGraphPresenter {}
 
 class SettingPresenter {}
 
