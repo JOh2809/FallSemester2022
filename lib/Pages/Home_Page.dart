@@ -161,11 +161,11 @@ class DynamicHomePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent.withOpacity(0.4),
                   ),
-                  child: Text('Time Clock'),
+                  child: Text('Sleep Graph'),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return TimeClockScreen();
+                        return SleepGraphScreen();
                       },
                     ));
                   },
@@ -257,16 +257,16 @@ class _SleepMusicScreen extends State<SleepMusicScreen> {
   }
 }
 
-class TimeClockScreen extends StatefulWidget {
+class SleepGraphScreen extends StatefulWidget {
   @override
-  _TimeClockScreen createState() => _TimeClockScreen();
+  _SleepGraphScreen createState() => _SleepGraphScreen();
 }
 
-class _TimeClockScreen extends State<TimeClockScreen> {
+class _SleepGraphScreen extends State<SleepGraphScreen> {
   @override
   Widget build(BuildContext context) {
-    return new TimeClockPage(
-      new TimeClockPresenter(), title: 'Time Clock', key: Key("LOGS"),);
+    return new SleepGraphPage(
+      new SleepGraphPresenter(), title: 'Time Clock', key: Key("LOGS"),);
   }
 }
 
