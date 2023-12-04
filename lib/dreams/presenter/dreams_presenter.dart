@@ -299,10 +299,14 @@ class SleepLogPresenter { //May have to implement UNITSPresenter or new presente
 class SleepDiaryPresenter {
   final databaseReference = FirebaseFirestore.instance.collection('Sleep Diaries');
 
-  void archiveEntry(String _diaryEntry) {
+  void archiveEntries(String _diaryEntryOne, String _diaryEntryTwo, String _diaryEntryThree, String _diaryEntryFour, String _diaryEntryFive, String _behaviorEntry) {
     final data = {
-      "Sleep Diary Entry": _diaryEntry,
-      //"Behavior Entry": _behaviorEntry
+      "Sleep Diary Entry 1": _diaryEntryOne,
+      "Sleep Diary Entry 2": _diaryEntryTwo,
+      "Sleep Diary Entry 3": _diaryEntryThree,
+      "Sleep Diary Entry 4": _diaryEntryFour,
+      "Sleep Diary Entry 5": _diaryEntryFive,
+      "Behavior Entry": _behaviorEntry
     };
     databaseReference.add(data);
   }
