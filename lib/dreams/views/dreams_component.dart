@@ -1413,7 +1413,10 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
         domainFn: (SleepHours sleephours, _) => sleephours.date,     //x-axis is the date
         measureFn: (SleepHours sleephours, _) => sleephours.hours,  //y-axis is the hours
         data: sleepData,                                            //use hoursOfSleep as the data set
-        fillColorFn: (SleepHours sleephours, _) {
+        colorFn: (SleepHours sleephours, _){
+          return charts.MaterialPalette.black;                      //outlines hours column in black to stand out
+        },
+          fillColorFn: (SleepHours sleephours, _) {
           return charts.MaterialPalette.blue.shadeDefault;          //makes the column blue
         },
       ),
@@ -1422,6 +1425,9 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
         domainFn: (SleepHours sleephours, _) => sleephours.date,    //x-axis is the date
         measureFn: (SleepHours sleephours, _) => sleephours.quality,//y-axis is the quality rating
         data: sleepData,                                            //use hoursOfSleep as the data set
+        colorFn: (SleepHours sleephours, _){
+          return charts.MaterialPalette.black;                      //outlines quality column in black to stand out
+        },
         fillColorFn: (SleepHours sleephours, _) {
           return charts.MaterialPalette.green.shadeDefault;         //makes the column green
         },
@@ -1437,6 +1443,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
       barGroupingType: charts.BarGroupingType.grouped,              //groups the columns together
       defaultRenderer: charts.BarRendererConfig(
         groupingType: charts.BarGroupingType.grouped,
+        strokeWidthPx: 2,
       ),
       domainAxis: new charts.OrdinalAxisSpec(                       //prints a value in each entry's x axis
           renderSpec: new charts.SmallTickRendererSpec(

@@ -98,7 +98,7 @@ class DynamicHomePage extends StatelessWidget {
                     "Welcome ${user?.displayName ?? 'User'} and Sweet Dreams!",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
+                      color: Colors.black,
                     ),
                     textScaleFactor: 3,
                   ),
