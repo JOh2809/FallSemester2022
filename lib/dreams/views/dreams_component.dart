@@ -249,7 +249,7 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
         appBar: AppBar(
           title: Text('Sleep Calculator'),
           centerTitle: true,
-          backgroundColor: Colors.blueAccent.shade700,
+          backgroundColor: Colors.deepOrangeAccent,
         ),
 
         backgroundColor: Colors.white,
@@ -702,6 +702,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Log'),
+        backgroundColor: Colors.deepOrangeAccent,
       ),
     body: Container(
     decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -1041,6 +1042,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Create New Sleep Diary'),
+          backgroundColor: Colors.deepOrangeAccent,
           actions: [
             IconButton(
               icon: const Icon(Icons.history),
@@ -1381,7 +1383,9 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Music'),),
+        title: Text('Sleep Music'),
+        backgroundColor: Colors.deepOrangeAccent,
+      ),
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
         fit: BoxFit.cover),
@@ -1494,7 +1498,9 @@ class _TimeClockPageState extends State<TimeClockPage> {
     return FutureBuilder(future: populateList(), builder: (context, snapshot) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Time Clock'),),
+          title: Text('Time Clock'),
+          backgroundColor: Colors.deepOrangeAccent,
+        ),
         body: Container(
           padding: EdgeInsets.all(20.0),
           child: barChart(),
@@ -1553,6 +1559,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Settings'),
+          backgroundColor: Colors.deepOrangeAccent,
         ),
     body: Container(
     alignment: Alignment.center,
@@ -1628,7 +1635,8 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Info'),
-      backgroundColor: Colors.purpleAccent.withOpacity(.9),),
+        backgroundColor: Colors.deepOrangeAccent,
+      ),
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -1708,7 +1716,9 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Benefits'),),
+        title: Text('Sleep Benefits'),
+        backgroundColor: Colors.deepOrangeAccent,
+      ),
       body: Container(
           decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
           fit: BoxFit.cover),
@@ -1758,48 +1768,48 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                       new TextSpan(
                           text:'Needing more than 9 hours of sleep to feel\n'
                                'rested could indicate an underlying sleep or \n'
-                               'medical problem'
+                               'medical problem\n\n'
                                ,
                           style: new TextStyle(color: Colors.blueAccent, fontSize: 19, fontWeight: FontWeight.w900)
                       ),
                     ]
                 )
             ),
-          Padding(padding: EdgeInsets.only(top: 250.0)),
+          Padding(padding: EdgeInsets.only(top: 10)),
           RichText(
+
             text: new TextSpan(
                 children: [
+                  new WidgetSpan(
+                    child: Container(
+                    child: Text('Further Reading (Items are clickable): \n',
+                    style: new TextStyle(color: Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
+                    ))),
                   new TextSpan(
-                    text: 'Source: ',
-                    style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
-                  ),
-                  new TextSpan(
-                    text:'Office of Disease Prevention and Health Promotion,\n',
-                    style: new TextStyle(color:Colors.purple),
+                    text:'\n    • Office of Disease Prevention and \nHealth Promotion ',
+                    style: new TextStyle(backgroundColor:Colors.deepOrangeAccent, color:Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
-                            'https://health.gov/myhealthfinder/healthy-living/mental-health-and-relationships/get-enough-sleep'));
+                            'https://web.archive.org/web/20231114005511/https://health.gov/myhealthfinder/healthy-living/mental-health-and-relationships/get-enough-sleep'));
                       },
                   ),
                   new TextSpan(
-                    text: '   Mayo Clinic\n',
-                    style: new TextStyle(color: Colors.red),
+                    text: '\n\n    • Mayo Clinic \n\n',
+                    style: new TextStyle(backgroundColor:Colors.deepOrangeAccent, color: Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
                     recognizer: new TapGestureRecognizer()
-                      ..onTap = () { launchUrl(Uri.parse('https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
+                      ..onTap = () { launchUrl(Uri.parse(
+                          'https://web.archive.org/web/20231201150857/https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
                       },
                   ),
+
                   new TextSpan(
-                    text: ', and ',
-                    style: new TextStyle(color: Colors.black),
-                  ),
-                  new TextSpan(
-                    text:'Johns Hopkins University',
-                    style: new TextStyle(color:Colors.blueAccent),
+                    text:'    • Johns Hopkins University \n\n',
+                    style: new TextStyle(backgroundColor: Colors.deepOrangeAccent, color:Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
-                            'https://www.hopkinsmedicine.org/health/wellness-and-prevention/oversleeping-bad-for-your-health#:~:text=Oversleeping%20is%20associated%20with%20many,Obesity'));
+                            'https://web.archive.org/web/20231127212524/https://www.hopkinsmedicine.org/health/wellness-and-prevention/oversleeping-bad-for-your-health'));
                       },
                   ),
                 ]
@@ -1837,7 +1847,9 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Advice for Sleep'),),
+        title: Text('Advice for Sleep'),
+        backgroundColor: Colors.deepOrangeAccent,
+      ),
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
         fit: BoxFit.cover),

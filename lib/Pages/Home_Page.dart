@@ -82,7 +82,6 @@ class DynamicHomePage extends StatelessWidget {
               ),
               backgroundColor: Colors.deepOrangeAccent, //<-- SEE HERE
           ),
-          backgroundColor: Colors.purpleAccent.withOpacity(0.9),
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -95,7 +94,7 @@ class DynamicHomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                   child: Text(
-                    "Welcome ${user?.displayName ?? 'User'} and Sweet Dreams!",
+                    "Welcome${user?.displayName ?? 'User'} and Sweet Dreams!",
                     style: const TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w800,
