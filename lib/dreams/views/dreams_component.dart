@@ -931,14 +931,16 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
     ElevatedButton archiveButton() {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent.shade400
+              backgroundColor: Colors.purple.withOpacity(.4),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
         ),
         onPressed: _archiver,
         icon: Icon( // <-- Icon
           Icons.download_done_outlined,
           size: 30.0,
         ),
-        label: Text('Archive Diary Entries'),
+        label: Text('Archive Diary Entries', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
       );
     }
 
@@ -1086,14 +1088,16 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
     ElevatedButton loadButton() {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent.shade400
+          backgroundColor: Colors.purple.withOpacity(.4),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
         ),
         onPressed: updateResultValue,
         icon: Icon( // <-- Icon
           Icons.download_done_outlined,
           size: 30.0,
         ),
-        label: Text('Load Diary Entry'),
+        label:  Text('Load Latest Diary Entry', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
       );
     }
 
@@ -1315,8 +1319,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
 
               ),
             ),
-            _sleepDiaryResultView,
             loadButton(),
+            _sleepDiaryResultView,
           ]
           )
       ),
