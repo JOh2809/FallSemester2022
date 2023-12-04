@@ -251,14 +251,20 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
           centerTitle: true,
           backgroundColor: Colors.blueAccent.shade700,
         ),
+
         backgroundColor: Colors.white,
-        body: ListView(
+        body: Container(
+            decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
+                fit: BoxFit.cover),
+            ),
+        child:                                                      ListView(
           children: <Widget>[
             Padding(padding: EdgeInsets.all(5.0)),
             _mainPartView,
             Padding(padding: EdgeInsets.all(5.0)),
             _resultView
           ],
+        )
         )
     );
 
@@ -662,7 +668,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
         title: Text('Sleep Log'),
       ),
     body: Container(
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
     fit: BoxFit.cover),
     ),
       child: ListView(
@@ -925,14 +931,16 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
     ElevatedButton archiveButton() {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent.shade400
+              backgroundColor: Colors.purple.withOpacity(.4),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
         ),
         onPressed: _archiver,
         icon: Icon( // <-- Icon
           Icons.download_done_outlined,
           size: 30.0,
         ),
-        label: Text('Archive Diary Entries'),
+        label: Text('Archive Diary Entries', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
       );
     }
 
@@ -1011,7 +1019,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
               fit: BoxFit.cover),
           ),
           child: ListView(
@@ -1080,14 +1088,16 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
     ElevatedButton loadButton() {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent.shade400
+          backgroundColor: Colors.purple.withOpacity(.4),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
         ),
         onPressed: updateResultValue,
         icon: Icon( // <-- Icon
           Icons.download_done_outlined,
           size: 30.0,
         ),
-        label: Text('Load Diary Entry'),
+        label:  Text('Load Latest Diary Entry', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
       );
     }
 
@@ -1118,7 +1128,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
         ),
       ),
       body:  Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
               fit: BoxFit.cover),
           ),
           child : Column(
@@ -1309,8 +1319,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
 
               ),
             ),
-            _sleepDiaryResultView,
             loadButton(),
+            _sleepDiaryResultView,
           ]
           )
       ),
@@ -1337,7 +1347,7 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
       appBar: AppBar(
         title: Text('Sleep Music'),),
       body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
         fit: BoxFit.cover),
         ),
       child: SingleChildScrollView(
@@ -1536,7 +1546,7 @@ class _SettingPageState extends State<SettingPage> {
         ),
     body: Container(
     alignment: Alignment.center,
-    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
     fit: BoxFit.cover),
     ),
           child: Column(
@@ -1549,9 +1559,12 @@ class _SettingPageState extends State<SettingPage> {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent
+                      backgroundColor: Colors.purple.withOpacity(.4),
+                      foregroundColor: Colors.white,
+                      //minimumSize: Size(150, 60),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Notification Settings'),
+                  child: Text('Notafication Settings', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
@@ -1560,10 +1573,16 @@ class _SettingPageState extends State<SettingPage> {
                   },
                 ),
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.purple.withOpacity(.4),
+                        foregroundColor: Colors.white,
+                        //minimumSize: Size(150, 60),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Go back')
+                  child: Text('Return to Home Screen', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                 )
               ]),
         )
@@ -1602,7 +1621,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
       backgroundColor: Colors.purpleAccent.withOpacity(.9),),
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
             fit: BoxFit.cover),
         ),
         //padding: EdgeInsets.all(20.0),
@@ -1613,7 +1632,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(.4),
+                    backgroundColor: Colors.purple.withOpacity(.4),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
@@ -1631,7 +1650,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent.withOpacity(.4),
+                    backgroundColor: Colors.purple.withOpacity(.4),
                     foregroundColor: Colors.white,
                     //minimumSize: Size(150, 60),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
@@ -1681,7 +1700,7 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
       appBar: AppBar(
         title: Text('Sleep Benefits'),),
       body: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
           fit: BoxFit.cover),
           ),
         child: Column(
@@ -1810,7 +1829,7 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
       appBar: AppBar(
         title: Text('Advice for Sleep'),),
       body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_two_sweet_dreams.jpg"),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
         fit: BoxFit.cover),
         ),
         padding: EdgeInsets.all(20.0),

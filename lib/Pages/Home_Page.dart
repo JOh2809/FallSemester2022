@@ -63,6 +63,24 @@ class DynamicHomePage extends StatelessWidget {
                 icon: Icon(Icons.logout),
               ),
             ],
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/logo_sweet_dreams.jpg',
+                    scale: 4,
+                  ),
+                  const SizedBox(
+                    width: 0,
+                  ),
+                  const Text(
+                    'Sweet Dreams',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+              backgroundColor: Colors.deepOrangeAccent, //<-- SEE HERE
           ),
           backgroundColor: Colors.purpleAccent.withOpacity(0.9),
           body: Container(
