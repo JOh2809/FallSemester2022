@@ -1482,7 +1482,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/background_two_sweet_dreams.jpg"), //sets the background to an image
+              image: AssetImage("assets/images/background_three_sweet_dreams.jpg"), //sets the background to an image
               fit: BoxFit.cover,
             ),
           ),
