@@ -247,11 +247,14 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sleep Calculator'),
+          title: Text(
+              'Sleep Calculator',
+        style: TextStyle(
+        color: Colors.black,)
+          ),
           centerTitle: true,
-          backgroundColor: Colors.blueAccent.shade700,
+          backgroundColor: Colors.greenAccent.shade700,
         ),
-
         backgroundColor: Colors.white,
         body: Container(
             decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -267,20 +270,17 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
         )
         )
     );
-
   }
 
   ElevatedButton calculateButton() {
     return ElevatedButton(
       onPressed: _calculator,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blueAccent.shade700,
-        textStyle: TextStyle(color: Colors.white70)
+        backgroundColor: Colors.purple.withOpacity(.5),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
-      child: Text(
-        'Calculate',
-        style: TextStyle(fontSize: 16.9),
-      ),
+      child: Text('Calculate', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
     );
   }
 
@@ -653,7 +653,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
           child: Text(
             'The average amount of sleep you get (in hours) is: $_resultString',
             style: TextStyle(
-                color: Colors.yellow,
+                color: Colors.black,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -665,7 +665,9 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Log'),
+        title: Text('Sleep Log',
+            style: TextStyle(
+              color: Colors.black,)),
       ),
     body: Container(
     decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -684,14 +686,16 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   ElevatedButton recordButton() {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent.shade400
+        backgroundColor: Colors.purple.withOpacity(.5),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
       onPressed: _recorder,
       icon: Icon( // <-- Icon
         Icons.cloud,
         size: 30.0,
       ),
-      label: Text('Record Sleep Data'),
+      label: Text('Record Sleep Data', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
     );
   }
 
@@ -1048,7 +1052,7 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
     ElevatedButton archiveButton() {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple.withOpacity(.4),
+              backgroundColor: Colors.purple.withOpacity(.5),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
         ),
@@ -1265,7 +1269,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
           child: Text(
             'Retrieved Latest Diary: $_resultString',
             style: TextStyle(
-                color: Colors.yellow,
+                color: Colors.black,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -1510,28 +1514,30 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Music'),),
-      body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
-        fit: BoxFit.cover),
-        ),
-      child: SingleChildScrollView(
-          child: Column(children: [
-            Text("(ULTRA CALM) Sleep Music",
+      body: SingleChildScrollView(
+          child: Column(
+            children: [
+            SizedBox(height: 10,),
+            Text("(ULTRA CALM) Sleep Music                                                              ",
             style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),),
+                fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10,),
             YoutubeVideo("https://www.youtube.com/watch?v=SaRjRbkW6K4"),
-            Text("Relaxing Water Sounds for Sleep",
+            SizedBox(height: 10,),
+            Text("Relaxing Water Sounds for Sleep                                                      ",
               style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),),
+                fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10,),
             YoutubeVideo("https://www.youtube.com/watch?v=A1IYf7fKdhY"),
-            Text("Deep White Noise for Falling Asleep",
+            SizedBox(height: 10,),
+            Text("Deep White Noise for Falling Asleep                                                ",
               style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),),
+                fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10,),
             YoutubeVideo("https://www.youtube.com/watch?v=FdN1pnEaJs0")
           ],),
-
       ),
-    ));
+    );
   }
 }
 
@@ -1697,7 +1703,7 @@ class _SettingPageState extends State<SettingPage> {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       //minimumSize: Size(150, 60),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
@@ -1712,7 +1718,7 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple.withOpacity(.4),
+                        backgroundColor: Colors.purple.withOpacity(.5),
                         foregroundColor: Colors.white,
                         //minimumSize: Size(150, 60),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
@@ -1770,7 +1776,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple.withOpacity(.4),
+                    backgroundColor: Colors.purple.withOpacity(.5),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
@@ -1788,7 +1794,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple.withOpacity(.4),
+                    backgroundColor: Colors.purple.withOpacity(.5),
                     foregroundColor: Colors.white,
                     //minimumSize: Size(150, 60),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))

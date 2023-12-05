@@ -60,27 +60,23 @@ class DynamicHomePage extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: signUserOut,
-                icon: Icon(Icons.logout),
+                icon: Icon(Icons.logout, color: Colors.black,),
               ),
             ],
               centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/logo_sweet_dreams.jpg',
-                    scale: 4,
-                  ),
                   const SizedBox(
                     width: 0,
                   ),
                   const Text(
-                    'Sweet Dreams',
+                    '        Sweet Dreams',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),
-              backgroundColor: Colors.deepOrangeAccent, //<-- SEE HERE
+              backgroundColor: Colors.greenAccent.shade700,
           ),
           backgroundColor: Colors.purpleAccent.withOpacity(0.9),
           body: Container(
@@ -93,23 +89,35 @@ class DynamicHomePage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  padding: EdgeInsets.only(top: 20.0, bottom: 2.0),
                   child: Text(
-                    "Welcome ${user?.displayName ?? 'User'} and Sweet Dreams!",
+                    "         Welcome ${user?.displayName ?? 'User'}!                 ",
                     style: const TextStyle(
-                      fontSize: 12.0,
+                      fontFamily: 'Lobster',
+
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w800,
                     ),
                     textScaleFactor: 3,
                   ),
                 ),
+                SizedBox(height: 10.0),
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 80,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.lightBlueAccent,
+                    radius: 75,
+                    backgroundImage: AssetImage('assets/images/logo_sweet_dreams.jpg'),
+                  ),
+                ),
+                SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple.withOpacity(.4),
+                        backgroundColor: Colors.purple.withOpacity(.5),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-
                   child: Text('Sleep Calculator', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -135,10 +143,13 @@ class DynamicHomePage extends StatelessWidget {
                   },
                 ),
                  */
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
@@ -154,7 +165,7 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
@@ -167,10 +178,12 @@ class DynamicHomePage extends StatelessWidget {
                     ));
                   },
                 ),
+                ],
+                ),
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
@@ -186,7 +199,7 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
@@ -202,7 +215,7 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
@@ -218,7 +231,7 @@ class DynamicHomePage extends StatelessWidget {
                 SizedBox(height: 10.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),

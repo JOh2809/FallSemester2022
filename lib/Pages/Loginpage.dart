@@ -89,10 +89,18 @@ class Loginpage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 50),
-                Icon(Icons.nightlight_round, size: 100),
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 60,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.lightBlueAccent,
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/images/logo_sweet_dreams.jpg'),
+                  ),
+                ),
+                SizedBox(height: 5),
                 Text(
-                  'Welcome to Sleep Flutter!',
+                  'Welcome to Sweet Dreams!',
                   style: TextStyle(
                     color: Color(0xFF616161),
                     fontSize: 16,
