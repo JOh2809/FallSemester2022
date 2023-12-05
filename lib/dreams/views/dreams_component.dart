@@ -1399,6 +1399,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
           double quality = double.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
           hoursOfSleep.add(SleepHours(date, hours, quality));                       // add the pulled data to the hours list
           count++;
+          //print(count);
         }
       },
       onError: (e) => print("Error completing: $e"),
@@ -1439,7 +1440,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
     return charts.BarChart(
       seriesList,                                                   //uses seriesList for the columns and axes
       animate: true,                                                //animates the graph
-      vertical: true,                                               //makes the graph vertical
+      vertical: false,                                               //makes the graph vertical
       barGroupingType: charts.BarGroupingType.grouped,              //groups the columns together
       defaultRenderer: charts.BarRendererConfig(
         groupingType: charts.BarGroupingType.grouped,
