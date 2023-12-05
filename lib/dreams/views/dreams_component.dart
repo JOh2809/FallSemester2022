@@ -1296,8 +1296,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
             child: Card(
               child: ListTile(
                   leading: Icon(Icons.book_outlined),
-                  title: const Text('Sleep Diary Entry 1'),
-                  subtitle: Text(entryOne),
+                  title: Text(entryOne),
+                  subtitle: Text(behaviorEntryOne),
                   tileColor: Colors.cyan,
                   trailing: Icon(Icons.more_vert),
                   onTap: () {
@@ -1312,6 +1312,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                                     child: Card(
                                         child: ListTile(
                                           title: Text(entryOne),
+                                            subtitle: Text(behaviorEntryOne),
                                             tileColor: Colors.blue[700],
                                             onTap: () {
                                               Navigator.pop(context);
@@ -1334,82 +1335,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Behavior Entry 1'),
-                    subtitle: Text(behaviorEntryOne),
-                    tileColor: Colors.cyan,
-                    trailing: Icon(Icons.more_vert),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<Widget>(builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBar(title: const Text('Behavior Entry 1')),
-                              body: Center(
-                                  child: Hero(
-                                      tag: 'ListTile-Hero',
-                                      child: Card(
-                                          child: ListTile(
-                                              title: Text(behaviorEntryOne),
-                                              tileColor: Colors.blue[700],
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              })
-
-                                      )
-                                  )
-                              ),
-                            );
-                          }
-                          ));
-                    }
-                ),
-
-              ),
-            ),
-            Hero(
-              tag: 'ListTile-Hero',
-              child: Card(
-                child: ListTile(
-                    leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryTwo),
-                    tileColor: Colors.cyan,
-                    trailing: Icon(Icons.more_vert),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<Widget>(builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
-                              body: Center(
-
-                                  child: Hero(
-                                      tag: 'ListTile-Hero',
-                                      child: Card(
-                                          child: ListTile(
-                                              title: Text(entryTwo),
-                                              tileColor: Colors.blue[700],
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              })
-
-                                      )
-                                  )
-                              ),
-                            );
-                          }
-                          ));
-                    }
-                ),
-
-              ),
-            ),
-            Hero(
-              tag: 'ListTile-Hero',
-              child: Card(
-                child: ListTile(
-                    leading: Icon(Icons.book_outlined),
-                    title: const Text('Behavior Entry 2'),
+                    title: Text(entryTwo),
                     subtitle: Text(behaviorEntryTwo),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
@@ -1418,14 +1344,15 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Behavior Entry 2')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 2')),
                               body: Center(
 
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
-                                              title: Text(behaviorEntryTwo),
+                                              title: Text(entryTwo),
+                                              subtitle: Text(behaviorEntryTwo),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1447,44 +1374,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryThree),
-                    tileColor: Colors.cyan,
-                    trailing: Icon(Icons.more_vert),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<Widget>(builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
-                              body: Center(
-                                  child: Hero(
-                                      tag: 'ListTile-Hero',
-                                      child: Card(
-                                          child: ListTile(
-                                              title: Text(entryThree),
-                                              tileColor: Colors.blue[700],
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              })
-
-                                      )
-                                  )
-                              ),
-                            );
-                          }
-                          ));
-                    }
-                ),
-
-              ),
-            ),
-            Hero(
-              tag: 'ListTile-Hero',
-              child: Card(
-                child: ListTile(
-                    leading: Icon(Icons.book_outlined),
-                    title: const Text('Behavior Entry 3'),
+                    title: Text(entryThree),
                     subtitle: Text(behaviorEntryThree),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
@@ -1493,14 +1383,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Behavior Entry 3')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 3')),
                               body: Center(
-
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
-                                              title: Text(behaviorEntryThree),
+                                              title: Text(entryThree),
+                                              subtitle: Text(behaviorEntryThree),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1522,44 +1412,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryFour),
-                    tileColor: Colors.cyan,
-                    trailing: Icon(Icons.more_vert),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<Widget>(builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
-                              body: Center(
-                                  child: Hero(
-                                      tag: 'ListTile-Hero',
-                                      child: Card(
-                                          child: ListTile(
-                                              title: Text(entryFour),
-                                              tileColor: Colors.blue[700],
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              })
-
-                                      )
-                                  )
-                              ),
-                            );
-                          }
-                          ));
-                    }
-                ),
-
-              ),
-            ),
-            Hero(
-              tag: 'ListTile-Hero',
-              child: Card(
-                child: ListTile(
-                    leading: Icon(Icons.book_outlined),
-                    title: const Text('Behavior Entry 4'),
+                    title: Text(entryFour),
                     subtitle: Text(behaviorEntryFour),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
@@ -1568,14 +1421,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Behavior Entry 4')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 4')),
                               body: Center(
-
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
-                                              title: Text(behaviorEntryFour),
+                                              title: Text(entryFour),
+                                              subtitle: Text(behaviorEntryFour),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1597,44 +1450,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryFive),
-                    tileColor: Colors.cyan,
-                    trailing: Icon(Icons.more_vert),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<Widget>(builder: (BuildContext context) {
-                            return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
-                              body: Center(
-                                  child: Hero(
-                                      tag: 'ListTile-Hero',
-                                      child: Card(
-                                          child: ListTile(
-                                              title: Text(entryFive),
-                                              tileColor: Colors.blue[700],
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              })
-
-                                      )
-                                  )
-                              ),
-                            );
-                          }
-                          ));
-                    }
-                ),
-
-              ),
-            ),
-            Hero(
-              tag: 'ListTile-Hero',
-              child: Card(
-                child: ListTile(
-                    leading: Icon(Icons.book_outlined),
-                    title: const Text('Behavior Entry 5'),
+                    title: Text(entryFive),
                     subtitle: Text(behaviorEntryFive),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
@@ -1643,14 +1459,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Behavior Entry 5')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 5')),
                               body: Center(
-
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
-                                              title: Text(behaviorEntryFive),
+                                              title: Text(entryFive),
+                                              subtitle: Text(behaviorEntryFive),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
