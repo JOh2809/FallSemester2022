@@ -1199,7 +1199,9 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
 
   _SleepDiaryHistoryPageState(this.entryOne, this.entryTwo, this.entryThree, this.entryFour, this.entryFive, this.behaviorEntryOne, this.behaviorEntryTwo, this.behaviorEntryThree, this.behaviorEntryFour, this.behaviorEntryFive);
   var _resultString = '';
+  var _resultBehavior = '';
   String _recievedEntry = "";
+  String _recievedBehavior = "";
   List _diaryEntriesList = [];
   final _biggerFont = const TextStyle(fontSize: 18.0);
   final firestore = FirebaseFirestore.instance;
@@ -1210,7 +1212,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
           (querySnapshot) {
         print("Successfully Completed");
         for(var docSnapshot in querySnapshot.docs) {
-          String entries = docSnapshot['Sleep Diary Entry']; // pull the hours slept as an int
+          String entries = docSnapshot['Sleep Diary Entry 1']; // pull the hours slept as an int
           print("Diary Entry: $entries");
           _recievedEntry = entries;
         }
@@ -1225,14 +1227,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
           (querySnapshot) {
         print("Successfully Completed");
         for(var docSnapshot in querySnapshot.docs) {
-          String entries = docSnapshot['Behavior Entry']; // pull the hours slept as an int
+          String entries = docSnapshot['Behavior Entry 1']; // pull the hours slept as an int
           print("Behavior Entry: $entries");
-          _recievedEntry = entries;
+          _recievedBehavior = entries;
         }
       },
       onError: (e) => print("Error completing: $e"),
     );
-    return _recievedEntry;
+    return _recievedBehavior;
   }
 
   @override
@@ -1241,6 +1243,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
       _getDiaryEntry();
       _getBehaviorEntry();
       _resultString = _recievedEntry;
+      _resultBehavior = _recievedBehavior;
     });
   }
 
@@ -1268,6 +1271,22 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
         Center(
           child: Text(
             'Retrieved Latest Diary: $_resultString',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.italic
+            ),
+          ),
+        ),
+      ],
+    );
+
+    var _sleepBehaviorResultView = Column(
+      children: <Widget>[
+        Center(
+          child: Text(
+            'Retrieved Latest Behavior: $_resultBehavior',
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 24.0,
@@ -1489,6 +1508,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
             ),
             loadButton(),
             _sleepDiaryResultView,
+            _sleepBehaviorResultView,
           ]
           )
       ),
