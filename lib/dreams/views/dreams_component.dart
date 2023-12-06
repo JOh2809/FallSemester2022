@@ -247,11 +247,14 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sleep Calculator'),
+          title: Text(
+              'Sleep Calculator',
+        style: TextStyle(
+        color: Colors.black,)
+          ),
           centerTitle: true,
-          backgroundColor: Colors.deepOrangeAccent,
+          backgroundColor: Colors.greenAccent.shade700,
         ),
-
         backgroundColor: Colors.white,
         body: Container(
             decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -267,20 +270,17 @@ class _SleepCalculatorPageState extends State<SleepCalculatorPage> implements UN
         )
         )
     );
-
   }
 
   ElevatedButton calculateButton() {
     return ElevatedButton(
       onPressed: _calculator,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blueAccent.shade700,
-        textStyle: TextStyle(color: Colors.white70)
+        backgroundColor: Colors.purple.withOpacity(.5),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
-      child: Text(
-        'Calculate',
-        style: TextStyle(fontSize: 16.9),
-      ),
+      child: Text('Calculate', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
     );
   }
 
@@ -407,7 +407,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   final firestore = FirebaseFirestore.instance;
   final SleepLogPresenter presenter;
   _SleepLogPageState(this.presenter);
-  List _sleepHoursList = [];
+  List _HoursSleptList = [];
   List _sleepQualityList = [];
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
@@ -689,7 +689,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
             'The average amount of sleep you get (in hours) is: $_resultString\n\n'
                 'The average quality of the sleep (1 being low quality, 10 being high quality) you get is: $_resultString2',
             style: TextStyle(
-                color: Colors.yellow,
+                color: Colors.black,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -701,8 +701,9 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Log'),
-        backgroundColor: Colors.deepOrangeAccent,
+        title: Text('Sleep Log',
+            style: TextStyle(
+              color: Colors.black,)),
       ),
     body: Container(
     decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -721,14 +722,16 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   ElevatedButton recordButton() {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent.shade400
+        backgroundColor: Colors.purple.withOpacity(.5),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
       onPressed: _recorder,
       icon: Icon( // <-- Icon
         Icons.cloud,
         size: 30.0,
       ),
-      label: Text('Record Sleep Data'),
+      label: Text('Record Sleep Data', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
     );
   }
 
@@ -785,19 +788,31 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
   final FocusNode _diaryEntryThreeFocus = FocusNode();
   final FocusNode _diaryEntryFourFocus = FocusNode();
   final FocusNode _diaryEntryFiveFocus = FocusNode();
-  final FocusNode _behaviorEntryFocus = FocusNode();
+  final FocusNode _behaviorEntryOneFocus = FocusNode();
+  final FocusNode _behaviorEntryTwoFocus = FocusNode();
+  final FocusNode _behaviorEntryThreeFocus = FocusNode();
+  final FocusNode _behaviorEntryFourFocus = FocusNode();
+  final FocusNode _behaviorEntryFiveFocus = FocusNode();
   var _diaryEntryOneController = TextEditingController();
   var _diaryEntryTwoController = TextEditingController();
   var _diaryEntryThreeController = TextEditingController();
   var _diaryEntryFourController = TextEditingController();
   var _diaryEntryFiveController = TextEditingController();
-  var _behaviorEntryController = TextEditingController();
+  var _behaviorEntryOneController = TextEditingController();
+  var _behaviorEntryTwoController = TextEditingController();
+  var _behaviorEntryThreeController = TextEditingController();
+  var _behaviorEntryFourController = TextEditingController();
+  var _behaviorEntryFiveController = TextEditingController();
   String _diaryEntryOne = '';
   String _diaryEntryTwo = '';
   String _diaryEntryThree = '';
   String _diaryEntryFour = '';
   String _diaryEntryFive = '';
-  String _behaviorEntry = '';
+  String _behaviorEntryOne = '';
+  String _behaviorEntryTwo = '';
+  String _behaviorEntryThree = '';
+  String _behaviorEntryFour = '';
+  String _behaviorEntryFive = '';
   var _formKey = GlobalKey<FormState>();
 
   void _archiver() {
@@ -806,8 +821,12 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
     _diaryEntryThree = _diaryEntryThreeController.text;
     _diaryEntryFour = _diaryEntryFourController.text;
     _diaryEntryFive = _diaryEntryFiveController.text;
-    _behaviorEntry = _behaviorEntryController.text;
-    presenter.archiveEntries(_diaryEntryOne, _diaryEntryTwo, _diaryEntryThree, _diaryEntryFour, _diaryEntryFive,  _behaviorEntry);
+    _behaviorEntryOne = _behaviorEntryOneController.text;
+    _behaviorEntryTwo = _behaviorEntryTwoController.text;
+    _behaviorEntryThree = _behaviorEntryThreeController.text;
+    _behaviorEntryFour = _behaviorEntryFourController.text;
+    _behaviorEntryFive = _behaviorEntryFiveController.text;
+    presenter.archiveEntries(_diaryEntryOne, _diaryEntryTwo, _diaryEntryThree, _diaryEntryFour, _diaryEntryFive,  _behaviorEntryOne, _behaviorEntryTwo, _behaviorEntryThree, _behaviorEntryFour, _behaviorEntryFive);
   }
 
   void _remover() {
@@ -941,17 +960,17 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
       );
     }
 
-    TextFormField behaviorEntryField(BuildContext context) {
+    TextFormField behaviorEntryOneField(BuildContext context) {
       return TextFormField(
-        controller: _behaviorEntryController,
+        controller: _behaviorEntryOneController,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
-        focusNode: _behaviorEntryFocus,
+        focusNode: _behaviorEntryOneFocus,
         onFieldSubmitted: (value) {
-          _behaviorEntryFocus.unfocus();
+          _behaviorEntryOneFocus.unfocus();
         },
         decoration: InputDecoration(
-            labelText: 'Behavior Entry',
+            labelText: 'Behavior Entry 1',
             border: OutlineInputBorder(),
             labelStyle: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
@@ -965,10 +984,111 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
         minLines: 1,
       );
     }
+
+    TextFormField behaviorEntryTwoField(BuildContext context) {
+      return TextFormField(
+        controller: _behaviorEntryTwoController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _behaviorEntryTwoFocus,
+        onFieldSubmitted: (value) {
+          _behaviorEntryTwoFocus.unfocus();
+        },
+        decoration: InputDecoration(
+            labelText: 'Behavior Entry 2',
+            border: OutlineInputBorder(),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+        maxLines: 5,
+        minLines: 1,
+      );
+    }
+
+    TextFormField behaviorEntryThreeField(BuildContext context) {
+      return TextFormField(
+        controller: _behaviorEntryThreeController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _behaviorEntryThreeFocus,
+        onFieldSubmitted: (value) {
+          _behaviorEntryThreeFocus.unfocus();
+        },
+        decoration: InputDecoration(
+            labelText: 'Behavior Entry 3',
+            border: OutlineInputBorder(),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+        maxLines: 5,
+        minLines: 1,
+      );
+    }
+
+    TextFormField behaviorEntryFourField(BuildContext context) {
+      return TextFormField(
+        controller: _behaviorEntryFourController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _behaviorEntryFourFocus,
+        onFieldSubmitted: (value) {
+          _behaviorEntryFourFocus.unfocus();
+        },
+        decoration: InputDecoration(
+            labelText: 'Behavior Entry 4',
+            border: OutlineInputBorder(),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+        maxLines: 5,
+        minLines: 1,
+      );
+    }
+
+    TextFormField behaviorEntryFiveField(BuildContext context) {
+      return TextFormField(
+        controller: _behaviorEntryFiveController,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        focusNode: _behaviorEntryFiveFocus,
+        onFieldSubmitted: (value) {
+          _behaviorEntryFiveFocus.unfocus();
+        },
+        decoration: InputDecoration(
+            labelText: 'Behavior Entry 5',
+            border: OutlineInputBorder(),
+            labelStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            icon: Icon(
+              Icons.book_outlined,
+              size: 30.0,
+            ),
+            fillColor: Colors.blueAccent
+        ),
+        maxLines: 5,
+        minLines: 1,
+      );
+    }
+
     ElevatedButton archiveButton() {
       return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple.withOpacity(.4),
+              backgroundColor: Colors.purple.withOpacity(.5),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
         ),
@@ -978,6 +1098,22 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
           size: 30.0,
         ),
         label: Text('Archive Diary Entries', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+      );
+    }
+
+    ElevatedButton archiveButtonTwo() {
+      return ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.purple.withOpacity(.4),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+        ),
+        onPressed: _archiver,
+        icon: Icon( // <-- Icon
+          Icons.download_done_outlined,
+          size: 30.0,
+        ),
+        label: Text('Archive Behavior Entries', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
       );
     }
 
@@ -1006,16 +1142,30 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
               children: <Widget>[
                 diaryEntryOneField(context),
                 SizedBox(height: 15,),
+                behaviorEntryOneField(context),
+                SizedBox(height: 15,),
                 diaryEntryTwoField(context),
+                SizedBox(height: 15,),
+                behaviorEntryTwoField(context),
                 SizedBox(height: 15,),
                 diaryEntryThreeField(context),
                 SizedBox(height: 15,),
+                behaviorEntryThreeField(context),
+                SizedBox(height: 15,),
                 diaryEntryFourField(context),
                 SizedBox(height: 15,),
+                behaviorEntryFourField(context),
+                SizedBox(height: 15,),
                 diaryEntryFiveField(context),
+                SizedBox(height: 15,),
+                behaviorEntryFiveField(context),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                   child: archiveButton(),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                  child: archiveButtonTwo(),
                 ),
               ],
             ),
@@ -1023,33 +1173,16 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
         )
     );
 
-    var _behaviorDiaryView = Container(
-        color: Colors.lightBlueAccent.withOpacity(0.9),
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Form(
-              key: _formKey,
-              child: Column(
-                  children: <Widget>[
-                  behaviorEntryField(context),
-          ]
-          )
-          )
-        )
-    );
-
     return Scaffold(
         appBar: AppBar(
           title: Text('Create New Sleep Diary'),
-          backgroundColor: Colors.deepOrangeAccent,
           actions: [
             IconButton(
               icon: const Icon(Icons.history),
               onPressed: () async {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return SleepDiaryHistoryPage( key: null, entryOne: _diaryEntryOne, entryTwo: _diaryEntryTwo, entryThree: _diaryEntryThree, entryFour: _diaryEntryFour,  entryFive: _diaryEntryFive, title: 'HISTORY');
+                    return SleepDiaryHistoryPage( key: null, entryOne: _diaryEntryOne, entryTwo: _diaryEntryTwo, entryThree: _diaryEntryThree, entryFour: _diaryEntryFour,  entryFive: _diaryEntryFive, behaviorEntryOne: _behaviorEntryOne, behaviorEntryTwo: _behaviorEntryTwo, behaviorEntryThree: _behaviorEntryThree, behaviorEntryFour: _behaviorEntryFour, behaviorEntryFive: _behaviorEntryFive, title: 'HISTORY');
                   },
                 ));
               },
@@ -1072,15 +1205,20 @@ class _SleepDiaryPageState extends State<SleepDiaryPage> {
 
 class SleepDiaryHistoryPage extends StatefulWidget {
   //final SleepDiaryHistoryPresenter presenter;
-  SleepDiaryHistoryPage({required Key? key, required this.title, required this.entryOne, required this.entryTwo, required this.entryThree, required this.entryFour, required this.entryFive}) : super(key: key);
+  SleepDiaryHistoryPage({required Key? key, required this.title, required this.entryOne, required this.entryTwo, required this.entryThree, required this.entryFour, required this.entryFive, required this.behaviorEntryOne, required this.behaviorEntryTwo, required this.behaviorEntryThree, required this.behaviorEntryFour, required this.behaviorEntryFive}) : super(key: key);
   final String title;
   final String entryOne;
   final String entryTwo;
   final String entryThree;
   final String entryFour;
   final String entryFive;
+  final String behaviorEntryOne;
+  final String behaviorEntryTwo;
+  final String behaviorEntryThree;
+  final String behaviorEntryFour;
+  final String behaviorEntryFive;
   @override
-  _SleepDiaryHistoryPageState createState() => _SleepDiaryHistoryPageState(entryOne, entryTwo, entryThree, entryFour, entryFive);
+  _SleepDiaryHistoryPageState createState() => _SleepDiaryHistoryPageState(entryOne, entryTwo, entryThree, entryFour, entryFive, behaviorEntryOne, behaviorEntryTwo, behaviorEntryThree, behaviorEntryFour, behaviorEntryFive);
 }
 
 class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
@@ -1089,7 +1227,13 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
   String entryThree;
   String entryFour;
   String entryFive;
-  _SleepDiaryHistoryPageState(this.entryOne, this.entryTwo, this.entryThree, this.entryFour, this.entryFive);
+  String behaviorEntryOne;
+  String behaviorEntryTwo;
+  String behaviorEntryThree;
+  String behaviorEntryFour;
+  String behaviorEntryFive;
+
+  _SleepDiaryHistoryPageState(this.entryOne, this.entryTwo, this.entryThree, this.entryFour, this.entryFive, this.behaviorEntryOne, this.behaviorEntryTwo, this.behaviorEntryThree, this.behaviorEntryFour, this.behaviorEntryFive);
   var _resultString = '';
   String _recievedEntry = "";
   List _diaryEntriesList = [];
@@ -1098,7 +1242,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
 
   String _getDiaryEntry() {
 
-    firestore.collection("Sleep Diaries").where("W33nSJ7orODJCrIcYvHm").get().then(
+    firestore.collection("Sleep Diaries").get().then(
           (querySnapshot) {
         print("Successfully Completed");
         for(var docSnapshot in querySnapshot.docs) {
@@ -1112,10 +1256,26 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
     return _recievedEntry;
   }
 
+  String _getBehaviorEntry() {
+    firestore.collection("Sleep Diaries").get().then(
+          (querySnapshot) {
+        print("Successfully Completed");
+        for(var docSnapshot in querySnapshot.docs) {
+          String entries = docSnapshot['Behavior Entry']; // pull the hours slept as an int
+          print("Behavior Entry: $entries");
+          _recievedEntry = entries;
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+    return _recievedEntry;
+  }
+
   @override
    void updateResultValue(){
     setState(() {
       _getDiaryEntry();
+      _getBehaviorEntry();
       _resultString = _recievedEntry;
     });
   }
@@ -1143,9 +1303,9 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
       children: <Widget>[
         Center(
           child: Text(
-            'Retrieved Latest Diary Entry: $_resultString',
+            'Retrieved Latest Diary: $_resultString',
             style: TextStyle(
-                color: Colors.yellow,
+                color: Colors.black,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic
@@ -1176,8 +1336,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
             child: Card(
               child: ListTile(
                   leading: Icon(Icons.book_outlined),
-                  title: const Text('Sleep Diary Entry 1'),
-                  subtitle: Text(entryOne),
+                  title: Text(entryOne),
+                  subtitle: Text(behaviorEntryOne),
                   tileColor: Colors.cyan,
                   trailing: Icon(Icons.more_vert),
                   onTap: () {
@@ -1192,10 +1352,12 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                                     child: Card(
                                         child: ListTile(
                                           title: Text(entryOne),
+                                            subtitle: Text(behaviorEntryOne),
                                             tileColor: Colors.blue[700],
                                             onTap: () {
                                               Navigator.pop(context);
                                             })
+
 
                                     )
                                 )
@@ -1213,8 +1375,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryTwo),
+                    title: Text(entryTwo),
+                    subtitle: Text(behaviorEntryTwo),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
                     onTap: () {
@@ -1222,7 +1384,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 2')),
                               body: Center(
 
                                   child: Hero(
@@ -1230,6 +1392,7 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                                       child: Card(
                                           child: ListTile(
                                               title: Text(entryTwo),
+                                              subtitle: Text(behaviorEntryTwo),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1251,8 +1414,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryThree),
+                    title: Text(entryThree),
+                    subtitle: Text(behaviorEntryThree),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
                     onTap: () {
@@ -1260,13 +1423,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 3')),
                               body: Center(
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
                                               title: Text(entryThree),
+                                              subtitle: Text(behaviorEntryThree),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1288,8 +1452,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryFour),
+                    title: Text(entryFour),
+                    subtitle: Text(behaviorEntryFour),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
                     onTap: () {
@@ -1297,13 +1461,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 4')),
                               body: Center(
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
                                               title: Text(entryFour),
+                                              subtitle: Text(behaviorEntryFour),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1325,8 +1490,8 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
               child: Card(
                 child: ListTile(
                     leading: Icon(Icons.book_outlined),
-                    title: const Text('Sleep Diary Entry 1'),
-                    subtitle: Text(entryFive),
+                    title: Text(entryFive),
+                    subtitle: Text(behaviorEntryFive),
                     tileColor: Colors.cyan,
                     trailing: Icon(Icons.more_vert),
                     onTap: () {
@@ -1334,13 +1499,14 @@ class _SleepDiaryHistoryPageState extends State<SleepDiaryHistoryPage> {
                           context,
                           MaterialPageRoute<Widget>(builder: (BuildContext context) {
                             return Scaffold(
-                              appBar: AppBar(title: const Text('Sleep Diary Entry 1')),
+                              appBar: AppBar(title: const Text('Sleep Diary Entry 5')),
                               body: Center(
                                   child: Hero(
                                       tag: 'ListTile-Hero',
                                       child: Card(
                                           child: ListTile(
                                               title: Text(entryFive),
+                                              subtitle: Text(behaviorEntryFive),
                                               tileColor: Colors.blue[700],
                                               onTap: () {
                                                 Navigator.pop(context);
@@ -1383,31 +1549,31 @@ class _SleepMusicPageState extends State<SleepMusicPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Music'),
-        backgroundColor: Colors.deepOrangeAccent,
-      ),
-      body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
-        fit: BoxFit.cover),
-        ),
-      child: SingleChildScrollView(
-          child: Column(children: [
-            Text("(ULTRA CALM) Sleep Music",
+        title: Text('Sleep Music'),),
+      body: SingleChildScrollView(
+          child: Column(
+            children: [
+            SizedBox(height: 10,),
+            Text("(ULTRA CALM) Sleep Music                                                              ",
             style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),),
+                fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10,),
             YoutubeVideo("https://www.youtube.com/watch?v=SaRjRbkW6K4"),
-            Text("Relaxing Water Sounds for Sleep",
+            SizedBox(height: 10,),
+            Text("Relaxing Water Sounds for Sleep                                                      ",
               style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),),
+                fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10,),
             YoutubeVideo("https://www.youtube.com/watch?v=A1IYf7fKdhY"),
-            Text("Deep White Noise for Falling Asleep",
+            SizedBox(height: 10,),
+            Text("Deep White Noise for Falling Asleep                                                ",
               style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),),
+                fontWeight: FontWeight.bold, color: Colors.black),),
+            SizedBox(height: 10,),
             YoutubeVideo("https://www.youtube.com/watch?v=FdN1pnEaJs0")
           ],),
-
       ),
-    ));
+    );
   }
 }
 
@@ -1439,6 +1605,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
           double quality = double.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
           hoursOfSleep.add(SleepHours(date, hours, quality));                       // add the pulled data to the hours list
           count++;
+          //print(count);
         }
       },
       onError: (e) => print("Error completing: $e"),
@@ -1479,7 +1646,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
     return charts.BarChart(
       seriesList,                                                   //uses seriesList for the columns and axes
       animate: true,                                                //animates the graph
-      vertical: true,                                               //makes the graph vertical
+      vertical: false,                                               //makes the graph vertical
       barGroupingType: charts.BarGroupingType.grouped,              //groups the columns together
       defaultRenderer: charts.BarRendererConfig(
         groupingType: charts.BarGroupingType.grouped,
@@ -1525,9 +1692,7 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
     return FutureBuilder(future: populateList(), builder: (context, snapshot) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Sleep Graph'),
-          backgroundColor: Colors.deepOrangeAccent,
-        ),
+          title: Text('Sleep Graph'),),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -1592,7 +1757,6 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Settings'),
-          backgroundColor: Colors.deepOrangeAccent,
         ),
     body: Container(
     alignment: Alignment.center,
@@ -1609,7 +1773,7 @@ class _SettingPageState extends State<SettingPage> {
                   ,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple.withOpacity(.4),
+                      backgroundColor: Colors.purple.withOpacity(.5),
                       foregroundColor: Colors.white,
                       //minimumSize: Size(150, 60),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
@@ -1624,7 +1788,7 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple.withOpacity(.4),
+                        backgroundColor: Colors.purple.withOpacity(.5),
                         foregroundColor: Colors.white,
                         //minimumSize: Size(150, 60),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
@@ -1668,8 +1832,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sleep Info'),
-        backgroundColor: Colors.deepOrangeAccent,
-      ),
+      backgroundColor: Colors.purpleAccent.withOpacity(.9),),
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -1683,7 +1846,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple.withOpacity(.4),
+                    backgroundColor: Colors.purple.withOpacity(.5),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                 ),
@@ -1701,7 +1864,7 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple.withOpacity(.4),
+                    backgroundColor: Colors.purple.withOpacity(.5),
                     foregroundColor: Colors.white,
                     //minimumSize: Size(150, 60),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
@@ -1749,9 +1912,7 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Benefits'),
-        backgroundColor: Colors.deepOrangeAccent,
-      ),
+        title: Text('Sleep Benefits'),),
       body: Container(
           decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
           fit: BoxFit.cover),
@@ -1801,26 +1962,24 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                       new TextSpan(
                           text:'Needing more than 9 hours of sleep to feel\n'
                                'rested could indicate an underlying sleep or \n'
-                               'medical problem\n\n'
+                               'medical problem'
                                ,
                           style: new TextStyle(color: Colors.blueAccent, fontSize: 19, fontWeight: FontWeight.w900)
                       ),
                     ]
                 )
             ),
-          Padding(padding: EdgeInsets.only(top: 10)),
+          Padding(padding: EdgeInsets.only(top: 250.0)),
           RichText(
-
             text: new TextSpan(
                 children: [
-                  new WidgetSpan(
-                    child: Container(
-                    child: Text('Further Reading (Items are clickable): \n',
-                    style: new TextStyle(color: Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
-                    ))),
                   new TextSpan(
-                    text:'\n    • Office of Disease Prevention and \nHealth Promotion ',
-                    style: new TextStyle(backgroundColor:Colors.deepOrangeAccent, color:Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
+                    text: 'Source: ',
+                    style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+                  ),
+                  new TextSpan(
+                    text:'Office of Disease Prevention and Health Promotion,\n',
+                    style: new TextStyle(color:Colors.purple),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
@@ -1828,17 +1987,19 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                       },
                   ),
                   new TextSpan(
-                    text: '\n\n    • Mayo Clinic \n\n',
-                    style: new TextStyle(backgroundColor:Colors.deepOrangeAccent, color: Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
+                    text: '   Mayo Clinic\n',
+                    style: new TextStyle(color: Colors.red),
                     recognizer: new TapGestureRecognizer()
-                      ..onTap = () { launchUrl(Uri.parse(
-                          'https://web.archive.org/web/20231201150857/https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
+                      ..onTap = () { launchUrl(Uri.parse('https://web.archive.org/web/20231201150857/https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
                       },
                   ),
-
                   new TextSpan(
-                    text:'    • Johns Hopkins University \n\n',
-                    style: new TextStyle(backgroundColor: Colors.deepOrangeAccent, color:Colors.black, fontSize: 19, fontWeight: FontWeight.w800),
+                    text: ', and ',
+                    style: new TextStyle(color: Colors.black),
+                  ),
+                  new TextSpan(
+                    text:'Johns Hopkins University',
+                    style: new TextStyle(color:Colors.blueAccent),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
@@ -1880,9 +2041,7 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Advice for Sleep'),
-        backgroundColor: Colors.deepOrangeAccent,
-      ),
+        title: Text('Advice for Sleep'),),
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
         fit: BoxFit.cover),
