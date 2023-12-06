@@ -1798,7 +1798,7 @@ class _SettingPageState extends State<SettingPage> {
                       //minimumSize: Size(150, 60),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))
                   ),
-                  child: Text('Notafication Settings', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
+                  child: Text('Notification Settings', style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),),
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
@@ -1851,8 +1851,8 @@ class _SleepInfoPageState extends State<SleepInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Info'),
-      backgroundColor: Colors.purpleAccent.withOpacity(.9),),
+        title: Text('Sleep Info', style: TextStyle(color: Colors.black)),
+      backgroundColor: Colors.greenAccent.shade700.withOpacity(.9),),
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
@@ -1932,7 +1932,11 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sleep Benefits'),),
+        title: Text('Sleep Benefits', style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.greenAccent.shade700,
+
+      ),
       body: Container(
           decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
           fit: BoxFit.cover),
@@ -1946,13 +1950,13 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                   new TextSpan(
                       text:'The recommended amount of sleep for an adult is between 7-9 hours each night.'
                         ' Getting this amount of sleep can result in: \n\n',
-                    style: new TextStyle(color: Colors.deepPurple, fontSize: 18, fontWeight: FontWeight.w700)
+                    style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700)
                   ),
                   new TextSpan(
                     text: '     • An improved immune system\n'
                           '     • Reduced risk for serious health problems\n'
                           '     • Clearer thinking',
-                    style: new TextStyle(color: Colors.deepPurple, fontSize: 18, fontWeight: FontWeight.w700)
+                    style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700)
                   ),
                 ]
               )
@@ -1963,14 +1967,14 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                     children: [
                       new TextSpan(
                           text:'Getting less than 7 hours of sleep can result in: \n\n',
-                          style: new TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700)
+                          style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700)
                       ),
                       new TextSpan(
                           text: '     • Depression\n'
                                 '     • Diabetes, heart disease, and high blood \n'
                                 '       pressure\n'
                                 '     • Weight gain',
-                          style: new TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.w700)
+                          style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700)
                       ),
                     ]
                 )
@@ -1984,22 +1988,22 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                                'rested could indicate an underlying sleep or \n'
                                'medical problem'
                                ,
-                          style: new TextStyle(color: Colors.blueAccent, fontSize: 19, fontWeight: FontWeight.w900)
+                          style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 19, fontWeight: FontWeight.w900)
                       ),
                     ]
                 )
             ),
-          Padding(padding: EdgeInsets.only(top: 250.0)),
+          Padding(padding: EdgeInsets.only(top: 100)),
           RichText(
             text: new TextSpan(
                 children: [
                   new TextSpan(
-                    text: 'Source: ',
-                    style: new TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+                    text: 'Further Reading (Clickable Links): \n',
+                    style: new TextStyle(backgroundColor: Colors.lightBlueAccent.withOpacity(.4), fontSize: 24, color: Colors.black, fontWeight: FontWeight.w700),
                   ),
                   new TextSpan(
-                    text:'Office of Disease Prevention and Health Promotion,\n',
-                    style: new TextStyle(color:Colors.purple),
+                    text:'    • Office of Disease Prevention and Health Promotion,\n',
+                    style: new TextStyle(backgroundColor: Colors.lightBlueAccent.withOpacity(.4), fontSize: 24, color:Colors.black),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
@@ -2007,19 +2011,15 @@ class _SleepBenefitsPageState extends State<SleepBenefitsPage> {
                       },
                   ),
                   new TextSpan(
-                    text: '   Mayo Clinic\n',
-                    style: new TextStyle(color: Colors.red),
+                    text: '   • Mayo Clinic\n',
+                    style: new TextStyle(fontSize: 24, backgroundColor: Colors.lightBlueAccent.withOpacity(.4), color: Colors.black),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () { launchUrl(Uri.parse('https://web.archive.org/web/20231201150857/https://www.mayoclinic.org/healthy-lifestyle/adult-health/expert-answers/how-many-hours-of-sleep-are-enough/faq-20057898'));
                       },
                   ),
                   new TextSpan(
-                    text: ', and ',
-                    style: new TextStyle(color: Colors.black),
-                  ),
-                  new TextSpan(
-                    text:'Johns Hopkins University',
-                    style: new TextStyle(color:Colors.blueAccent),
+                    text:'    • Johns Hopkins University',
+                    style: new TextStyle(fontSize: 24, backgroundColor: Colors.lightBlueAccent.withOpacity(.4), color: Colors.black),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
@@ -2061,7 +2061,9 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Advice for Sleep'),),
+        title: Text('Advice for Sleep', style: TextStyle(color: Colors.black),),
+               backgroundColor: Colors.greenAccent.shade700,
+      ),
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background_three_sweet_dreams.jpg"),
         fit: BoxFit.cover),
@@ -2074,7 +2076,7 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
                     children: [
                       new TextSpan(
                           text:'Tips for getting better sleep: \n\n',
-                          style: new TextStyle(color: Colors.purple, fontSize: 24, fontWeight: FontWeight.w900)
+                          style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800)
                       ),
                       new TextSpan(
                           text:'     • Be consistent, go to bed and wake up at \n'
@@ -2082,56 +2084,55 @@ class _SleepAdvicePageState extends State<SleepAdvicePage> {
                                '     • Make sure bedroom is comfortable and \n'
                                '       sufficiently dark\n\n'
                                '     • Get some exercise during the day\n\n'
-                               '     • Remove electronic devices, such as TVs,\n'
-                               '       from your bedroom\n\n' ,
-                          style: new TextStyle(color: Colors.purple, fontSize: 18, fontWeight: FontWeight.w600)
+                               '     • Remove electronic devices, such as TVs, from your bedroom\n\n' ,
+                          style: new TextStyle(backgroundColor: Colors.lightGreen.withOpacity(.3), color: Colors.black, fontSize: 19, fontWeight: FontWeight.w600)
                       ),
                     ]
                 )
             ),
             RichText(text: new TextSpan(
                 children: [
-                  new TextSpan(text: 'Source:', style: new TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
+                  new TextSpan(text: 'Source:', style: new TextStyle(backgroundColor: Colors.purple.withOpacity(.3), color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                   new TextSpan(
                     text:' Centers for Disease Control and Prevention',
-                    style: new TextStyle(color:Colors.purple, fontSize: 14, fontWeight: FontWeight.w800),
+                    style: new TextStyle(backgroundColor: Colors.purple.withOpacity(.3), color:Colors.black, fontSize: 21, fontWeight: FontWeight.w800),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
-                            'https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html'));
+                            'https://web.archive.org/web/20231119222342/https://www.cdc.gov/sleep/about_sleep/sleep_hygiene.html'));
                       },
                   ),
                 ]
             )),
-            Padding(padding: EdgeInsets.only(top: 200)),
+            Padding(padding: EdgeInsets.only(top: 75)),
             RichText(text: new TextSpan(
               children: [
-                new TextSpan(text: 'Further Reading: \n\n', style: new TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800)),
+                new TextSpan(text: 'Further Reading (Clickable Links): \n\n', style: new TextStyle(backgroundColor: Colors.lightBlueAccent.withOpacity(.3), color: Colors.black, fontSize: 21, fontWeight: FontWeight.w800)),
                   new TextSpan(
                     text:'     • United Kingdom National Health Service\n\n',
-                    style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                    style: new TextStyle(backgroundColor: Colors.lightBlueAccent.withOpacity(.3), color:Colors.black, fontSize: 21, fontWeight: FontWeight.w800),
                     recognizer: new TapGestureRecognizer()
                       ..onTap = () {
                         launchUrl(Uri.parse(
-                            'https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/how-to-fall-asleep-faster-and-sleep-better/'));
+                            'https://web.archive.org/web/20231114140631/https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/how-to-fall-asleep-faster-and-sleep-better/'));
                       },
                   ),
                 new TextSpan(
                   text:'     • Healthline\n\n',
-                  style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                  style: new TextStyle(backgroundColor: Colors.lightBlueAccent.withOpacity(.3), color:Colors.black, fontSize: 21, fontWeight: FontWeight.w800),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () {
                       launchUrl(Uri.parse(
-                          'https://www.healthline.com/nutrition/17-tips-to-sleep-better'));
+                          'https://web.archive.org/web/20231103022030/https://www.healthline.com/nutrition/17-tips-to-sleep-better'));
                     },
                 ),
                 new TextSpan(
                   text:'     • Headspace\n\n',
-                  style: new TextStyle(color:Colors.blue, fontSize: 18, fontWeight: FontWeight.w600),
+                  style: new TextStyle(backgroundColor: Colors.lightBlueAccent.withOpacity(.3), color:Colors.black, fontSize: 21, fontWeight: FontWeight.w800),
                   recognizer: new TapGestureRecognizer()
                     ..onTap = () {
                       launchUrl(Uri.parse(
-                          'https://www.headspace.com/sleep/how-to-sleep-better'));
+                          'https://web.archive.org/web/20230622173135/https://www.headspace.com/sleep/how-to-sleep-better'));
                     },
                 ),
               ]
