@@ -1617,9 +1617,9 @@ class _SleepGraphPageState extends State<SleepGraphPage> {
     String string = dateFormat.format(DateTime.now().subtract(Duration(days: 7)));
     await firestore.collection("Sleep Logs").where("Sleep Log Date", isGreaterThanOrEqualTo: string).get().then((querySnapshot) { //pulls every document in Sleep Logs with a date within the last 7 days
         print("Successfully Completed");
-        int count = 0;
+        int count = 1;
         for(var docSnapshot in querySnapshot.docs){
-          String date = count.toString();
+          String date = 'Entry $count';
           //String date = docSnapshot['Sleep Log Date'].toString();                 // pull the date of the sleep log as a string
           double hours = double.parse(docSnapshot['Hours Slept'].toString());       // pull the hours slept as an int
           double quality = double.parse(docSnapshot['Quality Rating'].toString());  // pull the quality rating as an int
@@ -1738,18 +1738,6 @@ class SleepHours{
   String toString(){
     return "Date: $date\nHours Recorded: $hours\nQuality Rating: $quality"; //returns a string of all values
   }
-
-  void addSleep(double more){
-    hours+more;               //adds hours onto itself
-  }
-
-  void avgQuality(List<double> newQ, int count){
-    for(var q in newQ){
-      quality+q;              //adds several quality ratings together
-    }
-    quality/count;            //divides by # of ratings to get avg
-  }
-
 }
 
 class SettingPage extends StatefulWidget {
