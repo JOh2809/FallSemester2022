@@ -407,7 +407,7 @@ class _SleepLogPageState extends State<SleepLogPage> implements UNITSView {
   final firestore = FirebaseFirestore.instance;
   final SleepLogPresenter presenter;
   _SleepLogPageState(this.presenter);
-  List _HoursSleptList = [];
+  List _sleepHoursList = [];
   List _sleepQualityList = [];
   final FocusNode _qualityRatingFocus = FocusNode();
   final FocusNode _hoursSleptFocus = FocusNode();
