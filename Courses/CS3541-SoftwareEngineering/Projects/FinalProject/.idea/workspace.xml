@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f698814-e406-48ad-9c03-4a9013b1d7b5" name="Changes" comment="misc commit to pull ohmann117" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="ortiz426" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="6fe18d7388e4993638cfaad072ae82265a1071e4" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2ZEJfm2cUteqsGR2WOqHwgddONP" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ortiz/AndroidStudioProjects/cs3541_final_project1&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/cs3541_final_project/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f698814-e406-48ad-9c03-4a9013b1d7b5" name="Changes" comment="" />
+      <created>1701981410681</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701981410681</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Misc">
+      <created>1701981792354</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701981792354</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Misc">
+      <created>1701981799789</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701981799789</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implemented opening CSV file, assigning data within a list and displaying list through a ListView.">
+      <created>1702145351599</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702145351599</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added Amazon Give Review Page">
+      <created>1702339965634</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702339965634</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Implemented search ability through isbn13 value.">
+      <created>1702343504460</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702343504460</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Finished implementing and designing Amazon Book Reviews page">
+      <created>1702346622974</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702346622974</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Misc Unversioned Files">
+      <created>1702346638131</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702346638131</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Changed UI and app color scheme.">
+      <created>1702409278876</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702409278876</updated>
+    </task>
+    <task id="LOCAL-00009" summary="misc commit to pull ohmann117">
+      <created>1702411786626</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702411786626</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Misc" />
+    <MESSAGE value="Implemented opening CSV file, assigning data within a list and displaying list through a ListView." />
+    <MESSAGE value="Added Amazon Give Review Page" />
+    <MESSAGE value="Implemented search ability through isbn13 value." />
+    <MESSAGE value="Finished implementing and designing Amazon Book Reviews page" />
+    <MESSAGE value="Misc Unversioned Files" />
+    <MESSAGE value="Changed UI and app color scheme." />
+    <MESSAGE value="misc commit to pull ohmann117" />
+    <option name="LAST_COMMIT_MESSAGE" value="misc commit to pull ohmann117" />
+  </component>
+</project>
